@@ -88,7 +88,7 @@ body {
     display: flex;
     height: 100vh;
     padding-bottom: 160px;
-    padding-top: 10px;
+    padding-top: 0px;
 }
 
 #sidebar,
@@ -242,12 +242,69 @@ body {
     color: #020617 !important;
 }
 
+
+/* ================================
+   FIXED MAIN HEADER (TOP BAR)
+   ================================ */
+#main-header-fixed {
+    position: fixed;
+    top: 10px;
+    left: 290px;
+    right: 10px;
+
+    height: 64px;
+    padding: 0 26px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.14), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+
+    border-radius: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.45);
+
+    z-index: 500;
+}
+
+#top-header {
+  position: fixed;
+  top: 10px;
+  left: 290px;
+  right: 10px;
+  height: 64px;
+
+  z-index: 850;
+
+  /* IMPORTANT: header is visually transparent */
+  background: transparent;
+  border: none;
+  border-radius: 0;
+
+  display: flex;
+  align-items: center;
+}
+
+#main-header-row {
+  padding: 0 26px;
+}
+
+
+
+#main-content {
+  margin-top: 90px; /* height of header */
+}
+
 /* --- MAIN CONTENT --- */
 #main-content {
-    margin: 10px 10px 10px 290px;
-    padding: 20px 26px;
-    border-radius: 24px;
+  margin: 10px 10px 10px 290px;
 
+  /* header space */
+  padding: 48px 26px 20px;
+
+  border-radius: 24px;
     width: calc(100vw - 310px);
     max-width: calc(100vw - 310px);
     min-width: 0;
@@ -261,6 +318,7 @@ body {
     color: white;
     overflow-y: auto;
 }
+
 
 
 /* Header row with title + view toggle */
@@ -280,6 +338,8 @@ body {
     align-items: center;
     gap: 8px;
 }
+
+
 
 
 #search-toggle-btn {
@@ -387,6 +447,7 @@ body {
     pointer-events: none;
     color: #020617;
     font-size: 0.9rem;
+    
 }
 
 /* Hover: lift + stronger glow */
@@ -424,6 +485,11 @@ body[data-theme="light"] #clear-favorites-btn {
     font-size: 1.6rem;
     font-weight: 700;
 }
+#current-view-title {
+    line-height: 1;
+    padding-top: 8px;
+}
+
 
 /* Content view toggle */
 #content-view-toggle {
@@ -459,7 +525,7 @@ body[data-theme="light"] #clear-favorites-btn {
 
 /* --- NOW PLAYING QUEUE --- */
 #now-playing-panel {
-    margin-top: 16px;
+    margin-top: 6px;
     padding: 10px 14px;
     border-radius: 16px;
     background: rgba(15, 23, 42, 0.9);
@@ -490,11 +556,19 @@ body[data-theme="light"] #clear-favorites-btn {
 #now-playing-list {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 2px 0 0;   /* 👈 ADD THIS LINE */
     display: flex;
     gap: 10px;
     overflow-x: auto;
 }
+
+
+/* Hide queue header text when queue has items */
+#now-playing-panel.has-items #now-playing-header {
+    
+    display: none;
+}
+
 
 .queue-item {
     min-width: 150px;
@@ -2649,12 +2723,16 @@ body[data-theme="light"] #confirm-modal-message {
     inset: 0 auto 0 0;
     width: 82vw;
     max-width: 300px;
-    height: 100vh;
+    height: 100dvh;          /* dynamic viewport height */
+    overflow: hidden;       /* prevent outer scroll */
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     z-index: 1000;
     border-radius: 0 18px 18px 0;
+    overscroll-behavior: contain;
   }
+
+
 
   #sidebar.open {
     transform: translateX(0);
@@ -3029,8 +3107,11 @@ body.sidebar-open #main-content {
 /* Global scroll lock for modals */
 body.modal-open {
   overflow: hidden;
-  height: 100vh;
+  position: fixed;
+  inset: 0;
+  width: 100%;
 }
+
 
 
 /* =========================================
@@ -3042,3 +3123,227 @@ body.modal-open #open-player-icon {
   pointer-events: none;
 }
 
+
+@media (max-width: 768px) {
+
+  /* Fix header container */
+  #top-header {
+    position: fixed;
+    top: 8px;
+    left: 12px;
+    right: 12px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+      radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 55%),
+      rgba(15,23,42,0.96);
+
+    border-radius: 18px;
+    border: 1px solid rgba(148,163,184,0.4);
+    z-index: 900;
+  }
+
+  /* Header row alignment */
+ #main-header-row {
+  padding: 0 14px 0 52px; /* ← reserve space for menu icon */
+  align-items: center;
+}
+
+
+  /* Title text fix */
+  #current-view-title {
+    font-size: 1.2rem;
+    padding-top: 0;        /* REMOVE desktop baseline hack */
+    line-height: 1.1;
+  }
+
+  /* Remove desktop vertical nudges */
+  #title-and-actions {
+    transform: none;
+  }
+
+  /* Center tabs vertically */
+  #content-view-toggle {
+    transform: none;
+  }
+
+  /* Search icon alignment */
+  #search-toggle-btn {
+    margin-left: auto;
+  }
+
+    /* 🔴 MOBILE: REMOVE SONGS / ALBUMS / ARTISTS TABS */
+  #content-view-toggle {
+    display: none !important;
+  }
+
+    /* Prevent title from going under menu icon */
+  #title-and-actions {
+    max-width: calc(100% - 44px);
+  }
+
+  #current-view-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+}
+
+
+/* =========================================
+   DISCLAIMER MODAL (GLOBAL)
+   ========================================= */
+
+#disclaimer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 5000;
+}
+
+/* hidden state */
+.disclaimer-hidden {
+  display: none;
+}
+
+.disclaimer-modal {
+  width: min(420px, 92%);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.96),
+    rgba(2, 6, 23, 0.98)
+  );
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  border-radius: 22px;
+  padding: 20px 18px;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(15, 23, 42, 1);
+
+  text-align: left;
+  color: #e5e7eb;
+}
+
+.disclaimer-modal h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.disclaimer-modal p {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin-bottom: 10px;
+  color: #cbd5f5;
+}
+
+.disclaimer-muted {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+#accept-disclaimer-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 10px 14px;
+
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #22c55e, #22d3ee);
+  color: #020617;
+
+  font-weight: 700;
+  font-size: 0.9rem;
+
+  box-shadow:
+    0 0 0 2px rgba(15, 23, 42, 1),
+    0 14px 30px rgba(34, 197, 94, 0.55);
+
+  transition: transform 0.12s ease, box-shadow 0.18s ease;
+}
+
+#accept-disclaimer-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 2px rgba(15, 23, 42, 1),
+    0 18px 40px rgba(34, 197, 94, 0.8);
+}
+
+/* ===============================
+   FORCE DISCLAIMER TO TOP LAYER
+   =============================== */
+
+#disclaimer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999; /* higher than everything */
+    pointer-events: auto;
+}
+
+#disclaimer-overlay.disclaimer-hidden {
+    display: none;
+}
+
+.disclaimer-modal {
+    pointer-events: auto;
+}
+
+
+/* ===============================
+   DISCLAIMER ANIMATION
+   =============================== */
+
+#disclaimer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+#disclaimer-overlay.disclaimer-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.disclaimer-modal {
+  max-width: 520px;
+  width: 90%;
+  background: var(--card-bg, #111);
+  border-radius: 14px;
+  padding: 24px 26px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+
+  transform: translateY(20px) scale(0.98);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+#disclaimer-overlay:not(.disclaimer-hidden) .disclaimer-modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}

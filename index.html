@@ -6,12 +6,12 @@
   <title>Integrated Music Player</title>
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
 
-
-
-
-    <link rel="stylesheet" href="music_player.css">
+  <link rel="stylesheet" href="music_player.css">
 </head>
 
 <body data-theme="dark">
@@ -23,142 +23,131 @@
   aria-label="Toggle menu">
 </button>
 
-
-
-
-
 <div id="player-container">
-    <div class="player-card">
+  <div class="player-card">
 
+    <!-- ================= SIDEBAR ================= -->
+    <aside id="sidebar">
+      <h2>viridxi</h2>
 
-  <!-- ================= SIDEBAR ================= -->
-  <aside id="sidebar">
-    <h2>viridxi</h2>
+      <nav id="main-nav">
+        <button data-view="playlist"><i class="fas fa-list"></i> All Songs</button>
+        <button data-view="favorites"><i class="fas fa-heart"></i> Favorites</button>
+      </nav>
 
-
-
-    <nav id="main-nav">
-      <button data-view="playlist"><i class="fas fa-list"></i> All Songs</button>
-      <button data-view="favorites"><i class="fas fa-heart"></i> Favorites</button>
-    </nav>
-
-    <h3>Categories</h3>
-    <div id="categories-list">
-      <button data-category="Hindi"><i class="fas fa-music"></i> Hindi</button>
-      <button data-category="English"><i class="fas fa-globe"></i> English</button>
-      <button data-category="Punjabi"><i class="fas fa-drum"></i> Punjabi</button>
-
-    </div>
-
-    <button id="view-all-categories-btn" class="view-all-btn">
-      <i class="fas fa-layer-group"></i> View all categories
-    </button>
-
-    <h3>Artists</h3>
-    <ul id="artists-list"></ul>
-
-    <div id="sidebar-footer">
-      <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-    </div>
-  </aside>
-
-  <!-- ================= MAIN ================= -->
-  <main id="main-content">
-
-    <div id="main-header-row">
-      <div id="title-and-actions">
-        <h2 id="current-view-title">All Songs</h2>
-        <button id="clear-favorites-btn" title="Clear favorites">
-          <i class="fas fa-trash"></i>
-        </button>
+      <h3>Categories</h3>
+      <div id="categories-list">
+        <button data-category="Hindi"><i class="fas fa-music"></i> Hindi</button>
+        <button data-category="English"><i class="fas fa-globe"></i> English</button>
+        <button data-category="Punjabi"><i class="fas fa-drum"></i> Punjabi</button>
       </div>
 
-      <div id="content-view-toggle">
-        <button class="main-view-btn active-main-view" data-main-view="songs">Songs</button>
-        <button class="main-view-btn" data-main-view="albums">Albums</button>
-        <button class="main-view-btn" data-main-view="artists">Artists</button>
-      </div>
+      <button id="view-all-categories-btn" class="view-all-btn">
+        <i class="fas fa-layer-group"></i> View all categories
+      </button>
 
-      <div class="header-search">
-        <input
-          id="search-bar"
-          type="text"
-          placeholder="Search songs or artists"
-          autocomplete="off"
-        />
-      </div>
+      <h3>Artists</h3>
+      <ul id="artists-list"></ul>
 
-      <button
+      <div id="sidebar-footer">
+        <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+      </div>
+    </aside>
+
+    <!-- ================= FIXED HEADER (NON-SCROLLING) ================= -->
+    <header id="top-header">
+      <div id="main-header-row">
+
+        <div id="title-and-actions">
+          <h2 id="current-view-title">All Songs</h2>
+          <button id="clear-favorites-btn" title="Clear favorites">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+
+        <div id="content-view-toggle">
+          <button class="main-view-btn active-main-view" data-main-view="songs">Songs</button>
+          <button class="main-view-btn" data-main-view="albums">Albums</button>
+          <button class="main-view-btn" data-main-view="artists">Artists</button>
+        </div>
+
+        <div class="header-search">
+          <input
+            id="search-bar"
+            type="text"
+            placeholder="Search songs or artists"
+            autocomplete="off"
+          />
+        </div>
+
+        <button
           id="search-toggle-btn"
           aria-label="Search"
           title="Search">
           <i class="fas fa-search"></i>
         </button>
 
-    </div>
-
-
-
-    <!-- Queue -->
-    <section id="now-playing-panel">
-      <div id="now-playing-header">
-        <h3>Now Playing Queue</h3>
-        <span>Songs added as play next</span>
       </div>
-      <ul id="now-playing-list"></ul>
-    </section>
+    </header>
 
-    <!-- Song list -->
-    <ul id="song-list"></ul>
+    <!-- ================= MAIN CONTENT (SCROLLS) ================= -->
+    <main id="main-content">
 
-  </main>
-</div>
+      <!-- Queue -->
+      <section id="now-playing-panel">
+        <div id="now-playing-header">
+          <h3>Now Playing Queue</h3>
+          <span>Songs added as play next</span>
+        </div>
+        <ul id="now-playing-list"></ul>
+      </section>
+
+      <!-- Song list -->
+      <ul id="song-list"></ul>
+
+    </main>
+
+  </div>
 </div>
 
 <!-- ================= BOTTOM PLAYER ================= -->
 <div id="bottom-player-container">
-<footer id="music-player">
+  <footer id="music-player">
 
-  <div id="progress-area">
-    <span id="current-time">0:00</span>
-    <input type="range" id="progress-bar" min="0" max="100" value="0"/>
-    <span id="duration">0:00</span>
-  </div>
-
-  <div id="controls-and-volume">
-
-    <div id="volume-control">
-      <i id="volume-icon" class="fas fa-volume-up" aria-hidden="true"></i>
-
-      <input type="range" id="volume-bar" min="0" max="100" value="100"/>
+    <div id="progress-area">
+      <span id="current-time">0:00</span>
+      <input type="range" id="progress-bar" min="0" max="100" value="0"/>
+      <span id="duration">0:00</span>
     </div>
 
-    <div id="controls">
-      <button id="shuffle-btn" title="Shuffle"><i class="fas fa-random"></i></button>
-      <button id="prev-btn">⏮️</button>
-      <button id="play-pause-btn">▶️</button>
-      <button id="next-btn">⏭️</button>
-      <button id="repeat-btn" title="Repeat"><i class="fas fa-repeat"></i></button>
-    </div>
+    <div id="controls-and-volume">
 
-    <div id="current-song-info">
-      <img id="mini-cover" class="hidden" src="covers/default.jpg"/>
-      <div id="current-song-text">
-        <span id="player-title">No Song Selected</span>
-        <span id="player-artist"></span>
+      <div id="volume-control">
+        <i id="volume-icon" class="fas fa-volume-up" aria-hidden="true"></i>
+        <input type="range" id="volume-bar" min="0" max="100" value="100"/>
       </div>
+
+      <div id="controls">
+        <button id="shuffle-btn"></button>
+        <button id="prev-btn"></button>
+        <button id="play-pause-btn"></button>
+        <button id="next-btn"></button>
+        <button id="repeat-btn"></button>
+      </div>
+
+      <div id="current-song-info">
+        <img id="mini-cover" class="hidden" src="covers/default.jpg"/>
+        <div id="current-song-text">
+          <span id="player-title">No Song Selected</span>
+          <span id="player-artist"></span>
+        </div>
+      </div>
+
     </div>
 
-  </div>
-
-
-  <audio id="audio-element" preload="metadata"></audio>
-</footer>
-
-
-
+    <audio id="audio-element" preload="metadata"></audio>
+  </footer>
 </div>
-
 
 <!-- ================= CATEGORY MODAL ================= -->
 <div id="category-modal">
@@ -187,27 +176,18 @@
 
 <!-- ================= FULL PLAYER ================= -->
 <div id="animated-player-overlay">
-
   <button id="close-player-btn" class="fas fa-times"></button>
 
   <div id="full-player-content">
     <div id="full-player-layout">
-
-      <!-- LEFT -->
       <div id="full-player-left">
         <div id="full-player-circle">
           <div id="full-player-glow"></div>
-
-          <div id="disc-view" class="dv-view dv-active">
-            <div id="spinning-disc">
-              <div id="disc-center">
-                <img id="full-player-cover" src="covers/default.jpg"/>
-              </div>
+          <div id="spinning-disc">
+            <div id="disc-center">
+              <img id="full-player-cover" src="covers/default.jpg"/>
             </div>
           </div>
-
-          <div id="visualizer-view" class="dv-view"></div>
-
         </div>
 
         <div id="full-player-meta">
@@ -216,61 +196,67 @@
         </div>
       </div>
 
-      <!-- RIGHT -->
       <div id="full-player-right">
-
         <div class="full-playlist-box">
-
-          <div id="full-tabs-row">
-            <button class="full-tab-btn active-full-tab" data-full-cat="All">All</button>
-            <button class="full-tab-btn" data-full-cat="Hindi">Hindi</button>
-            <button class="full-tab-btn" data-full-cat="English">English</button>
-            <button class="full-tab-btn" data-full-cat="Punjabi">Punjabi</button>
-            <button class="full-tab-btn" data-full-cat="Haryanavi">Haryanavi</button>
-            <button class="full-tab-btn" data-full-cat="Bhojpuri">Bhojpuri</button>
-          </div>
-
+          <div id="full-tabs-row"></div>
           <div id="full-playlist-container">
             <ul id="full-playlist"></ul>
           </div>
-
         </div>
       </div>
     </div>
 
-    <!-- CONTROLS -->
-    <div id="full-player-controls-container">
-
-      <div id="full-progress-area">
-        <span id="full-current-time">0:00</span>
-        <input type="range" id="full-progress-bar" min="0" max="100"/>
-        <span id="full-duration">0:00</span>
-      </div>
-
-      <div id="full-bottom-row">
-
-        <div id="full-volume-control">
-          <i class="fas fa-volume-up"></i>
-          <input type="range" id="full-volume-bar" min="0" max="100" value="100"/>
-        </div>
-
-        <div id="full-controls">
-          <button id="full-prev-btn" class="fas fa-step-backward"></button>
-          <button id="full-play-pause-btn" class="fas fa-play"></button>
-          <button id="full-next-btn" class="fas fa-step-forward"></button>
-        </div>
-
-      </div>
-    </div>
+    <div id="full-player-controls-container"></div>
   </div>
 </div>
 
-<!-- Open full player -->
 <button id="open-player-icon" class="fas fa-compact-disc"></button>
 
-<!-- Scripts -->
+
+
+<!-- ===============================
+     COPYRIGHT DISCLAIMER MODAL
+     =============================== -->
+<div id="disclaimer-overlay" class="disclaimer-hidden">
+  <div class="disclaimer-modal">
+<h2>Copyright Disclaimer</h2>
+
+<p>
+  This website and music player are provided strictly for
+  <strong>educational, demonstration, and personal use</strong>.
+</p>
+
+<p>
+  All audio tracks, album artwork, artist names, and related media
+  are the <strong>exclusive property of their respective copyright owners</strong>.
+</p>
+
+<p>
+  I do <strong>not claim ownership</strong>, do not distribute commercially,
+  and do not monetize any copyrighted material displayed or played on this site.
+</p>
+
+<p>
+  This project is <strong>non-commercial</strong> and is intended solely to
+  showcase frontend development, UI/UX design, and audio handling techniques.
+</p>
+
+<p class="disclaimer-muted">
+  If you are a copyright holder and believe any content should be removed,
+  please contact me and it will be taken down promptly.
+</p>
+
+<button id="accept-disclaimer-btn">
+  I Understand & Agree
+</button>
+
+  </div>
+</div>
+
+
 <script src="data.js"></script>
 <script src="music_player.js"></script>
+
 
 </body>
 </html>

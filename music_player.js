@@ -53,6 +53,8 @@ const miniCover = document.getElementById('mini-cover');
 
 // Now Playing queue
 const nowPlayingListElement = document.getElementById('now-playing-list');
+const nowPlayingPanel = document.getElementById('now-playing-panel');
+
 
 const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
 
@@ -104,6 +106,12 @@ let currentMainView = 'songs'; // 'songs' | 'albums' | 'artists'
 
 // Full player state
 let currentFullCategory = 'All';
+
+
+function isDisclaimerOpen() {
+    const overlay = document.getElementById('disclaimer-overlay');
+    return overlay && !overlay.classList.contains('disclaimer-hidden');
+}
 
 
 
@@ -417,6 +425,14 @@ if (fullPlayerOverlay) {
 // --- 6. QUEUE ---
 function updateNowPlayingQueue() {
     if (!nowPlayingListElement) return;
+    if (nowPlayingPanel) {
+    if (userQueue.length > 0) {
+        nowPlayingPanel.classList.add('has-items');
+    } else {
+        nowPlayingPanel.classList.remove('has-items');
+    }
+}
+
     nowPlayingListElement.innerHTML = '';
 
     if (userQueue.length === 0) {
@@ -1673,7 +1689,9 @@ function initApp() {
 
     // 🔍 Close search when clicking outside
         document.addEventListener('click', (e) => {
+            if (isDisclaimerOpen()) return;
             if (!mainHeaderRow.classList.contains('search-open')) return;
+
 
             const clickedInsideSearch =
                 searchBar.contains(e.target) ||
@@ -1883,6 +1901,8 @@ mobileMenuToggle.addEventListener('click', (e) => {
 
     // Close sidebar when clicking outside (mobile only)
 document.addEventListener('click', (e) => {
+    if (isDisclaimerOpen()) return; // 🔒 BLOCK ALL APP CLICKS
+
     if (
         window.innerWidth <= 768 &&
         sidebar.classList.contains('open') &&
@@ -1893,6 +1913,7 @@ document.addEventListener('click', (e) => {
         document.body.classList.remove('sidebar-open');
     }
 });
+
 
 
     // Prevent sidebar clicks from closing itself
@@ -1921,7 +1942,9 @@ document.addEventListener('click', (e) => {
 
     // Close any open options menu when clicking outside song cards
     document.addEventListener('click', (e) => {
+        if (isDisclaimerOpen()) return;
         if (!e.target.closest('.song-item')) {
+
             document.querySelectorAll('.song-item.show-options')
                 .forEach(card => card.classList.remove('show-options'));
         }
@@ -2003,6 +2026,85 @@ document.addEventListener('click', (e) => {
 
 // Start everything once DOM is ready
 document.addEventListener('DOMContentLoaded', initApp);
+
+
+/* ===============================
+   COPYRIGHT DISCLAIMER (SHOW ONCE)
+   =============================== */
+document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('disclaimer-overlay');
+    const acceptBtn = document.getElementById('accept-disclaimer-btn');
+
+    if (!overlay || !acceptBtn) return;
+
+    const DISCLAIMER_KEY = 'viridxi_disclaimer_v1';
+    let disclaimerAccepted = !!localStorage.getItem(DISCLAIMER_KEY);
+
+    // Show disclaimer only once
+    if (!disclaimerAccepted) {
+        overlay.classList.remove('disclaimer-hidden');
+        document.body.classList.add('modal-open');
+
+        // ⛔ Block back button
+        history.pushState({ disclaimer: true }, '');
+    }
+
+    // Prevent back navigation until accepted
+    window.addEventListener('popstate', () => {
+        if (!localStorage.getItem(DISCLAIMER_KEY)) {
+            history.pushState({ disclaimer: true }, '');
+        }
+    });
+
+    acceptBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        localStorage.setItem(DISCLAIMER_KEY, 'accepted');
+
+        overlay.classList.add('disclaimer-hidden');
+        document.body.classList.remove('modal-open');
+
+        disclaimerAccepted = true;
+    });
+});
+
+
+(function setupDisclaimerFocusTrap() {
+    const overlay = document.getElementById('disclaimer-overlay');
+    if (!overlay) return;
+
+    const focusableSelectors = `
+        button, [href], input, select, textarea,
+        [tabindex]:not([tabindex="-1"])
+    `;
+
+    document.addEventListener('keydown', (e) => {
+        if (overlay.classList.contains('disclaimer-hidden')) return;
+
+        if (e.key !== 'Tab') return;
+
+        const focusable = overlay.querySelectorAll(focusableSelectors);
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+            if (document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            }
+        } else {
+            if (document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+    });
+})();
+
+
 
 window.addEventListener('popstate', () => {
     // 1️⃣ Full player has highest priority
