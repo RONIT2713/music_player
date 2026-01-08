@@ -266,10 +266,13 @@ body {
 /* Header row with title + view toggle */
 #main-header-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 14px;
+    width: 100%;
 }
+
+
+
 
 /* Title + actions (favorites clear icon) */
 #title-and-actions {
@@ -277,6 +280,80 @@ body {
     align-items: center;
     gap: 8px;
 }
+
+
+#search-toggle-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #9ca3af;
+    font-size: 0.95rem;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.12s ease;
+}
+
+#search-toggle-btn:hover {
+    background: rgba(31, 41, 55, 0.8);
+    color: #e5e7eb;
+    transform: translateY(-1px);
+}
+
+/* Inline header search (hidden by default) */
+#main-header-row .header-search {
+    display: none;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 360px;
+}
+
+
+#main-header-row .header-search input {
+    width: 100%;
+    padding: 7px 14px;
+
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: rgba(15, 23, 42, 0.9);
+    color: #e5e7eb;
+
+    font-size: 0.85rem;
+    outline: none;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease;
+}
+
+#main-header-row .header-search input:focus {
+    border-color: #22c55e;
+    box-shadow:
+        0 0 0 1px rgba(34, 197, 94, 0.7),
+        0 12px 30px rgba(15, 23, 42, 0.9);
+}
+
+/* === Search open state === */
+#main-header-row.search-open .header-search {
+    display: flex;
+}
+
+#main-header-row.search-open #search-toggle-btn {
+    display: none;
+}
+
 
 /* Clear favorites button */
 #clear-favorites-btn {
@@ -355,6 +432,8 @@ body[data-theme="light"] #clear-favorites-btn {
     border-radius: 999px;
     background: rgba(15, 23, 42, 0.9);
     border: 1px solid rgba(55, 65, 81, 0.9);
+    flex-shrink: 0;
+
 }
 
 .main-view-btn {
@@ -377,35 +456,6 @@ body[data-theme="light"] #clear-favorites-btn {
     color: #020617;
 }
 
-/* Search */
-#search-container {
-    padding: 10px 0 2px;
-}
-
-#search-bar {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.6);
-    background: rgba(15, 23, 42, 0.9);
-    color: #e5e7eb;
-    font-size: 0.95rem;
-    outline: none;
-    transition:
-        border-color 0.18s ease,
-        box-shadow 0.18s ease,
-        background-color 0.18s ease;
-}
-
-#search-bar:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.7), 0 16px 40px rgba(15, 23, 42, 0.9);
-    background: rgba(15, 23, 42, 1);
-}
-
-#search-bar::placeholder {
-    color: #6b7280;
-}
 
 /* --- NOW PLAYING QUEUE --- */
 #now-playing-panel {
@@ -994,7 +1044,7 @@ body[data-theme="light"] #clear-favorites-btn {
     right: 10px;
     width: auto;
 
-    height: 110px;
+    height: 92px;
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9));
     border-radius: 999px;
     border: 1px solid rgba(148, 163, 184, 0.6);
@@ -1002,12 +1052,15 @@ body[data-theme="light"] #clear-favorites-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 18px;
+    padding: 8px 16px;
     box-shadow:
         0 28px 60px rgba(15, 23, 42, 0.9),
         0 0 0 1px rgba(15, 23, 42, 1);
     z-index: 900;
 }
+
+
+
 
 /* PROGRESS + CONTROLS + VOLUME row */
 #progress-area {
@@ -1043,11 +1096,30 @@ body[data-theme="light"] #clear-favorites-btn {
     min-width: 140px;
     margin-right: auto;
 }
+/* ===============================
+   MODERN VOLUME ICON (KEEP BAR)
+   =============================== */
 
 #volume-icon {
-    margin-right: 8px;
-    font-size: 1.1rem;
+  margin-right: 8px;
+  font-size: 14px;
+  color: #22c55e;
+
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: radial-gradient(circle at 30% 0%, #1e293b, #020617);
+  box-shadow:
+    0 0 0 1px rgba(15, 23, 42, 1),
+    0 6px 14px rgba(34, 197, 94, 0.4);
 }
+
+
 
 /* --- MODERN PLAYER CONTROLS --- */
 #controls {
@@ -1131,11 +1203,26 @@ body[data-theme="light"] #clear-favorites-btn {
     content: "\f048";
 }
 
+/* ===================================
+   PLAY / PAUSE — BRAND CONSISTENT
+   =================================== */
 #play-pause-btn::before {
-    content: "\f04b";
-    color: #020617;
-    font-size: 16px;
+  content: "\f04b";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 18px;
+
+  color: #22c55e;
+
+  /* contrast safety */
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 0 8px rgba(34, 197, 94, 0.85);
 }
+
+
+
+
 
 #next-btn::before {
     content: "\f051";
@@ -1195,36 +1282,52 @@ body[data-theme="light"] #clear-favorites-btn {
 }
 
 /* pulsing play button while music is playing */
-@keyframes playPulseModern {
-    0% {
-        transform: scale(1);
-        box-shadow:
-            0 0 0 2px rgba(15, 23, 42, 1),
-            0 14px 28px rgba(34, 197, 94, 0.5);
-    }
-    50% {
-        transform: scale(1.06);
-        box-shadow:
-            0 0 0 2px rgba(15, 23, 42, 1),
-            0 22px 42px rgba(34, 197, 94, 0.9);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow:
-            0 0 0 2px rgba(15, 23, 42, 1),
-            0 14px 28px rgba(34, 197, 94, 0.5);
-    }
+/* ===================================
+   SMOOTH PLAYING PULSE (BREATHING)
+   =================================== */
+@keyframes playPulseSmooth {
+  0% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 2px rgba(15, 23, 42, 1),
+      0 10px 24px rgba(34, 197, 94, 0.35);
+  }
+  50% {
+    transform: scale(1.025); /* very subtle */
+    box-shadow:
+      0 0 0 2px rgba(15, 23, 42, 1),
+      0 14px 32px rgba(34, 197, 94, 0.55);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 2px rgba(15, 23, 42, 1),
+      0 10p
+  }
 }
 
 #play-pause-btn.playing-btn {
-    animation: playPulseModern 1.5s ease-in-out infinite;
+  animation: playPulseSmooth 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
+
 
 /* highlight shuffle/repeat when active */
 .control-active {
     color: #facc15 !important;
     filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.7));
 }
+
+/* Repeat ONE indicator */
+#repeat-btn.repeat-one::after {
+    content: "1";
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--accent-color, #22d3ee);
+}
+
 
 /* tiny spin when toggled */
 @keyframes controlSpin {
@@ -1913,33 +2016,6 @@ body[data-theme="light"] .category-modal-btn {
     filter: brightness(1.05);
 }
 
-#confirm-modal-content.download-confirm {
-    background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.25), transparent 60%),
-        #020617f5;
-    border-color: rgba(59, 130, 246, 0.85);
-}
-
-#confirm-modal-content.download-confirm #confirm-modal-title {
-    color: #bfdbfe;
-}
-
-#confirm-modal-content.download-confirm #confirm-modal-ok {
-    background: radial-gradient(circle at 30% 0%, #bbf7d0, #22c55e);
-    border: 1px solid rgba(52, 211, 153, 0.95);
-    box-shadow:
-        0 0 0 2px rgba(15, 23, 42, 1),
-        0 10px 22px rgba(52, 211, 153, 0.85);
-}
-
-#confirm-modal-content.download-confirm #confirm-modal-ok:hover {
-    transform: translateY(-1px) scale(1.03);
-    box-shadow:
-        0 0 0 2px rgba(15, 23, 42, 1),
-        0 16px 32px rgba(52, 211, 153, 0.95);
-    filter: brightness(1.05);
-}
 
 body[data-theme="light"] #confirm-modal {
     background:
@@ -2950,6 +3026,19 @@ body.sidebar-open #main-content {
     display: none !important;
   }
 }
+/* Global scroll lock for modals */
+body.modal-open {
+  overflow: hidden;
+  height: 100vh;
+}
 
 
+/* =========================================
+   PROBLEM 3: HIDE OPEN PLAYER ICON
+   WHEN ANY MODAL / OVERLAY IS OPEN
+   ========================================= */
+body.modal-open #open-player-icon {
+  opacity: 0;
+  pointer-events: none;
+}
 

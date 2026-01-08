@@ -42,6 +42,9 @@ const currentTimeDisplay = document.getElementById('current-time');
 const durationDisplay = document.getElementById('duration');
 
 const searchBar = document.getElementById('search-bar');
+const searchContainer = document.getElementById('search-container');
+let searchOpen = false;
+
 const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
 const sidebar = document.getElementById('sidebar');
 const themeToggleBtn = document.getElementById('theme-toggle');
@@ -105,6 +108,12 @@ let currentFullCategory = 'All';
 
 
 // --- 2. STATE ---
+// --- NAVIGATION STATE (for mobile back button) ---
+let navStack = {
+    fullPlayer: false,
+    categoryModal: false,
+};
+
 let currentSongs = [];
 let currentlyPlayingIndex = -1;
 let currentSongId = null;
@@ -332,7 +341,14 @@ function syncFullPlayerState() {
 }
 
 function openAnimatedPlayer() {
-    document.body.classList.add('full-player-open');
+    if (!navStack.fullPlayer) {
+        history.pushState({ type: 'fullPlayer' }, '');
+        navStack.fullPlayer = true;
+    }
+
+    document.body.classList.add('full-player-open', 'modal-open');
+
+
 
     if (!animatedPlayerOverlay) return;
 
@@ -350,7 +366,10 @@ function openAnimatedPlayer() {
 }
 
 function closeAnimatedPlayer() {
-    document.body.classList.remove('full-player-open');
+    navStack.fullPlayer = false;
+    document.body.classList.remove('full-player-open', 'modal-open');
+
+
 
     if (!animatedPlayerOverlay) return;
 
@@ -667,54 +686,41 @@ function renderSongList(songsToDisplay) {
         }
 
         // Download option with custom confirmation modal
-        const downloadBtn = listItem.querySelector('.option-download');
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                listItem.classList.remove('show-options');
+        // Download option — instant download (no confirmation)
+const downloadBtn = listItem.querySelector('.option-download');
+if (downloadBtn) {
+    downloadBtn.addEventListener('click', async (event) => {
+        event.stopPropagation();
+        listItem.classList.remove('show-options');
 
-                const title = 'Download this song?';
-                const message = `Do you want to download "${song.title}" to your device?`;
+        try {
+            const url = resolveAudio(song.filePath);
 
-                openConfirmModal({
-                    title,
-                    message,
-                    confirmLabel: 'Download',
-                    confirmIconClass: 'fa-download',
-                    modalType: 'download',
-                    onConfirm: async () => {
-                        try {
-                            const url = resolveAudio(song.filePath);
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("Download failed");
 
-                            const response = await fetch(url);
-                            if (!response.ok) throw new Error("Download failed");
+            const blob = await response.blob();
+            const downloadUrl = URL.createObjectURL(blob);
 
-                            const blob = await response.blob();
+            const a = document.createElement("a");
+            const filename =
+                song.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".mp3";
 
-                            const downloadUrl = URL.createObjectURL(blob);
-                            const a = document.createElement("a");
+            a.href = downloadUrl;
+            a.download = filename;
 
-                            const filename =
-                                song.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".mp3";
+            document.body.appendChild(a);
+            a.click();
 
-                            a.href = downloadUrl;
-                            a.download = filename;
-
-                            document.body.appendChild(a);
-                            a.click();
-
-                            document.body.removeChild(a);
-                            URL.revokeObjectURL(downloadUrl);
-                        } catch (err) {
-                            alert("Download failed. Please try again.");
-                            console.error(err);
-                        }
-                    }
-
-
-                });
-            });
+            document.body.removeChild(a);
+            URL.revokeObjectURL(downloadUrl);
+        } catch (err) {
+            alert("Download failed. Please try again.");
+            console.error(err);
         }
+    });
+}
+
 
         // Add to queue option
         const addQueueBtn = listItem.querySelector('.option-add-queue');
@@ -891,10 +897,14 @@ function renderArtistsView() {
 
         li.addEventListener('click', () => {
             currentMainView = 'songs';
-            setActiveMainViewButton();
             currentFilter = { type: 'artist', value: artistObj.artist };
+
+            pushViewStateIfNeeded('artist');
+
+            setActiveMainViewButton();
             renderCurrentView();
             setActiveFilterClass();
+
         });
 
         songListElement.appendChild(li);
@@ -929,9 +939,13 @@ function renderArtistsList() {
         li.dataset.artist = artist;
 
         li.addEventListener('click', (event) => {
+            closeSidebarIfMobile();
+
             if (searchBar) searchBar.value = '';
             currentFilter = { type: 'artist', value: event.target.dataset.artist };
             currentMainView = 'songs';
+            pushViewStateIfNeeded('artist');
+
             setActiveMainViewButton();
             renderCurrentView();
             setActiveFilterClass();
@@ -1355,8 +1369,10 @@ function renderCategoryGridInModal() {
         `;
 
         btn.addEventListener('click', () => {
+            history.pushState({ type: 'categoryModalSongs' }, '');
             renderCategorySongsInModal(cfg.key, cfg.label);
         });
+
 
         grid.appendChild(btn);
     });
@@ -1435,18 +1451,34 @@ function renderCategorySongsInModal(categoryKey, label) {
 
 function openCategoryModal() {
     if (!categoryModal) return;
+
+    if (!navStack.categoryModal) {
+        history.pushState({ type: 'categoryModal' }, '');
+        navStack.categoryModal = true;
+    }
+
+    document.body.classList.add('modal-open');
     categoryModal.classList.add('open');
     renderCategoryGridInModal();
 }
 
+
+
 function closeCategoryModal() {
-    if (!categoryModal) return;
+    navStack.categoryModal = false;
     categoryModal.classList.remove('open');
+    document.body.classList.remove('modal-open');
 }
+
+
 
 function setupCategoryModalEvents() {
     if (viewAllCategoriesBtn) {
-        viewAllCategoriesBtn.addEventListener('click', openCategoryModal);
+        viewAllCategoriesBtn.addEventListener('click', () => {
+    closeSidebarIfMobile();
+    openCategoryModal();
+});
+
     }
     if (categoryModalClose) {
         categoryModalClose.addEventListener('click', () => {
@@ -1496,12 +1528,6 @@ function openConfirmModal({
         confirmModalMessage.textContent = message;
     }
 
-    if (confirmModalContent) {
-        confirmModalContent.classList.remove('download-confirm');
-        if (modalType === 'download') {
-            confirmModalContent.classList.add('download-confirm');
-        }
-    }
 
     if (confirmModalOk && confirmLabel) {
         if (confirmIconClass) {
@@ -1513,13 +1539,17 @@ function openConfirmModal({
 
     pendingConfirmAction = typeof onConfirm === 'function' ? onConfirm : null;
     confirmModal.classList.add('open');
+    document.body.classList.add('modal-open');
+
 }
 
 function closeConfirmModal() {
     if (!confirmModal) return;
     confirmModal.classList.remove('open');
+    document.body.classList.remove('modal-open');
     pendingConfirmAction = null;
 }
+
 
 // --- 16. QUICK ACTIONS ---
 
@@ -1568,8 +1598,26 @@ function repositionFullPlaylistContainer() {
     }
 }
 
+function closeSidebarIfMobile() {
+    if (window.innerWidth <= 768 && sidebar && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        document.body.classList.remove('sidebar-open');
+    }
+}
+function pushViewStateIfNeeded(stateType) {
+    const current = history.state && history.state.type;
+    if (current !== stateType) {
+        history.pushState({ type: stateType }, '');
+    }
+}
+
+
 // --- 18. INITIALIZATION ---
 function initApp() {
+    if (!history.state) {
+    history.replaceState({ type: 'base' }, '');
+}
+
     loadSongsFromStorage();
         // 🔀 Shuffle songs once on page load (fresh order every refresh)
     shuffleArrayOnce(currentSongs);
@@ -1593,15 +1641,53 @@ function initApp() {
    
 
     // Search
+    // Search (filters current view ONLY)
     if (searchBar) {
         searchBar.addEventListener('input', () => {
-            currentFilter = { type: 'view', value: 'playlist' };
-            currentMainView = 'songs';
-            setActiveMainViewButton();
             renderCurrentView();
-            setActiveFilterClass();
         });
     }
+
+
+    const mainHeaderRow = document.getElementById('main-header-row');
+    const searchToggleBtn = document.getElementById('search-toggle-btn');
+
+    if (searchToggleBtn && searchBar && mainHeaderRow) {
+        searchToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // ✅ IMPORTANT
+            mainHeaderRow.classList.add('search-open');
+            searchBar.value = '';
+            searchBar.focus();
+        });
+
+
+        // ESC closes search
+        searchBar.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                mainHeaderRow.classList.remove('search-open');
+                searchBar.value = '';
+                renderCurrentView();
+            }
+        });
+    }
+
+    // 🔍 Close search when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mainHeaderRow.classList.contains('search-open')) return;
+
+            const clickedInsideSearch =
+                searchBar.contains(e.target) ||
+                searchToggleBtn.contains(e.target);
+
+            if (!clickedInsideSearch) {
+                mainHeaderRow.classList.remove('search-open');
+                searchBar.value = '';
+                renderCurrentView();
+            }
+        });
+
+
+
 
     // Main nav filters (Playlist / Favorites)
     const mainNav = document.getElementById('main-nav');
@@ -1609,9 +1695,16 @@ function initApp() {
         mainNav.addEventListener('click', (event) => {
             const btn = event.target.closest('button');
             if (!btn) return;
+            closeSidebarIfMobile();
+
             if (searchBar) searchBar.value = '';
             currentFilter = { type: 'view', value: btn.dataset.view };
-            currentMainView = 'songs';
+                currentMainView = 'songs';
+
+                if (btn.dataset.view !== 'playlist') {
+                    pushViewStateIfNeeded('view');
+                }
+
             setActiveMainViewButton();
             renderCurrentView();
             setActiveFilterClass();
@@ -1624,9 +1717,13 @@ function initApp() {
         categoriesList.addEventListener('click', (event) => {
             const btn = event.target.closest('button');
             if (!btn) return;
+            closeSidebarIfMobile();
+
             if (searchBar) searchBar.value = '';
             currentFilter = { type: 'category', value: btn.dataset.category };
             currentMainView = 'songs';
+            pushViewStateIfNeeded('category');
+
             setActiveMainViewButton();
             renderCurrentView();
             setActiveFilterClass();
@@ -1634,17 +1731,25 @@ function initApp() {
     }
 
     // Top-right main view toggle (Songs / Albums / Artists)
-    if (mainViewButtons) {
-        mainViewButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const view = btn.dataset.mainView;
-                if (!view) return;
-                currentMainView = view;
-                setActiveMainViewButton();
-                renderCurrentView();
+       
+        if (mainViewButtons) {
+            mainViewButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const view = btn.dataset.mainView;
+                    if (!view) return;
+
+                    // 🔹 push history ONLY for real screens
+                    if (view !== 'songs') {
+                        pushViewStateIfNeeded(view);
+                    }
+
+                    currentMainView = view;
+                    setActiveMainViewButton();
+                    renderCurrentView();
+                });
             });
-        });
-    }
+        }
+
 
     // Play/Pause button (bottom)
     if (playPauseBtn) {
@@ -1667,6 +1772,37 @@ function initApp() {
     // Next/Previous buttons (bottom)
     if (prevBtn) prevBtn.addEventListener('click', playPrevSong);
     if (nextBtn) nextBtn.addEventListener('click', playNextSong);
+    // 🔀 Shuffle toggle
+    if (shuffleBtn) {
+        shuffleBtn.addEventListener('click', () => {
+            shuffleOn = !shuffleOn;
+            shuffleBtn.classList.toggle('control-active', shuffleOn);
+        });
+    }
+
+    // 🔁 Repeat mode toggle: off → all → one
+    if (repeatBtn) {
+        repeatBtn.addEventListener('click', () => {
+            if (repeatMode === 'off') {
+                repeatMode = 'all';
+                repeatBtn.classList.add('control-active');
+                repeatBtn.classList.remove('repeat-one');
+                repeatBtn.title = 'Repeat All';
+            } 
+            else if (repeatMode === 'all') {
+                repeatMode = 'one';
+                repeatBtn.classList.add('control-active', 'repeat-one');
+                repeatBtn.title = 'Repeat One';
+            } 
+            else {
+                repeatMode = 'off';
+                repeatBtn.classList.remove('control-active', 'repeat-one');
+                repeatBtn.title = 'Repeat Off';
+            }
+        });
+    }
+
+
     
 
     // Full player controls — directly control audio rather than delegating to bottom button
@@ -1868,6 +2004,47 @@ document.addEventListener('click', (e) => {
 // Start everything once DOM is ready
 document.addEventListener('DOMContentLoaded', initApp);
 
+window.addEventListener('popstate', () => {
+    // 1️⃣ Full player has highest priority
+    if (document.body.classList.contains('full-player-open')) {
+        closeAnimatedPlayer();
+        return;
+    }
+
+    // 2️⃣ Category modal open
+    if (categoryModal && categoryModal.classList.contains('open')) {
+        if (categoryModalView === 'songs') {
+            renderCategoryGridInModal();
+            return;
+        }
+
+        closeCategoryModal();
+        return;
+    }
+    // 3️⃣ Albums / Artists view → go back to Songs
+    if (currentMainView !== 'songs') {
+        currentMainView = 'songs';
+        renderCurrentView();
+        setActiveMainViewButton();
+        return;
+    }
+
+
+    // 3️⃣ Favorites / filters → go back to home
+    if (
+        currentFilter.type !== 'view' ||
+        currentFilter.value !== 'playlist'
+    ) {
+        currentFilter = { type: 'view', value: 'playlist' };
+        currentMainView = 'songs';
+        renderCurrentView();
+        setActiveFilterClass();
+        setActiveMainViewButton();
+        return;
+    }
+
+    // 4️⃣ Nothing to handle → allow browser default (exit)
+});
 
 
 
