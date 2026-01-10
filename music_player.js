@@ -102,6 +102,9 @@ let currentMainView = 'songs'; // 'songs' | 'albums' | 'artists'
 // Full player state
 let currentFullCategory = 'All';
 
+let deferredInstallPrompt = null;
+
+
 
 const mainHeaderRow = document.getElementById('main-header-row');
 const searchToggleBtn = document.getElementById('search-toggle-btn');
@@ -138,6 +141,14 @@ function isDisclaimerOpen() {
     const overlay = document.getElementById('disclaimer-overlay');
     return overlay && !overlay.classList.contains('disclaimer-hidden');
 }
+
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+});
+
+
 
 
 
@@ -2398,6 +2409,28 @@ mobileMenuToggle.addEventListener('click', (e) => {
     });
 
     })();
+
+    const installBtn = document.getElementById('install-app-btn');
+
+    if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+
+            if (!deferredInstallPrompt) {
+                alert("App is already installed or not supported.");
+                return;
+            }
+
+            deferredInstallPrompt.prompt();
+
+            const choice = await deferredInstallPrompt.userChoice;
+
+            if (choice.outcome === 'accepted') {
+                console.log('User installed the app');
+            }
+
+            deferredInstallPrompt = null;
+        });
+    }
 
 }
 
