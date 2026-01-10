@@ -219,6 +219,23 @@ function applyStoredTheme() {
 function applyAccentFromImage(imgEl, cardEl) {
     // For now, do nothing. CSS uses default accent color.
 }
+function updateVolumeIcon() {
+
+    if (!volumeIcon) return;
+
+    const v = audioPlayer.volume;
+
+    if (v === 0 || audioPlayer.muted) {
+        volumeIcon.className = 'fas fa-volume-xmark'; // ✅ correct mute icon
+    }
+    else if (v < 0.5) {
+        volumeIcon.className = 'fas fa-volume-low';
+    }
+    else {
+        volumeIcon.className = 'fas fa-volume-high';
+    }
+}
+
 
 // --- 4. DATA MANAGEMENT (Local Storage Functions) ---
 function saveSongsToStorage() {
@@ -309,6 +326,85 @@ function loadQueueFromStorage() {
         console.warn('Failed to load queue from storage', e);
     }
 }
+
+// --- FEATURE 5: PLAYER STATE STORAGE ---
+function savePlayerState() {
+    try {
+        if (currentSongId) {
+            localStorage.setItem('musicPlayer_lastSong', currentSongId);
+        }
+        localStorage.setItem('musicPlayer_volume', audioPlayer.volume);
+        localStorage.setItem('musicPlayer_shuffle', shuffleOn);
+        localStorage.setItem('musicPlayer_repeat', repeatMode);
+    } catch (e) {
+        console.warn('Failed to save player state', e);
+    }
+}
+
+function loadPlayerState() {
+    try {
+        const lastSong = localStorage.getItem('musicPlayer_lastSong');
+        const vol = localStorage.getItem('musicPlayer_volume');
+        const shuf = localStorage.getItem('musicPlayer_shuffle');
+        const rep = localStorage.getItem('musicPlayer_repeat');
+
+        if (vol !== null) {
+            audioPlayer.volume = parseFloat(vol);
+            if (volumeBar) volumeBar.value = audioPlayer.volume * 100;
+            if (fullVolumeBar) fullVolumeBar.value = volumeBar.value;
+        }
+
+        if (shuf !== null) {
+            shuffleOn = shuf === 'true';
+            shuffleBtn?.classList.toggle('control-active', shuffleOn);
+        }
+
+        if (rep !== null) {
+            repeatMode = rep;
+            if (repeatBtn) {
+                repeatBtn.classList.remove('control-active', 'repeat-one');
+                if (rep === 'all') {
+                    repeatBtn.classList.add('control-active');
+                }
+                if (rep === 'one') {
+                    repeatBtn.classList.add('control-active', 'repeat-one');
+                }
+            }
+        }
+
+        // Restore last song (NO autoplay)
+        // Restore last song (NO autoplay)
+        if (lastSong) {
+            const song = currentSongs.find(s => s.id == lastSong);
+            if (song) {
+                currentSongId = song.id;
+
+                // 🔥 SET SOURCE (but do NOT play)
+                audioPlayer.src = resolveAudio(song.filePath);
+                audioPlayer.load(); // preload metadata only
+
+                if (playerTitle) playerTitle.textContent = song.title;
+                if (playerArtist) playerArtist.textContent = song.artist;
+
+                if (miniCover) {
+                    miniCover.src = resolveCover(song.coverPath);
+                    miniCover.classList.remove('hidden');
+                }
+
+                if (fullPlayerCover) {
+                    fullPlayerCover.src = resolveCover(song.coverPath);
+                }
+
+                syncFullPlayerState();
+            }
+        }
+
+
+    } catch (e) {
+        console.warn('Failed to load player state', e);
+    }
+}
+
 
 // --- 5. FULL-PLAYER STATE & SYNC ---
 function syncFullPlayerState() {
@@ -1177,6 +1273,8 @@ function playSong(song) {
     highlightPlayingCard();
     highlightFullPlaylistPlaying();
     preloadNextSong();
+    savePlayerState();
+
 }
 
 let nextPrefetchLink = null;
@@ -1363,10 +1461,16 @@ function setupAudioListeners() {
     if (volumeBar) {
         volumeBar.addEventListener('input', () => {
             audioPlayer.volume = volumeBar.value / 100;
+            
+            audioPlayer.muted = false;
+            fullVolumeBar.value = volumeBar.value;
             if (fullVolumeBar) {
-                fullVolumeBar.value = volumeBar.value;
-            }
+          }
+
+          savePlayerState();
+          updateVolumeIcon();
         });
+
 
         audioPlayer.volume = volumeBar.value / 100;
     } else {
@@ -1695,6 +1799,8 @@ function initApp() {
     loadQueueFromStorage();
     applyStoredTheme();
     setupAudioListeners();
+    loadPlayerState();
+
 
     mainViewButtons = document.querySelectorAll('.main-view-btn');
     fullTabButtons = document.querySelectorAll('.full-tab-btn');
@@ -1728,16 +1834,6 @@ function initApp() {
             mainHeaderRow.classList.add('search-open');
             searchBar.value = '';
             searchBar.focus();
-        });
-
-
-        // ESC closes search
-        searchBar.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                mainHeaderRow.classList.remove('search-open');
-                searchBar.value = '';
-                renderCurrentView();
-            }
         });
     }
 
@@ -1831,6 +1927,7 @@ function initApp() {
     if (shuffleBtn) {
         shuffleBtn.addEventListener('click', () => {
             shuffleOn = !shuffleOn;
+            savePlayerState();
             shuffleBtn.classList.toggle('control-active', shuffleOn);
         });
     }
@@ -1854,6 +1951,8 @@ function initApp() {
                 repeatBtn.classList.remove('control-active', 'repeat-one');
                 repeatBtn.title = 'Repeat Off';
             }
+            savePlayerState();
+
         });
     }
 
@@ -2107,6 +2206,148 @@ document.addEventListener('click', (e) => {
 
 // Start everything once DOM is ready
 document.addEventListener('DOMContentLoaded', initApp);
+
+
+/* ===============================
+   MASTER KEYBOARD HANDLER
+   =============================== */
+document.addEventListener('keydown', (e) => {
+
+    // ❌ Ignore if disclaimer is open
+    if (isDisclaimerOpen()) return;
+
+    // ⛔ Ignore when typing
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        if (e.key !== 'Escape') return;
+    }
+
+    switch (e.key.toLowerCase()) {
+
+        /* ---------- ESC ---------- */
+        case 'escape':
+
+            // 1) Close search
+            if (mainHeaderRow?.classList.contains('search-open')) {
+                mainHeaderRow.classList.remove('search-open');
+                searchBar.value = '';
+                renderCurrentView();
+                return;
+            }
+
+            // 2) Close confirm modal
+            if (confirmModal?.classList.contains('open')) {
+                closeConfirmModal();
+                return;
+            }
+
+            // 3) Close category modal
+            if (categoryModal?.classList.contains('open')) {
+                if (categoryModalView === 'songs') {
+                    renderCategoryGridInModal();
+                } else {
+                    closeCategoryModal();
+                }
+                return;
+            }
+
+            // 4) Close full player
+            if (document.body.classList.contains('full-player-open')) {
+                closeAnimatedPlayer();
+                return;
+            }
+
+            break;
+
+        /* ---------- PLAY ---------- */
+        case ' ':
+            e.preventDefault();
+            togglePlayPauseFromFullPlayer();
+            break;
+
+        /* ---------- SEEK ---------- */
+        case 'arrowright':
+            audioPlayer.currentTime += 5;
+            break;
+
+        case 'arrowleft':
+            audioPlayer.currentTime -= 5;
+            break;
+
+        /* ---------- VOLUME ---------- */
+        case 'arrowup':
+            e.preventDefault();
+            audioPlayer.volume = Math.min(1, audioPlayer.volume + 0.05);
+            volumeBar.value = audioPlayer.volume * 100;
+            fullVolumeBar && (fullVolumeBar.value = volumeBar.value);
+            savePlayerState();
+            break;
+
+        case 'arrowdown':
+            e.preventDefault();
+            audioPlayer.volume = Math.max(0, audioPlayer.volume - 0.05);
+            volumeBar.value = audioPlayer.volume * 100;
+            fullVolumeBar && (fullVolumeBar.value = volumeBar.value);
+            savePlayerState();
+            break;
+
+        /* ---------- SHORTCUT KEYS ---------- */
+       case 'm': // mute toggle
+
+        // store last volume
+        if (!audioPlayer.dataset.lastVolume) {
+            audioPlayer.dataset.lastVolume = audioPlayer.volume;
+        }
+
+        if (audioPlayer.muted || audioPlayer.volume === 0) {
+
+            // UNMUTE
+            const restoreVol = parseFloat(audioPlayer.dataset.lastVolume) || 0.5;
+            audioPlayer.muted = false;
+            audioPlayer.volume = restoreVol;
+
+        } else {
+
+            // MUTE
+            audioPlayer.dataset.lastVolume = audioPlayer.volume;
+            audioPlayer.muted = true;
+            audioPlayer.volume = 0;
+        }
+
+        // sync sliders
+        if (volumeBar) volumeBar.value = audioPlayer.volume * 100;
+        if (fullVolumeBar) fullVolumeBar.value = volumeBar.value;
+
+        updateVolumeIcon();
+        savePlayerState();
+        break;
+
+
+        case 'n': // next
+            playNextSong();
+            break;
+
+        case 'p': // previous
+            playPrevSong();
+            break;
+
+        case 'f': // full player toggle
+            if (document.body.classList.contains('full-player-open')) {
+                closeAnimatedPlayer();
+            } else {
+                openAnimatedPlayer();
+            }
+            break;
+
+        case 'r': // repeat toggle
+            repeatBtn?.click();
+            break;
+
+        case 's': // shuffle toggle
+            shuffleBtn?.click();
+            break;
+    }
+});
+
 
 
 /* ===============================
