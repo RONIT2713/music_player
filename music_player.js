@@ -106,6 +106,16 @@ let currentFullCategory = 'All';
 const mainHeaderRow = document.getElementById('main-header-row');
 const searchToggleBtn = document.getElementById('search-toggle-btn');
 
+// --- DOM CACHE (Batch 2 optimization) ---
+const DOM = {
+    body: document.body,
+    header: mainHeaderRow,
+    sidebar: sidebar,
+    songList: songListElement,
+    queue: nowPlayingListElement,
+    audio: audioPlayer
+};
+
 
 // --- UI PORTAL HELPERS ---
 const uiPortal = document.getElementById('ui-portal');
@@ -133,6 +143,9 @@ function isDisclaimerOpen() {
 
 // --- 2. STATE ---
 // --- NAVIGATION STATE (for mobile back button) ---
+
+
+let isPreviewSeeking = false;
 
 let currentSongs = [];
 let currentlyPlayingIndex = -1;
@@ -445,7 +458,7 @@ function syncFullPlayerState() {
 
     if (fullDurationDisplay) fullDurationDisplay.textContent = formatTime(audioPlayer.duration || 0);
     const d = audioPlayer.duration;
-    if (isFinite(d) && d > 0 && fullProgressBar) {
+    if (!isPreviewSeeking && isFinite(d) && d > 0 && fullProgressBar) {
         fullProgressBar.value = (audioPlayer.currentTime / d) * 100;
     } else if (fullProgressBar) {
         fullProgressBar.value = 0;
@@ -457,7 +470,10 @@ function syncFullPlayerState() {
 function openAnimatedPlayer() {
     
     mountToPortal(animatedPlayerOverlay);
+    if (!history.state || history.state.type !== 'fullPlayer') {
     history.pushState({ type: 'fullPlayer' }, '');
+    }
+
 
     document.body.classList.add('full-player-open', 'modal-open');
 
@@ -535,6 +551,7 @@ if (fullPlayerOverlay) {
 function updateNowPlayingQueue() {
     if (!nowPlayingListElement) return;
 
+    // Panel UI state
     if (nowPlayingPanel) {
         if (userQueue.length > 0) {
             nowPlayingPanel.classList.add('has-items');
@@ -545,33 +562,7 @@ function updateNowPlayingQueue() {
 
     nowPlayingListElement.innerHTML = '';
 
-    /* ---------- DROP ON EMPTY SPACE (BOTTOM) ---------- */
-    nowPlayingListElement.addEventListener('dragover', (e) => {
-        e.preventDefault();
-    });
-
-    nowPlayingListElement.addEventListener('drop', (e) => {
-        e.preventDefault();
-
-        const draggedId = parseInt(
-            e.dataTransfer.getData('text/plain'),
-            10
-        );
-
-        if (!draggedId) return;
-
-        const fromIndex = userQueue.indexOf(draggedId);
-        if (fromIndex === -1) return;
-
-        // Move to LAST position
-        userQueue.splice(fromIndex, 1);
-        userQueue.push(draggedId);
-
-        saveQueueToStorage();
-        updateNowPlayingQueue();
-    });
-
-
+    // EMPTY STATE
     if (userQueue.length === 0) {
         const li = document.createElement('li');
         li.classList.add('queue-empty');
@@ -586,10 +577,9 @@ function updateNowPlayingQueue() {
         if (!song) return;
 
         const li = document.createElement('li');
-        li.dataset.id = song.id; // 👈 ADD THIS LINE
+        li.dataset.id = song.id;
         li.classList.add('queue-item');
         li.draggable = true;
-
 
         /* ---------- DRAG START ---------- */
         li.addEventListener('dragstart', (e) => {
@@ -647,35 +637,81 @@ function updateNowPlayingQueue() {
 
         li.addEventListener('drop', (e) => {
             e.preventDefault();
+            e.stopPropagation();
 
             const draggedId = parseInt(
                 e.dataTransfer.getData('text/plain'),
                 10
             );
 
-            const targetId = song.id;
-
+            const targetId = parseInt(li.dataset.id, 10);
             if (draggedId === targetId) return;
 
             const fromIndex = userQueue.indexOf(draggedId);
             const toIndex = userQueue.indexOf(targetId);
-
             if (fromIndex === -1 || toIndex === -1) return;
 
-            // Reorder queue
-            userQueue.splice(
-                toIndex,
-                0,
-                userQueue.splice(fromIndex, 1)[0]
-            );
+            // mouse position
+            const rect = li.getBoundingClientRect();
+            const dropY = e.clientY - rect.top;
+            const isAfter = dropY > rect.height / 2;
+
+            // remove dragged
+            const item = userQueue.splice(fromIndex, 1)[0];
+
+            let insertIndex;
+
+            if (fromIndex < toIndex) {
+                insertIndex = isAfter ? toIndex : toIndex - 1;
+            } else {
+                insertIndex = isAfter ? toIndex + 1 : toIndex;
+            }
+
+            userQueue.splice(insertIndex, 0, item);
 
             saveQueueToStorage();
             updateNowPlayingQueue();
         });
     });
 
+    // FINAL SAVE
     saveQueueToStorage();
 }
+
+
+
+
+/* ---------- DESKTOP DROP ON EMPTY QUEUE SPACE ---------- */
+if (nowPlayingListElement) {
+
+    nowPlayingListElement.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+    nowPlayingListElement.addEventListener('drop', (e) => {
+        e.preventDefault();
+
+        // ❌ Ignore if dropped on item
+        if (e.target.closest('.queue-item')) return;
+
+        const draggedId = parseInt(
+            e.dataTransfer.getData('text/plain'),
+            10
+        );
+
+        if (!draggedId) return;
+
+        const fromIndex = userQueue.indexOf(draggedId);
+        if (fromIndex === -1) return;
+
+        userQueue.splice(fromIndex, 1);
+        userQueue.push(draggedId);
+
+        saveQueueToStorage();
+        updateNowPlayingQueue();
+    });
+
+}
+
 
 
 /* =========================================
@@ -748,12 +784,29 @@ function toggleFavorite(songId) {
     const songIndex = currentSongs.findIndex(song => song.id === songId);
 
     if (songIndex > -1) {
-        currentSongs[songIndex].isFavorite = !currentSongs[songIndex].isFavorite;
+
+        const isFav = !currentSongs[songIndex].isFavorite;
+        currentSongs[songIndex].isFavorite = isFav;
+
         saveSongsToStorage();
-        renderCurrentView();
+
+        // 🔥 MICRO UI UPDATE (no re-render)
+        const card = document.querySelector(
+            `.song-item[data-id="${songId}"]`
+        );
+
+        if (card) {
+            const favBtn = card.querySelector('.favorite-btn');
+            if (favBtn) {
+                favBtn.classList.toggle('is-favorite', isFav);
+                favBtn.textContent = isFav ? '❤️' : '🤍';
+            }
+        }
+
         highlightFullPlaylistPlaying();
     }
 }
+
 
 function highlightPlayingCard() {
     songListElement.querySelectorAll('.song-item').forEach(item => {
@@ -1326,25 +1379,28 @@ function stopPlaybackCleanup() {
     try {
         if (!audioPlayer) return;
         audioPlayer.pause();
+
         if (playPauseBtn) {
             playPauseBtn.classList.remove('playing-btn', 'is-playing');
         }
+
         if (fullPlayPauseBtn) {
             fullPlayPauseBtn.classList.remove('fa-pause');
             fullPlayPauseBtn.classList.add('fa-play');
         }
+
         spinningDisc && spinningDisc.classList.remove('is-playing');
-        if (miniCover) miniCover.classList.add('hidden');
-        if (fullPlayerCover) {
-            fullPlayerCover.src = 'covers/default.jpg';
-        }
+
         if (playerTitle) playerTitle.textContent = 'No Song Selected';
         if (playerArtist) playerArtist.textContent = '';
+
         syncFullPlayerState();
+
     } catch (e) {
         console.warn('Error during stopPlaybackCleanup', e);
     }
 }
+
 
 // --- 11. PLAYER CONTROLS (NEXT/PREV/SHUFFLE/REPEAT & PLAY) ---
 function setPlayingUI(isPlaying) {
@@ -1375,51 +1431,66 @@ function togglePlayPauseFromFullPlayer() {
 
 function playSong(song) {
 
-    if (!audioPlayer || audioPlayer.src === resolveAudio(song.filePath)) {
+    if (!audioPlayer || !song) return;
+
+    const newSrc = resolveAudio(song.filePath);
+    const currentSrc = audioPlayer.src;
+
+    /* ---------- SAME SONG ---------- */
+    if (currentSongId === song.id) {
+
+        // ensure UI always updates
+        miniCover.src = resolveCover(song.coverPath);
+        miniCover.classList.remove('hidden');
+
+        fullPlayerCover.src = resolveCover(song.coverPath);
+
+        if (audioPlayer.paused) {
+            audioPlayer.play().catch(()=>{});
+            setPlayingUI(true);
+        } 
+        else {
+            audioPlayer.pause();
+            setPlayingUI(false);
+        }
+
         return;
     }
 
-    if (!song || !audioPlayer) return;
 
-    // stop previous audio
+    /* ---------- NEW SONG ---------- */
     audioPlayer.pause();
-    audioPlayer.preload = "auto";
+
+    audioPlayer.src = newSrc;
+
+    // 🔥 reset UI instantly
+    if (progressBar) progressBar.value = 0;
+    if (fullProgressBar) fullProgressBar.value = 0;
+    if (currentTimeDisplay) currentTimeDisplay.textContent = "0:00";
 
 
-    // set source ONCE
-    audioPlayer.src = resolveAudio(song.filePath);
-
-    // 🔥 START PLAY IMMEDIATELY (do not wait)
-    audioPlayer.play().catch(() => {});
+    audioPlayer.play().catch(()=>{});
 
     currentSongId = song.id;
 
-    // UI updates
-    if (playerTitle) playerTitle.textContent = song.title;
-    if (playerArtist) playerArtist.textContent = song.artist;
+    playerTitle.textContent = song.title;
+    playerArtist.textContent = song.artist;
 
-    if (miniCover) {
-        miniCover.src = resolveCover(song.coverPath);
-        miniCover.classList.remove('hidden');
-    }
+    miniCover.src = resolveCover(song.coverPath);
+    miniCover.classList.remove('hidden');
 
-    if (fullPlayerCover) {
-        fullPlayerCover.src = resolveCover(song.coverPath);
-    }
+    fullPlayerCover.src = resolveCover(song.coverPath);
 
-    if (animatedTitle) animatedTitle.textContent = song.title;
-    if (animatedArtist) animatedArtist.textContent = song.artist;
-
-    const songsToCycle = filterCurrentView();
-    currentlyPlayingIndex = songsToCycle.findIndex(s => s.id === song.id);
+    animatedTitle.textContent = song.title;
+    animatedArtist.textContent = song.artist;
 
     setPlayingUI(true);
     highlightPlayingCard();
     highlightFullPlaylistPlaying();
     preloadNextSong();
     savePlayerState();
-
 }
+
 
 let nextPrefetchLink = null;
 
@@ -1559,46 +1630,48 @@ function playPrevSong() {
 function setupAudioListeners() {
     if (!audioPlayer) return;
 
-    audioPlayer.addEventListener('timeupdate', () => {
-        const currentTime = audioPlayer.currentTime || 0;
-        const duration = audioPlayer.duration || 0;
+audioPlayer.addEventListener('timeupdate', () => {
 
-        if (currentTimeDisplay) currentTimeDisplay.textContent = formatTime(currentTime);
+    // 🚫 DO NOT TOUCH BAR WHILE PREVIEW SEEKING
+    if (isPreviewSeeking) return;
 
-        if (isFinite(duration) && duration > 0) {
-            const progress = (currentTime / duration) * 100;
-            if (progressBar) progressBar.value = progress;
-        } else if (progressBar) {
-            progressBar.value = 0;
+    const currentTime = audioPlayer.currentTime || 0;
+    const duration = audioPlayer.duration || 0;
+
+    if (currentTimeDisplay)
+        currentTimeDisplay.textContent = formatTime(currentTime);
+
+    if (isFinite(duration) && duration > 0) {
+        const progress = (currentTime / duration) * 100;
+        progressBar && (progressBar.value = progress);
+        fullProgressBar && (fullProgressBar.value = progress);
+    }
+
+});
+
+
+audioPlayer.addEventListener('loadedmetadata', () => {
+
+    if (audioPlayer.dataset.pendingSeek) {
+
+        const t = parseFloat(audioPlayer.dataset.pendingSeek);
+
+        if (isFinite(t)) {
+            audioPlayer.currentTime = t;
         }
 
-        if (animatedPlayerOverlay && animatedPlayerOverlay.classList.contains('open')) {
-            syncFullPlayerState();
-        }
-    });
+        delete audioPlayer.dataset.pendingSeek;
+        isPreviewSeeking = false; // 🔓 UNLOCK UI
+    }
 
-    audioPlayer.addEventListener('loadedmetadata', () => {
+    durationDisplay &&
+        (durationDisplay.textContent =
+            formatTime(audioPlayer.duration || 0));
 
-        if (audioPlayer.dataset.pendingSeek) {
-
-            const t = parseFloat(audioPlayer.dataset.pendingSeek);
-
-            if (isFinite(t)) {
-                audioPlayer.currentTime = t;
-            }
-
-            delete audioPlayer.dataset.pendingSeek;
-        }
-
-        if (durationDisplay)
-            durationDisplay.textContent =
-                formatTime(audioPlayer.duration || 0);
-
-        if (fullDurationDisplay)
-            fullDurationDisplay.textContent =
-                formatTime(audioPlayer.duration || 0);
-
-    });
+    fullDurationDisplay &&
+        (fullDurationDisplay.textContent =
+            formatTime(audioPlayer.duration || 0));
+});
 
 
 
@@ -1677,7 +1750,10 @@ function renderCategoryGridInModal() {
         `;
 
         btn.addEventListener('click', () => {
-            history.pushState({ type: 'categoryModalSongs' }, '');
+            if (!history.state || history.state.type !== 'categoryModalSongs') {
+                history.pushState({ type: 'categoryModalSongs' }, '');
+            }
+
             renderCategorySongsInModal(cfg.key, cfg.label);
         });
 
@@ -1761,7 +1837,10 @@ function openCategoryModal() {
     if (!categoryModal) return;
 
     mountToPortal(categoryModal);
+    if (!history.state || history.state.type !== 'categoryModal') {
     history.pushState({ type: 'categoryModal' }, '');
+    }
+
     document.body.classList.add('modal-open');
     categoryModal.classList.add('open');
     renderCategoryGridInModal();
@@ -1987,10 +2066,6 @@ function initApp() {
             renderCurrentView();
         });
     }
-
-
-    const mainHeaderRow = document.getElementById('main-header-row');
-    const searchToggleBtn = document.getElementById('search-toggle-btn');
 
     if (searchToggleBtn && searchBar && mainHeaderRow) {
         searchToggleBtn.addEventListener('click', (e) => {
@@ -2378,17 +2453,15 @@ document.addEventListener('DOMContentLoaded', initApp);
    MASTER KEYBOARD HANDLER
    =============================== */
 
-
-
 function seekWithPreview(seconds) {
     if (!audioPlayer) return;
 
     let baseTime;
 
-    // If metadata not loaded yet
     if (!isFinite(audioPlayer.duration)) {
 
-        // Use stored pending time OR currentTime
+        isPreviewSeeking = true; // 🔒 LOCK UI
+
         baseTime = audioPlayer.dataset.pendingSeek
             ? parseFloat(audioPlayer.dataset.pendingSeek)
             : audioPlayer.currentTime;
@@ -2396,17 +2469,15 @@ function seekWithPreview(seconds) {
         let newTime = baseTime + seconds;
         newTime = Math.max(0, newTime);
 
-        // store real intended time
         audioPlayer.dataset.pendingSeek = newTime;
 
-        // update UI using fake duration bar only
         updatePreviewProgress(newTime);
         return;
     }
 
-    // Normal seek
     audioPlayer.currentTime += seconds;
 }
+
 
 function updatePreviewProgress(fakeTime) {
 
