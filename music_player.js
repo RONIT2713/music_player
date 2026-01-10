@@ -534,15 +534,43 @@ if (fullPlayerOverlay) {
 // --- 6. QUEUE ---
 function updateNowPlayingQueue() {
     if (!nowPlayingListElement) return;
+
     if (nowPlayingPanel) {
-    if (userQueue.length > 0) {
-        nowPlayingPanel.classList.add('has-items');
-    } else {
-        nowPlayingPanel.classList.remove('has-items');
+        if (userQueue.length > 0) {
+            nowPlayingPanel.classList.add('has-items');
+        } else {
+            nowPlayingPanel.classList.remove('has-items');
+        }
     }
-}
 
     nowPlayingListElement.innerHTML = '';
+
+    /* ---------- DROP ON EMPTY SPACE (BOTTOM) ---------- */
+    nowPlayingListElement.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+
+    nowPlayingListElement.addEventListener('drop', (e) => {
+        e.preventDefault();
+
+        const draggedId = parseInt(
+            e.dataTransfer.getData('text/plain'),
+            10
+        );
+
+        if (!draggedId) return;
+
+        const fromIndex = userQueue.indexOf(draggedId);
+        if (fromIndex === -1) return;
+
+        // Move to LAST position
+        userQueue.splice(fromIndex, 1);
+        userQueue.push(draggedId);
+
+        saveQueueToStorage();
+        updateNowPlayingQueue();
+    });
+
 
     if (userQueue.length === 0) {
         const li = document.createElement('li');
@@ -558,7 +586,24 @@ function updateNowPlayingQueue() {
         if (!song) return;
 
         const li = document.createElement('li');
+        li.dataset.id = song.id; // 👈 ADD THIS LINE
         li.classList.add('queue-item');
+        li.draggable = true;
+
+
+        /* ---------- DRAG START ---------- */
+        li.addEventListener('dragstart', (e) => {
+            if (e.target.closest('.queue-remove-btn')) {
+                e.preventDefault();
+                return;
+            }
+            li.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', song.id);
+        });
+
+        li.addEventListener('dragend', () => {
+            li.classList.remove('dragging');
+        });
 
         li.innerHTML = `
             <div class="queue-item-main">
@@ -570,7 +615,7 @@ function updateNowPlayingQueue() {
             </button>
         `;
 
-        // Clicking whole card -> play this song and remove from queue
+        /* ---------- PLAY ON CLICK ---------- */
         li.addEventListener('click', () => {
             const idx = userQueue.indexOf(song.id);
             if (idx > -1) {
@@ -581,7 +626,7 @@ function updateNowPlayingQueue() {
             playSong(song);
         });
 
-        // Remove button
+        /* ---------- REMOVE BUTTON ---------- */
         const removeBtn = li.querySelector('.queue-remove-btn');
         removeBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -594,10 +639,109 @@ function updateNowPlayingQueue() {
         });
 
         nowPlayingListElement.appendChild(li);
+
+        /* ---------- DROP TARGET ---------- */
+        li.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        li.addEventListener('drop', (e) => {
+            e.preventDefault();
+
+            const draggedId = parseInt(
+                e.dataTransfer.getData('text/plain'),
+                10
+            );
+
+            const targetId = song.id;
+
+            if (draggedId === targetId) return;
+
+            const fromIndex = userQueue.indexOf(draggedId);
+            const toIndex = userQueue.indexOf(targetId);
+
+            if (fromIndex === -1 || toIndex === -1) return;
+
+            // Reorder queue
+            userQueue.splice(
+                toIndex,
+                0,
+                userQueue.splice(fromIndex, 1)[0]
+            );
+
+            saveQueueToStorage();
+            updateNowPlayingQueue();
+        });
     });
 
     saveQueueToStorage();
 }
+
+
+/* =========================================
+   MOBILE TOUCH DRAG FOR QUEUE
+========================================= */
+
+let touchDragItem = null;
+let queueTouchStartY = 0; // renamed
+
+
+nowPlayingListElement.addEventListener('touchstart', (e) => {
+
+    const item = e.target.closest('.queue-item');
+    if (!item) return;
+
+    touchDragItem = item;
+    queueTouchStartY = e.touches[0].clientY;
+
+
+    item.classList.add('dragging');
+
+}, { passive: true });
+
+nowPlayingListElement.addEventListener('touchmove', (e) => {
+
+    if (!touchDragItem) return;
+
+    e.preventDefault(); // stop scroll while dragging
+
+    const currentY = e.touches[0].clientY;
+    const target = document.elementFromPoint(
+        e.touches[0].clientX,
+        currentY
+    )?.closest('.queue-item');
+
+    if (!target || target === touchDragItem) return;
+
+    const draggedId = parseInt(touchDragItem.dataset.id, 10);
+    const targetId = parseInt(target.dataset.id, 10);
+
+    const fromIndex = userQueue.indexOf(draggedId);
+    const toIndex = userQueue.indexOf(targetId);
+
+    if (fromIndex === -1 || toIndex === -1) return;
+
+    userQueue.splice(
+        toIndex,
+        0,
+        userQueue.splice(fromIndex, 1)[0]
+    );
+
+    updateNowPlayingQueue();
+
+}, { passive: false });
+
+nowPlayingListElement.addEventListener('touchend', () => {
+
+    if (!touchDragItem) return;
+
+    touchDragItem.classList.remove('dragging');
+    touchDragItem = null;
+
+    saveQueueToStorage();
+
+});
+
 
 // --- 7. RENDERING & FILTERING ---
 function toggleFavorite(songId) {
@@ -1434,9 +1578,29 @@ function setupAudioListeners() {
     });
 
     audioPlayer.addEventListener('loadedmetadata', () => {
-        if (durationDisplay) durationDisplay.textContent = formatTime(audioPlayer.duration || 0);
-        if (fullDurationDisplay) fullDurationDisplay.textContent = formatTime(audioPlayer.duration || 0);
+
+        if (audioPlayer.dataset.pendingSeek) {
+
+            const t = parseFloat(audioPlayer.dataset.pendingSeek);
+
+            if (isFinite(t)) {
+                audioPlayer.currentTime = t;
+            }
+
+            delete audioPlayer.dataset.pendingSeek;
+        }
+
+        if (durationDisplay)
+            durationDisplay.textContent =
+                formatTime(audioPlayer.duration || 0);
+
+        if (fullDurationDisplay)
+            fullDurationDisplay.textContent =
+                formatTime(audioPlayer.duration || 0);
+
     });
+
+
 
     audioPlayer.addEventListener('ended', playNextSong);
 
@@ -2163,6 +2327,8 @@ mobileMenuToggle.addEventListener('click', (e) => {
 }
 
 
+
+
 // 🔒 GLOBAL CLICK HANDLER (merged)
 document.addEventListener('click', (e) => {
 
@@ -2211,6 +2377,54 @@ document.addEventListener('DOMContentLoaded', initApp);
 /* ===============================
    MASTER KEYBOARD HANDLER
    =============================== */
+
+
+
+function seekWithPreview(seconds) {
+    if (!audioPlayer) return;
+
+    let baseTime;
+
+    // If metadata not loaded yet
+    if (!isFinite(audioPlayer.duration)) {
+
+        // Use stored pending time OR currentTime
+        baseTime = audioPlayer.dataset.pendingSeek
+            ? parseFloat(audioPlayer.dataset.pendingSeek)
+            : audioPlayer.currentTime;
+
+        let newTime = baseTime + seconds;
+        newTime = Math.max(0, newTime);
+
+        // store real intended time
+        audioPlayer.dataset.pendingSeek = newTime;
+
+        // update UI using fake duration bar only
+        updatePreviewProgress(newTime);
+        return;
+    }
+
+    // Normal seek
+    audioPlayer.currentTime += seconds;
+}
+
+function updatePreviewProgress(fakeTime) {
+
+    // assume 3 min ONLY for preview bar
+    const fakeDuration = 180;
+
+    const percent = Math.min(
+        100,
+        (fakeTime / fakeDuration) * 100
+    );
+
+    if (progressBar) progressBar.value = percent;
+    if (fullProgressBar) fullProgressBar.value = percent;
+}
+
+
+
+
 document.addEventListener('keydown', (e) => {
 
     // ❌ Ignore if disclaimer is open
@@ -2266,12 +2480,13 @@ document.addEventListener('keydown', (e) => {
 
         /* ---------- SEEK ---------- */
         case 'arrowright':
-            audioPlayer.currentTime += 5;
+            seekWithPreview(5);
             break;
 
         case 'arrowleft':
-            audioPlayer.currentTime -= 5;
+            seekWithPreview(-5);
             break;
+
 
         /* ---------- VOLUME ---------- */
         case 'arrowup':
