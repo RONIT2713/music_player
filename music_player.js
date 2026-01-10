@@ -13,11 +13,6 @@ function resolveCover(path) {
     return COVER_BASE + path;
 }
 
-// QUICK ACTIONS REMOVED – SAFETY GUARD
-const quickActionsBox = null;
-
-
-
 // --- 1. GET HTML ELEMENTS ---
 const songListElement = document.getElementById('song-list');
 const audioPlayer = document.getElementById('audio-element');
@@ -42,14 +37,18 @@ const currentTimeDisplay = document.getElementById('current-time');
 const durationDisplay = document.getElementById('duration');
 
 const searchBar = document.getElementById('search-bar');
-const searchContainer = document.getElementById('search-container');
-let searchOpen = false;
 
 const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
 const sidebar = document.getElementById('sidebar');
 const themeToggleBtn = document.getElementById('theme-toggle');
 
 const miniCover = document.getElementById('mini-cover');
+
+// Batch 5 cache
+const fullPlaylistEl = document.getElementById('full-playlist');
+const fullPlaylistContainer = document.getElementById('full-playlist-container');
+const fullTabsRow = document.getElementById('full-tabs-row');
+
 
 // Now Playing queue
 const nowPlayingListElement = document.getElementById('now-playing-list');
@@ -71,13 +70,10 @@ const fullProgressBar = document.getElementById('full-progress-bar');
 const fullPlayPauseBtn = document.getElementById('full-play-pause-btn');
 const fullPrevBtn = document.getElementById('full-prev-btn');
 const fullNextBtn = document.getElementById('full-next-btn');
-const fullCurrentTimeDisplay = document.getElementById('full-current-time');
 const fullDurationDisplay = document.getElementById('full-duration');
 
 // New full-player extras
 let fullPlayerCover = document.getElementById('full-player-cover');
-const fullPlaylistElement = document.getElementById('full-playlist'); // UL inside full-playlist-container
-const fullPlaylistContainer = document.getElementById('full-playlist-container'); // container wrapper
 let fullTabButtons = document.querySelectorAll('.full-tab-btn');
 
 let fullVolumeBar = document.getElementById('full-volume-bar');
@@ -92,7 +88,6 @@ const viewAllCategoriesBtn = document.getElementById('view-all-categories-btn');
 
 // Confirmation modal (for clear favorites + downloads)
 const confirmModal = document.getElementById('confirm-modal');
-const confirmModalContent = document.getElementById('confirm-modal-content');
 const confirmModalTitle = document.getElementById('confirm-modal-title');
 const confirmModalMessage = document.getElementById('confirm-modal-message');
 const confirmModalCancel = document.getElementById('confirm-modal-cancel');
@@ -108,6 +103,27 @@ let currentMainView = 'songs'; // 'songs' | 'albums' | 'artists'
 let currentFullCategory = 'All';
 
 
+const mainHeaderRow = document.getElementById('main-header-row');
+const searchToggleBtn = document.getElementById('search-toggle-btn');
+
+
+// --- UI PORTAL HELPERS ---
+const uiPortal = document.getElementById('ui-portal');
+
+function mountToPortal(el) {
+    if (!el || !uiPortal) return;
+    if (!uiPortal.contains(el)) {
+        uiPortal.appendChild(el);
+    }
+}
+
+function unmountFromPortal(el) {
+    if (!el || !el.parentElement) return;
+    el.remove();
+}
+
+
+
 function isDisclaimerOpen() {
     const overlay = document.getElementById('disclaimer-overlay');
     return overlay && !overlay.classList.contains('disclaimer-hidden');
@@ -117,10 +133,6 @@ function isDisclaimerOpen() {
 
 // --- 2. STATE ---
 // --- NAVIGATION STATE (for mobile back button) ---
-let navStack = {
-    fullPlayer: false,
-    categoryModal: false,
-};
 
 let currentSongs = [];
 let currentlyPlayingIndex = -1;
@@ -305,7 +317,6 @@ function syncFullPlayerState() {
     if (!currentSongId) {
         animatedTitle.textContent = 'No Song Selected';
         animatedArtist.textContent = 'Choose something from your library to start listening.';
-        if (fullCurrentTimeDisplay) fullCurrentTimeDisplay.textContent = '0:00';
         if (fullDurationDisplay) fullDurationDisplay.textContent = '0:00';
         if (fullProgressBar) fullProgressBar.value = 0;
         if (fullPlayPauseBtn) {
@@ -336,7 +347,6 @@ function syncFullPlayerState() {
         spinningDisc && spinningDisc.classList.remove('is-playing');
     }
 
-    if (fullCurrentTimeDisplay) fullCurrentTimeDisplay.textContent = formatTime(audioPlayer.currentTime || 0);
     if (fullDurationDisplay) fullDurationDisplay.textContent = formatTime(audioPlayer.duration || 0);
     const d = audioPlayer.duration;
     if (isFinite(d) && d > 0 && fullProgressBar) {
@@ -349,10 +359,9 @@ function syncFullPlayerState() {
 }
 
 function openAnimatedPlayer() {
-    if (!navStack.fullPlayer) {
-        history.pushState({ type: 'fullPlayer' }, '');
-        navStack.fullPlayer = true;
-    }
+    
+    mountToPortal(animatedPlayerOverlay);
+    history.pushState({ type: 'fullPlayer' }, '');
 
     document.body.classList.add('full-player-open', 'modal-open');
 
@@ -374,14 +383,18 @@ function openAnimatedPlayer() {
 }
 
 function closeAnimatedPlayer() {
-    navStack.fullPlayer = false;
     document.body.classList.remove('full-player-open', 'modal-open');
 
 
 
     if (!animatedPlayerOverlay) return;
 
-    animatedPlayerOverlay.classList.remove('open');
+        animatedPlayerOverlay.classList.remove('open');
+
+        setTimeout(() => {
+            unmountFromPortal(animatedPlayerOverlay);
+        }, 300);
+
 
     if (openPlayerIcon) {
         openPlayerIcon.style.display = 'flex';
@@ -498,17 +511,12 @@ function toggleFavorite(songId) {
         currentSongs[songIndex].isFavorite = !currentSongs[songIndex].isFavorite;
         saveSongsToStorage();
         renderCurrentView();
-
-        if (currentSongId === songId) {
-            
-        }
-
         highlightFullPlaylistPlaying();
     }
 }
 
 function highlightPlayingCard() {
-    document.querySelectorAll('.song-item').forEach(item => {
+    songListElement.querySelectorAll('.song-item').forEach(item => {
         const id = parseInt(item.dataset.id, 10);
         if (id === currentSongId) {
             item.classList.add('playing');
@@ -673,82 +681,20 @@ function renderSongList(songsToDisplay) {
 
         // Play when clicking cover or text
         const playTargets = listItem.querySelectorAll('.album-cover-wrapper, .song-meta');
-        playTargets.forEach(el => {
-            el.addEventListener('click', () => {
-                playSong(song);
-            });
-        });
-
-        // Favorite toggle
-        const favBtn = listItem.querySelector('.favorite-btn');
-        if (favBtn) {
-            favBtn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                toggleFavorite(song.id);
-            });
-        }
 
         // Options button show/hide
         const optionsBtn = listItem.querySelector('.options-btn');
-        if (optionsBtn) {
-            optionsBtn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                // close others
-                document.querySelectorAll('.song-item.show-options').forEach(card => {
-                    if (card !== listItem) card.classList.remove('show-options');
-                });
-                listItem.classList.toggle('show-options');
-            });
-        }
+
 
         // Download option with custom confirmation modal
         // Download option — instant download (no confirmation)
 const downloadBtn = listItem.querySelector('.option-download');
-if (downloadBtn) {
-    downloadBtn.addEventListener('click', async (event) => {
-        event.stopPropagation();
-        listItem.classList.remove('show-options');
 
-        try {
-            const url = resolveAudio(song.filePath);
-
-            const response = await fetch(url);
-            if (!response.ok) throw new Error("Download failed");
-
-            const blob = await response.blob();
-            const downloadUrl = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            const filename =
-                song.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".mp3";
-
-            a.href = downloadUrl;
-            a.download = filename;
-
-            document.body.appendChild(a);
-            a.click();
-
-            document.body.removeChild(a);
-            URL.revokeObjectURL(downloadUrl);
-        } catch (err) {
-            alert("Download failed. Please try again.");
-            console.error(err);
-        }
-    });
-}
 
 
         // Add to queue option
         const addQueueBtn = listItem.querySelector('.option-add-queue');
-        if (addQueueBtn) {
-            addQueueBtn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                userQueue.push(song.id);
-                saveQueueToStorage();
-                updateNowPlayingQueue();
-                listItem.classList.remove('show-options');
-            });
-        }
+
 
         // Accent color hook
         const imgEl = listItem.querySelector('.album-cover');
@@ -759,6 +705,87 @@ if (downloadBtn) {
         songListElement.appendChild(listItem);
     });
 }
+
+
+// 🔁 SONG CARD EVENT DELEGATION (Batch 4)
+songListElement.addEventListener('click', async (e) => {
+
+    const card = e.target.closest('.song-item');
+    if (!card) return;
+
+    const songId = parseInt(card.dataset.id, 10);
+    const song = currentSongs.find(s => s.id === songId);
+    if (!song) return;
+
+    // ▶ PLAY
+    if (
+        e.target.closest('.album-cover-wrapper') ||
+        e.target.closest('.song-meta')
+    ) {
+        playSong(song);
+        return;
+    }
+
+    // ❤️ FAVORITE
+    if (e.target.closest('.favorite-btn')) {
+        e.stopPropagation();
+        toggleFavorite(songId);
+        return;
+    }
+
+    // ⋮ OPTIONS TOGGLE
+    if (e.target.closest('.options-btn')) {
+        e.stopPropagation();
+
+        document.querySelectorAll('.song-item.show-options')
+            .forEach(c => c !== card && c.classList.remove('show-options'));
+
+        card.classList.toggle('show-options');
+        return;
+    }
+
+    // ⬇ DOWNLOAD
+    if (e.target.closest('.option-download')) {
+        e.stopPropagation();
+        card.classList.remove('show-options');
+
+        try {
+            const url = resolveAudio(song.filePath);
+            const res = await fetch(url);
+            if (!res.ok) throw new Error();
+
+            const blob = await res.blob();
+            const urlObj = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = urlObj;
+
+            link.download =
+                song.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".mp3";
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(urlObj); // cleanup
+
+
+        } catch {
+            alert("Download failed.");
+        }
+        return;
+    }
+
+    // ➕ ADD TO QUEUE
+    if (e.target.closest('.option-add-queue')) {
+        e.stopPropagation();
+        userQueue.push(songId);
+        saveQueueToStorage();
+        updateNowPlayingQueue();
+        card.classList.remove('show-options');
+        return;
+    }
+});
+
 
 // ALBUM VIEW
 function renderAlbumList() {
@@ -810,7 +837,7 @@ function renderAlbumList() {
             <div class="album-card-inner">
                 <div class="album-cover-wrapper">
                     <img
-                        src="${resolveCover(song.coverPath)}"
+                        src="${resolveCover(firstSong.coverPath)}"
                         alt="${album.artist} album"
                         class="album-cover"
                         loading="lazy"
@@ -890,7 +917,7 @@ function renderArtistsView() {
                     ${
                         firstSong.coverPath
                             ? `<img
-                                    src="${resolveCover(song.coverPath)}"
+                                    src="${resolveCover(firstSong.coverPath)}"
                                     alt="${artistObj.artist}"
                                     class="album-cover"
                                     loading="lazy"
@@ -977,7 +1004,8 @@ function renderArtistsList() {
 // inside a .full-playlist-box above the controls in the right panel.
 function renderFullPlayerPlaylist() {
     // ensure container exists
-    const ul = document.getElementById('full-playlist');
+    const ul = fullPlaylistEl;
+
     if (!ul) return;
 
     // choose songs by category
@@ -1036,7 +1064,8 @@ function renderFullPlayerPlaylist() {
 }
 
 function highlightFullPlaylistPlaying() {
-    const ul = document.getElementById('full-playlist');
+    const ul = fullPlaylistEl;
+
     if (!ul) return;
     const items = ul.querySelectorAll('.full-playlist-item');
     items.forEach(li => {
@@ -1105,6 +1134,11 @@ function togglePlayPauseFromFullPlayer() {
 
 
 function playSong(song) {
+
+    if (!audioPlayer || audioPlayer.src === resolveAudio(song.filePath)) {
+        return;
+    }
+
     if (!song || !audioPlayer) return;
 
     // stop previous audio
@@ -1308,16 +1342,6 @@ function setupAudioListeners() {
 
     audioPlayer.addEventListener('ended', playNextSong);
 
-    audioPlayer.addEventListener('play', async () => {
-        try {
-            if (typeof audioContext !== 'undefined' && audioContext && audioContext.state === 'suspended') {
-                await audioContext.resume();
-            }
-        } catch (e) {
-            // ignore
-        }
-    });
-
     if (progressBar) {
         progressBar.addEventListener('input', () => {
             const d = audioPlayer.duration;
@@ -1468,21 +1492,24 @@ function renderCategorySongsInModal(categoryKey, label) {
 function openCategoryModal() {
     if (!categoryModal) return;
 
-    if (!navStack.categoryModal) {
-        history.pushState({ type: 'categoryModal' }, '');
-        navStack.categoryModal = true;
-    }
-
+    mountToPortal(categoryModal);
+    history.pushState({ type: 'categoryModal' }, '');
     document.body.classList.add('modal-open');
     categoryModal.classList.add('open');
     renderCategoryGridInModal();
 }
 
-
-
 function closeCategoryModal() {
-    navStack.categoryModal = false;
-    categoryModal.classList.remove('open');
+
+    if (categoryModal) {
+        categoryModal.classList.remove('open');
+
+        // wait for animation end before removing
+        setTimeout(() => {
+            unmountFromPortal(categoryModal);
+        }, 250);
+    }
+
     document.body.classList.remove('modal-open');
 }
 
@@ -1537,6 +1564,9 @@ function openConfirmModal({
 }) {
     if (!confirmModal) return;
 
+    mountToPortal(confirmModal);
+
+
     if (confirmModalTitle && title) {
         confirmModalTitle.textContent = title;
     }
@@ -1560,14 +1590,21 @@ function openConfirmModal({
 }
 
 function closeConfirmModal() {
+
     if (!confirmModal) return;
+
     confirmModal.classList.remove('open');
+
+    setTimeout(() => {
+        unmountFromPortal(confirmModal);
+    }, 200);
+
     document.body.classList.remove('modal-open');
     pendingConfirmAction = null;
+
+    // restore focus
+    lastFocusedElement?.focus();
 }
-
-
-// --- 16. QUICK ACTIONS ---
 
 
 // --- 17. HELPERS FOR REPOSITIONING PLAYLIST ---
@@ -1575,7 +1612,9 @@ function closeConfirmModal() {
 // above the full-player controls. If necessary, create the .full-playlist-box and
 // move the #full-tabs-row into it so category tabs sit at the top of the playlist.
 function repositionFullPlaylistContainer() {
-    const playlistContainer = document.getElementById('full-playlist-container');
+    const playlistContainer = fullPlaylistContainer;
+
+
     const fullPlayerRight = document.getElementById('full-player-right');
     const fullControlsContainer = document.getElementById('full-player-controls-container');
 
@@ -1591,7 +1630,8 @@ function repositionFullPlaylistContainer() {
     }
 
     // move the tabs into the playlistBox (so they appear at top of playlist)
-    const tabs = document.getElementById('full-tabs-row');
+    const tabs = fullTabsRow;
+
     if (tabs) {
         if (tabs.parentElement !== playlistBox) {
             playlistBox.appendChild(tabs);
@@ -1630,13 +1670,28 @@ function pushViewStateIfNeeded(stateType) {
 
 // --- 18. INITIALIZATION ---
 function initApp() {
+
+
+    // --- CLEAN INITIAL OVERLAYS (PORTAL CONTROL) ---
+    [
+    categoryModal,
+    confirmModal,
+    animatedPlayerOverlay,
+    ].forEach(el => {
+    if (el && el.parentElement) {
+        el.remove();
+    }
+    });
+
     if (!history.state) {
     history.replaceState({ type: 'base' }, '');
 }
 
     loadSongsFromStorage();
         // 🔀 Shuffle songs once on page load (fresh order every refresh)
+    currentSongs = [...currentSongs];
     shuffleArrayOnce(currentSongs);
+
     loadQueueFromStorage();
     applyStoredTheme();
     setupAudioListeners();
@@ -1646,14 +1701,13 @@ function initApp() {
 
     // Ensure playlist container positioning is set BEFORE rendering the playlist to avoid flicker
     repositionFullPlaylistContainer();
-
     renderCurrentView();
     renderArtistsList();
     setActiveFilterClass();
     updateNowPlayingQueue();
     setupCategoryModalEvents();
     renderFullPlayerPlaylist();
-    repositionFullPlaylistContainer(); // ensure position after render
+
    
 
     // Search
@@ -1686,23 +1740,6 @@ function initApp() {
             }
         });
     }
-
-    // 🔍 Close search when clicking outside
-        document.addEventListener('click', (e) => {
-            if (isDisclaimerOpen()) return;
-            if (!mainHeaderRow.classList.contains('search-open')) return;
-
-
-            const clickedInsideSearch =
-                searchBar.contains(e.target) ||
-                searchToggleBtn.contains(e.target);
-
-            if (!clickedInsideSearch) {
-                mainHeaderRow.classList.remove('search-open');
-                searchBar.value = '';
-                renderCurrentView();
-            }
-        });
 
 
 
@@ -1899,22 +1936,6 @@ mobileMenuToggle.addEventListener('click', (e) => {
 });
 
 
-    // Close sidebar when clicking outside (mobile only)
-document.addEventListener('click', (e) => {
-    if (isDisclaimerOpen()) return; // 🔒 BLOCK ALL APP CLICKS
-
-    if (
-        window.innerWidth <= 768 &&
-        sidebar.classList.contains('open') &&
-        !sidebar.contains(e.target) &&
-        !mobileMenuToggle.contains(e.target)
-    ) {
-        sidebar.classList.remove('open');
-        document.body.classList.remove('sidebar-open');
-    }
-});
-
-
 
     // Prevent sidebar clicks from closing itself
     sidebar.addEventListener('click', (e) => {
@@ -1939,16 +1960,6 @@ document.addEventListener('click', (e) => {
     // Animated player open/close (safe guards)
     if (openPlayerIcon) openPlayerIcon.addEventListener('click', openAnimatedPlayer);
     if (closePlayerBtn) closePlayerBtn.addEventListener('click', closeAnimatedPlayer);
-
-    // Close any open options menu when clicking outside song cards
-    document.addEventListener('click', (e) => {
-        if (isDisclaimerOpen()) return;
-        if (!e.target.closest('.song-item')) {
-
-            document.querySelectorAll('.song-item.show-options')
-                .forEach(card => card.classList.remove('show-options'));
-        }
-    });
 
     // Clear all favorites button with confirmation
     if (clearFavoritesBtn) {
@@ -2020,7 +2031,77 @@ document.addEventListener('click', (e) => {
  
     // Default main view button state
     setActiveMainViewButton();
+
+
+
+    // ================= DISCLAIMER INIT =================
+    (function initDisclaimer(){
+    const overlay = document.getElementById('disclaimer-overlay');
+    const acceptBtn = document.getElementById('accept-disclaimer-btn');
+    if (!overlay || !acceptBtn) return;
+
+    const DISCLAIMER_KEY = 'viridxi_disclaimer_v1';
+    const accepted = localStorage.getItem(DISCLAIMER_KEY);
+
+    mountToPortal(overlay);
+
+    if (!accepted) {
+        overlay.classList.remove('disclaimer-hidden');
+        document.body.classList.add('modal-open');
+        history.pushState({ disclaimer: true }, '');
+    }
+
+    acceptBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        localStorage.setItem(DISCLAIMER_KEY, 'accepted');
+        overlay.classList.add('disclaimer-hidden');
+        document.body.classList.remove('modal-open');
+    });
+
+    })();
+
 }
+
+
+// 🔒 GLOBAL CLICK HANDLER (merged)
+document.addEventListener('click', (e) => {
+
+    if (isDisclaimerOpen()) return;
+
+    /* close song options menu */
+    if (!e.target.closest('.song-item')) {
+        document.querySelectorAll('.song-item.show-options')
+        .forEach(card => card.classList.remove('show-options'));
+    }
+
+    if (mainHeaderRow?.classList.contains('search-open')) {
+
+        const inside =
+            searchBar.contains(e.target) ||
+            searchToggleBtn.contains(e.target)
+
+
+        if (!inside) {
+            mainHeaderRow.classList.remove('search-open');
+            searchBar.value = '';
+            renderCurrentView();
+        }
+    }
+
+    /* close sidebar (mobile) */
+    if (
+        window.innerWidth <= 768 &&
+        sidebar.classList.contains('open') &&
+        !sidebar.contains(e.target) &&
+        !mobileMenuToggle.contains(e.target)
+    ) {
+        sidebar.classList.remove('open');
+        document.body.classList.remove('sidebar-open');
+    }
+
+});
+
 
 
 
@@ -2031,43 +2112,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 /* ===============================
    COPYRIGHT DISCLAIMER (SHOW ONCE)
    =============================== */
-document.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById('disclaimer-overlay');
-    const acceptBtn = document.getElementById('accept-disclaimer-btn');
 
-    if (!overlay || !acceptBtn) return;
-
-    const DISCLAIMER_KEY = 'viridxi_disclaimer_v1';
-    let disclaimerAccepted = !!localStorage.getItem(DISCLAIMER_KEY);
-
-    // Show disclaimer only once
-    if (!disclaimerAccepted) {
-        overlay.classList.remove('disclaimer-hidden');
-        document.body.classList.add('modal-open');
-
-        // ⛔ Block back button
-        history.pushState({ disclaimer: true }, '');
-    }
-
-    // Prevent back navigation until accepted
-    window.addEventListener('popstate', () => {
-        if (!localStorage.getItem(DISCLAIMER_KEY)) {
-            history.pushState({ disclaimer: true }, '');
-        }
-    });
-
-    acceptBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        localStorage.setItem(DISCLAIMER_KEY, 'accepted');
-
-        overlay.classList.add('disclaimer-hidden');
-        document.body.classList.remove('modal-open');
-
-        disclaimerAccepted = true;
-    });
-});
 
 
 (function setupDisclaimerFocusTrap() {
@@ -2106,24 +2151,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// 🔙 GLOBAL BACK HANDLER
 window.addEventListener('popstate', () => {
-    // 1️⃣ Full player has highest priority
+
+    // 1️⃣ Disclaimer blocks everything
+    const overlay = document.getElementById('disclaimer-overlay');
+    if (overlay && !overlay.classList.contains('disclaimer-hidden')) {
+        history.pushState({ disclaimer:true }, '');
+        return;
+    }
+
+    // 2️⃣ Full player
     if (document.body.classList.contains('full-player-open')) {
         closeAnimatedPlayer();
         return;
     }
 
-    // 2️⃣ Category modal open
-    if (categoryModal && categoryModal.classList.contains('open')) {
+    // 3️⃣ Category modal
+    if (categoryModal?.classList.contains('open')) {
         if (categoryModalView === 'songs') {
             renderCategoryGridInModal();
             return;
         }
-
         closeCategoryModal();
         return;
     }
-    // 3️⃣ Albums / Artists view → go back to Songs
+
+    // 4️⃣ Albums / Artists → Songs
     if (currentMainView !== 'songs') {
         currentMainView = 'songs';
         renderCurrentView();
@@ -2131,13 +2185,9 @@ window.addEventListener('popstate', () => {
         return;
     }
 
-
-    // 3️⃣ Favorites / filters → go back to home
-    if (
-        currentFilter.type !== 'view' ||
-        currentFilter.value !== 'playlist'
-    ) {
-        currentFilter = { type: 'view', value: 'playlist' };
+    // 5️⃣ Filters → Home
+    if (currentFilter.type !== 'view' || currentFilter.value !== 'playlist') {
+        currentFilter = { type:'view', value:'playlist' };
         currentMainView = 'songs';
         renderCurrentView();
         setActiveFilterClass();
@@ -2145,7 +2195,6 @@ window.addEventListener('popstate', () => {
         return;
     }
 
-    // 4️⃣ Nothing to handle → allow browser default (exit)
 });
 
 
