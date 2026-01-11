@@ -39,6 +39,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <button data-view="favorites"><i class="fas fa-heart"></i> Favorites</button>
 </nav>
 
+<button id="my-playlists-btn" class="sidebar-section-btn">
+  <i class="fas fa-folder"></i>
+  My Playlists
+</button>
+
+
+<button id="my-downloads-btn" class="sidebar-section-btn">
+  <i class="fas fa-download"></i>
+  My Downloads
+</button>
+
 <h3>Categories</h3>
 <div id="categories-list">
 <button data-category="Hindi"><i class="fas fa-music"></i> Hindi</button>
@@ -50,23 +61,28 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <i class="fas fa-layer-group"></i> View all categories
 </button>
 
-<h3>Artists</h3>
-<ul id="artists-list"></ul>
 
-<h3>Settings</h3>
-<div id="settings-list">
 
-<button id="theme-toggle" class="settings-btn">
-<i class="fas fa-moon"></i>
-<span>Toggle Theme</span>
+<button id="artists-modal-btn" class="sidebar-section-btn">
+  <i class="fas fa-user"></i>
+  Artists
 </button>
 
-<button id="install-app-btn" class="settings-btn">
-<i class="fas fa-download"></i>
-<span>Install App</span>
+
+<button id="albums-modal-btn" class="sidebar-section-btn">
+  <i class="fas fa-compact-disc"></i>
+  Albums
 </button>
 
-</div>
+
+
+
+
+<button id="open-settings-btn" class="sidebar-section-btn">
+  <i class="fas fa-cog"></i>
+  <span>Settings</span>
+</button>
+
 </aside>
 
 <!-- HEADER -->
@@ -254,6 +270,75 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 </div>
 </div>
 
+<!-- ARTIST MODAL -->
+<div id="artist-modal">
+
+  <div id="artist-modal-content" class="category-modal-content">
+
+    <button id="artist-modal-close" class="modal-close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <h3>Artists</h3>
+
+    <div id="artist-modal-body" class="artist-modal-grid">
+      <!-- artists will be injected here -->
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ALBUM MODAL -->
+<div id="album-modal">
+
+  <div class="album-modal-content category-modal-content">
+
+    <button id="album-modal-close" class="modal-close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <h3>Albums</h3>
+
+    <div id="album-modal-body" class="artist-modal-grid">
+      <!-- albums injected later -->
+    </div>
+
+  </div>
+</div>
+
+
+<!-- SETTINGS MODAL -->
+<div id="settings-modal">
+
+  <div class="settings-modal-content">
+
+    <button id="settings-modal-close" class="modal-close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <h3>Settings</h3>
+
+    <div class="settings-modal-body">
+
+      <button id="theme-toggle-modal" class="settings-item">
+        <i class="fas fa-moon"></i>
+        <span>Toggle Theme</span>
+      </button>
+
+      <button id="install-app-btn-modal" class="settings-item">
+        <i class="fas fa-download"></i>
+        <span>Install App</span>
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
 <!-- CONFIRM MODAL -->
 <div id="confirm-modal">
 
@@ -310,6 +395,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 </div>
 
 
+<!-- Hidden real buttons (logic only) -->
+<div style="display:none">
+  <button id="theme-toggle"></button>
+  <button id="install-app-btn"></button>
+</div>
 
 
 <script src="data.js"></script>
@@ -320,9 +410,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-  // navigator.serviceWorker.register('/app/service-worker.js')
-    // .then(() => console.log("✅ SW registered"))
-    //.catch(err => console.error("❌ SW error", err));
+   navigator.serviceWorker.register('/app/service-worker.js')
+     .then(() => console.log("✅ SW registered"))
+    .catch(err => console.error("❌ SW error", err));
   });
 }
 </script>

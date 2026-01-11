@@ -1905,6 +1905,250 @@ function setupCategoryModalEvents() {
     }
 }
 
+// --- ARTIST MODAL LOGIC ---
+
+const artistModalBtn = document.getElementById("artists-modal-btn");
+const artistModal = document.getElementById("artist-modal");
+const artistModalClose = document.getElementById("artist-modal-close");
+
+const albumModalBtn = document.getElementById("albums-modal-btn");
+const albumModal = document.getElementById("album-modal");
+const albumModalClose = document.getElementById("album-modal-close");
+
+
+if (artistModalBtn && artistModal) {
+
+    artistModalBtn.addEventListener("click", () => {
+
+        closeSidebarIfMobile(); // keep mobile behavior consistent
+
+        mountToPortal(artistModal);
+
+        if (!history.state || history.state.type !== 'artistModal') {
+            history.pushState({ type: 'artistModal' }, '');
+        }
+
+        document.body.classList.add("modal-open");
+        artistModal.classList.add("open");
+        renderArtistsInModal();
+
+    });
+}
+
+if (artistModalClose && artistModal) {
+
+    artistModalClose.addEventListener("click", () => {
+        closeArtistModal();
+    });
+}
+
+function closeArtistModal() {
+
+    if (!artistModal) return;
+
+    artistModal.classList.remove("open");
+
+    setTimeout(() => {
+        unmountFromPortal(artistModal);
+    }, 250);
+
+    document.body.classList.remove("modal-open");
+}
+
+
+function renderArtistsInModal() {
+
+    const body = document.getElementById("artist-modal-body");
+    if (!body) return;
+
+    body.innerHTML = '';
+
+    const artistMap = new Map();
+
+    currentSongs.forEach(song => {
+        if (!artistMap.has(song.artist)) {
+            artistMap.set(song.artist, song);
+        }
+    });
+
+    artistMap.forEach((song, artistName) => {
+
+        const card = document.createElement('div');
+        card.className = 'artist-card';
+
+        card.innerHTML = `
+            <div class="artist-avatar">
+                <img src="${resolveCover(song.coverPath)}" alt="${artistName}">
+            </div>
+            <div class="artist-name">${artistName}</div>
+        `;
+
+        card.addEventListener('click', () => {
+
+            closeArtistModal();
+
+            if (searchBar) searchBar.value = '';
+
+            currentFilter = {
+                type: 'artist',
+                value: artistName
+            };
+
+            currentMainView = 'songs';
+
+            pushViewStateIfNeeded('artist');
+
+            setActiveMainViewButton();
+            renderCurrentView();
+            setActiveFilterClass();
+        });
+
+        body.appendChild(card);
+    });
+}
+
+
+// --- ALBUM MODAL LOGIC ---
+
+if (albumModalBtn && albumModal) {
+
+  albumModalBtn.addEventListener("click", () => {
+
+    closeSidebarIfMobile();
+
+    mountToPortal(albumModal);
+
+    if (!history.state || history.state.type !== 'albumModal') {
+      history.pushState({ type: 'albumModal' }, '');
+    }
+
+    document.body.classList.add("modal-open");
+    albumModal.classList.add("open");
+
+    renderAlbumsInModal();
+  });
+}
+
+if (albumModalClose && albumModal) {
+  albumModalClose.addEventListener("click", () => {
+    closeAlbumModal();
+  });
+}
+
+function closeAlbumModal() {
+
+  if (!albumModal) return;
+
+  albumModal.classList.remove("open");
+
+  setTimeout(() => {
+    unmountFromPortal(albumModal);
+  }, 250);
+
+  document.body.classList.remove("modal-open");
+}
+function renderAlbumsInModal() {
+
+  const body = document.getElementById("album-modal-body");
+  if (!body) return;
+
+  body.innerHTML = '';
+
+  const albumMap = new Map();
+
+  currentSongs.forEach(song => {
+    const key = `${song.artist}||${song.category}`;
+    if (!albumMap.has(key)) {
+      albumMap.set(key, song);
+    }
+  });
+
+  albumMap.forEach((song, key) => {
+
+    const [artist, category] = key.split('||');
+
+    const card = document.createElement('div');
+    card.className = 'artist-card'; // reuse artist style
+
+    card.innerHTML = `
+      <div class="artist-avatar">
+        <img src="${resolveCover(song.coverPath)}" alt="${artist}">
+      </div>
+      <div class="artist-name">
+        ${artist}
+        <small>${category}</small>
+      </div>
+    `;
+
+    card.addEventListener('click', () => {
+
+      closeAlbumModal();
+
+      if (searchBar) searchBar.value = '';
+
+      currentFilter = {
+        type: 'artist',
+        value: artist
+      };
+
+      currentMainView = 'songs';
+
+      pushViewStateIfNeeded('album');
+
+      setActiveMainViewButton();
+      renderCurrentView();
+      setActiveFilterClass();
+    });
+
+    body.appendChild(card);
+  });
+}
+
+// --- SETTINGS MODAL LOGIC ---
+
+const openSettingsBtn = document.getElementById("open-settings-btn");
+const settingsModal = document.getElementById("settings-modal");
+const settingsModalClose = document.getElementById("settings-modal-close");
+
+if (openSettingsBtn && settingsModal) {
+
+    openSettingsBtn.addEventListener("click", () => {
+
+        closeSidebarIfMobile();
+
+        mountToPortal(settingsModal);
+
+        if (!history.state || history.state.type !== 'settingsModal') {
+            history.pushState({ type: 'settingsModal' }, '');
+        }
+
+        document.body.classList.add("modal-open");
+        settingsModal.classList.add("open");
+
+    });
+}
+
+if (settingsModalClose && settingsModal) {
+
+    settingsModalClose.addEventListener("click", () => {
+        closeSettingsModal();
+    });
+}
+
+function closeSettingsModal() {
+
+    if (!settingsModal) return;
+
+    settingsModal.classList.remove("open");
+
+    setTimeout(() => {
+        unmountFromPortal(settingsModal);
+    }, 250);
+
+    document.body.classList.remove("modal-open");
+}
+
+
 // --- 14. MAIN VIEW BUTTONS ---
 function setActiveMainViewButton() {
     if (!mainViewButtons) return;
@@ -2058,7 +2302,6 @@ function initApp() {
     // Ensure playlist container positioning is set BEFORE rendering the playlist to avoid flicker
     repositionFullPlaylistContainer();
     renderCurrentView();
-    renderArtistsList();
     setActiveFilterClass();
     updateNowPlayingQueue();
     setupCategoryModalEvents();
@@ -2306,6 +2549,25 @@ mobileMenuToggle.addEventListener('click', (e) => {
             document.body.dataset.theme = next;
             localStorage.setItem('musicPlayerTheme', next);
             updateThemeToggleIcon();
+        });
+    }
+
+
+    // SETTINGS MODAL BUTTON BRIDGE
+    const themeModalBtn = document.getElementById('theme-toggle-modal');
+    const installModalBtn = document.getElementById('install-app-btn-modal');
+
+    // Forward modal clicks to real hidden buttons
+    if (themeModalBtn && themeToggleBtn) {
+        themeModalBtn.addEventListener('click', () => {
+            themeToggleBtn.click(); // trigger real logic
+        });
+    }
+
+    if (installModalBtn) {
+        installModalBtn.addEventListener('click', () => {
+            const realInstallBtn = document.getElementById('install-app-btn');
+            if (realInstallBtn) realInstallBtn.click();
         });
     }
 
