@@ -72,6 +72,13 @@ const fullPrevBtn = document.getElementById('full-prev-btn');
 const fullNextBtn = document.getElementById('full-next-btn');
 const fullDurationDisplay = document.getElementById('full-duration');
 
+
+// FULL PLAYER ICONS
+
+const fullPlayIcon = document.querySelector('#full-play-pause-btn i');
+const fullVolumeIcon = document.getElementById('full-volume-icon');
+
+
 // New full-player extras
 let fullPlayerCover = document.getElementById('full-player-cover');
 let fullTabButtons = document.querySelectorAll('.full-tab-btn');
@@ -245,20 +252,21 @@ function applyAccentFromImage(imgEl, cardEl) {
 }
 function updateVolumeIcon() {
 
-    if (!volumeIcon) return;
+    if (!fullVolumeIcon) return;
 
     const v = audioPlayer.volume;
 
-    if (v === 0 || audioPlayer.muted) {
-        volumeIcon.className = 'fas fa-volume-xmark'; // ✅ correct mute icon
+    if (audioPlayer.muted || v === 0) {
+        fullVolumeIcon.className = 'fas fa-volume-xmark';
     }
     else if (v < 0.5) {
-        volumeIcon.className = 'fas fa-volume-low';
+        fullVolumeIcon.className = 'fas fa-volume-low';
     }
     else {
-        volumeIcon.className = 'fas fa-volume-high';
+        fullVolumeIcon.className = 'fas fa-volume-high';
     }
 }
+
 
 
 // --- 4. DATA MANAGEMENT (Local Storage Functions) ---
@@ -432,51 +440,22 @@ function loadPlayerState() {
 
 // --- 5. FULL-PLAYER STATE & SYNC ---
 function syncFullPlayerState() {
-    if (!animatedTitle || !animatedArtist) return;
 
-    if (!currentSongId) {
-        animatedTitle.textContent = 'No Song Selected';
-        animatedArtist.textContent = 'Choose something from your library to start listening.';
-        if (fullDurationDisplay) fullDurationDisplay.textContent = '0:00';
-        if (fullProgressBar) fullProgressBar.value = 0;
-        if (fullPlayPauseBtn) {
-            fullPlayPauseBtn.classList.remove('fa-pause');
-            fullPlayPauseBtn.classList.add('fa-play');
-        }
-        spinningDisc && spinningDisc.classList.remove('is-playing');
-        return;
+    if (!audioPlayer) return;
+
+    /* ---------- PLAY ICON ---------- */
+    if (audioPlayer.paused) {
+        fullPlayIcon.innerHTML = '';
+        fullPlayIcon.className = 'fas fa-play';
+        spinningDisc?.classList.remove('is-playing');
+    } 
+    else {
+        fullPlayIcon.innerHTML = '';
+        fullPlayIcon.className = 'fas fa-pause';
+        spinningDisc?.classList.add('is-playing');
     }
-
-    const currentSong = currentSongs.find(s => s.id === currentSongId);
-    if (currentSong) {
-        animatedTitle.textContent = currentSong.title;
-        animatedArtist.textContent = currentSong.artist;
-    }
-
-    if (!audioPlayer.paused && audioPlayer.src) {
-        if (fullPlayPauseBtn) {
-            fullPlayPauseBtn.classList.remove('fa-play');
-            fullPlayPauseBtn.classList.add('fa-pause');
-        }
-        spinningDisc && spinningDisc.classList.add('is-playing');
-    } else {
-        if (fullPlayPauseBtn) {
-            fullPlayPauseBtn.classList.remove('fa-pause');
-            fullPlayPauseBtn.classList.add('fa-play');
-        }
-        spinningDisc && spinningDisc.classList.remove('is-playing');
-    }
-
-    if (fullDurationDisplay) fullDurationDisplay.textContent = formatTime(audioPlayer.duration || 0);
-    const d = audioPlayer.duration;
-    if (!isPreviewSeeking && isFinite(d) && d > 0 && fullProgressBar) {
-        fullProgressBar.value = (audioPlayer.currentTime / d) * 100;
-    } else if (fullProgressBar) {
-        fullProgressBar.value = 0;
-    }
-
-    highlightFullPlaylistPlaying();
 }
+
 
 function openAnimatedPlayer() {
     
@@ -2200,16 +2179,18 @@ function initApp() {
     // Full player controls — directly control audio rather than delegating to bottom button
     if (fullPlayPauseBtn) {
         fullPlayPauseBtn.addEventListener('click', () => {
-            if (!audioPlayer) return;
-            if (audioPlayer.paused || !audioPlayer.src) {
-                audioPlayer.play().catch(e => console.warn('Play prevented:', e));
-                setPlayingUI(true);
+
+            if (audioPlayer.paused) {
+                audioPlayer.play();
             } else {
                 audioPlayer.pause();
-                setPlayingUI(false);
             }
+
+            syncFullPlayerState(); // 🔥 force icon update
         });
     }
+
+
 
     if (fullNextBtn) {
         fullNextBtn.addEventListener('click', () => {
@@ -2231,10 +2212,15 @@ function initApp() {
             const vol = fullVolumeBar.value / 100;
             if (audioPlayer) audioPlayer.volume = vol;
             if (volumeBar) volumeBar.value = fullVolumeBar.value;
+
+            audioPlayer.muted = false;
+            updateVolumeIcon();   // 🔥 ADD
+            savePlayerState();   // optional
         });
 
         fullVolumeBar.value = volumeBar ? volumeBar.value : 100;
     }
+
 
     // Full-player tabs
     // Re-query because we might have moved tabs into playlist box
@@ -2419,6 +2405,7 @@ mobileMenuToggle.addEventListener('click', (e) => {
             deferredInstallPrompt = null;
         });
     }
+      updateVolumeIcon();
 
 }
 

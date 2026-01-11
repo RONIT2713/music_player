@@ -2585,6 +2585,15 @@ body[data-theme="light"] #confirm-modal-message {
 }
 
 
+/* FIX FULL PLAYER VOLUME ICON */
+#full-volume-icon {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 16px;
+  color: #22c55e;
+}
+
+
 
 /* Small performance/motion preferences */
 @media (prefers-reduced-motion: reduce) {
