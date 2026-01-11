@@ -2029,18 +2029,6 @@ function pushViewStateIfNeeded(stateType) {
 // --- 18. INITIALIZATION ---
 function initApp() {
 
-
-    // --- CLEAN INITIAL OVERLAYS (PORTAL CONTROL) ---
-    [
-    categoryModal,
-    confirmModal,
-    animatedPlayerOverlay,
-    ].forEach(el => {
-    if (el && el.parentElement) {
-        el.remove();
-    }
-    });
-
     if (!history.state) {
     history.replaceState({ type: 'base' }, '');
 }
