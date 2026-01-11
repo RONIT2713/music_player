@@ -365,13 +365,22 @@ function savePlayerState() {
         if (currentSongId) {
             localStorage.setItem('musicPlayer_lastSong', currentSongId);
         }
+
         localStorage.setItem('musicPlayer_volume', audioPlayer.volume);
         localStorage.setItem('musicPlayer_shuffle', shuffleOn);
-        localStorage.setItem('musicPlayer_repeat', repeatMode);
+
+        // 🔥 FIXED REPEAT STORAGE
+        if (repeatMode === 'off') {
+            localStorage.removeItem('musicPlayer_repeat');
+        } else {
+            localStorage.setItem('musicPlayer_repeat', repeatMode);
+        }
+
     } catch (e) {
         console.warn('Failed to save player state', e);
     }
 }
+
 
 function loadPlayerState() {
     try {
@@ -380,40 +389,55 @@ function loadPlayerState() {
         const shuf = localStorage.getItem('musicPlayer_shuffle');
         const rep = localStorage.getItem('musicPlayer_repeat');
 
+        /* ---------- VOLUME ---------- */
         if (vol !== null) {
             audioPlayer.volume = parseFloat(vol);
             if (volumeBar) volumeBar.value = audioPlayer.volume * 100;
             if (fullVolumeBar) fullVolumeBar.value = volumeBar.value;
         }
 
+        /* ---------- SHUFFLE ---------- */
         if (shuf !== null) {
             shuffleOn = shuf === 'true';
             shuffleBtn?.classList.toggle('control-active', shuffleOn);
         }
 
-        if (rep !== null) {
-            repeatMode = rep;
-            if (repeatBtn) {
-                repeatBtn.classList.remove('control-active', 'repeat-one');
-                if (rep === 'all') {
-                    repeatBtn.classList.add('control-active');
-                }
-                if (rep === 'one') {
-                    repeatBtn.classList.add('control-active', 'repeat-one');
-                }
-            }
+        /* ---------- REPEAT (FIXED) ---------- */
+        repeatMode = 'off'; // DEFAULT
+
+        if (repeatBtn) {
+            repeatBtn.classList.remove('control-active', 'repeat-one');
         }
 
-        // Restore last song (NO autoplay)
-        // Restore last song (NO autoplay)
+        if (rep === 'all') {
+            repeatMode = 'all';
+            repeatBtn.classList.add('control-active');
+        }
+        else if (rep === 'one') {
+            repeatMode = 'one';
+            repeatBtn.classList.add('control-active', 'repeat-one');
+        }
+
+        /* ---------- RESTORE LAST SONG (NO AUTOPLAY) ---------- */
         if (lastSong) {
             const song = currentSongs.find(s => s.id == lastSong);
             if (song) {
+
                 currentSongId = song.id;
 
-                // 🔥 SET SOURCE (but do NOT play)
                 audioPlayer.src = resolveAudio(song.filePath);
-                audioPlayer.load(); // preload metadata only
+                audioPlayer.load(); // metadata only
+
+                // RESET UI
+                if (progressBar) progressBar.value = 0;
+                if (fullProgressBar) fullProgressBar.value = 0;
+
+                if (currentTimeDisplay)
+                    currentTimeDisplay.textContent = "0:00";
+
+                const fullTimeEl = document.getElementById('full-current-time');
+                if (fullTimeEl)
+                    fullTimeEl.textContent = "0:00";
 
                 if (playerTitle) playerTitle.textContent = song.title;
                 if (playerArtist) playerArtist.textContent = song.artist;
@@ -431,11 +455,11 @@ function loadPlayerState() {
             }
         }
 
-
     } catch (e) {
         console.warn('Failed to load player state', e);
     }
 }
+
 
 
 // --- 5. FULL-PLAYER STATE & SYNC ---
@@ -1630,6 +1654,9 @@ audioPlayer.addEventListener('timeupdate', () => {
 
     if (currentTimeDisplay)
         currentTimeDisplay.textContent = formatTime(currentTime);
+        document.getElementById('full-current-time').textContent =
+        formatTime(currentTime);
+
 
     if (isFinite(duration) && duration > 0) {
         const progress = (currentTime / duration) * 100;
@@ -2021,6 +2048,8 @@ function initApp() {
     applyStoredTheme();
     setupAudioListeners();
     loadPlayerState();
+
+    
 
 
     mainViewButtons = document.querySelectorAll('.main-view-btn');
@@ -2505,6 +2534,8 @@ function updatePreviewProgress(fakeTime) {
 
 
 document.addEventListener('keydown', (e) => {
+    // ⛔ Ignore shortcuts when CTRL or CMD is pressed
+    if (e.ctrlKey || e.metaKey) return;
 
     // ❌ Ignore if disclaimer is open
     if (isDisclaimerOpen()) return;
