@@ -308,6 +308,61 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 </div>
 
 
+<!-- PLAYLIST MODAL -->
+<div id="playlist-modal" class="playlist-modal">
+
+  <div class="playlist-modal-box">
+
+    <button id="playlist-modal-close" class="modal-close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <h3 class="playlist-title">Add to Playlist</h3>
+
+    <div id="playlist-modal-body">
+
+      <!-- EMPTY STATE -->
+      <div class="playlist-empty" id="playlist-empty">
+
+        <button id="create-playlist-btn" class="playlist-create-circle">
+          <i class="fas fa-plus"></i>
+        </button>
+
+        <div>Create playlist</div>
+
+      </div>
+
+      <!-- GRID -->
+      <div class="playlist-grid" id="playlist-grid"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- SINGLE PLAYLIST VIEW MODAL -->
+<div id="single-playlist-modal" class="modal-overlay">
+
+  <div class="playlist-modal-content category-modal-content">
+
+    <button id="single-playlist-close" class="modal-close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <h3 id="single-playlist-title">Playlist</h3>
+
+    <ul id="single-playlist-body" class="playlist-song-list">
+      <!-- songs injected here -->
+    </ul>
+
+  </div>
+</div>
+
+
+
 <!-- SETTINGS MODAL -->
 <div id="settings-modal">
 
@@ -336,6 +391,38 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   </div>
 
 </div>
+
+<!-- CREATE PLAYLIST MODAL -->
+<div id="create-playlist-modal" class="create-playlist-modal">
+
+  <div class="create-playlist-box">
+
+    <button id="create-playlist-close" class="modal-close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <h3>Create Playlist</h3>
+
+    <input 
+      id="playlist-name-input" 
+      type="text" 
+      placeholder="Enter playlist name"
+    />
+
+    <div class="playlist-actions">
+
+      <button id="cancel-playlist-btn">Cancel</button>
+      <button id="confirm-playlist-btn">Create</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
 
 
 
@@ -410,9 +497,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-   navigator.serviceWorker.register('/app/service-worker.js')
-     .then(() => console.log("✅ SW registered"))
-    .catch(err => console.error("❌ SW error", err));
+  // navigator.serviceWorker.register('/app/service-worker.js')
+    // .then(() => console.log("✅ SW registered"))
+    //.catch(err => console.error("❌ SW error", err));
   });
 }
 </script>

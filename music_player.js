@@ -116,6 +116,63 @@ let deferredInstallPrompt = null;
 const mainHeaderRow = document.getElementById('main-header-row');
 const searchToggleBtn = document.getElementById('search-toggle-btn');
 
+
+// CREATE PLAYLIST MODAL
+const createPlaylistModal = document.getElementById("create-playlist-modal");
+const createPlaylistClose = document.getElementById("create-playlist-close");
+const playlistInput = document.getElementById("playlist-name-input");
+const cancelPlaylistBtn = document.getElementById("cancel-playlist-btn");
+const confirmPlaylistBtn = document.getElementById("confirm-playlist-btn");
+
+function openCreatePlaylistModal() {
+  mountToPortal(createPlaylistModal);
+  createPlaylistModal.classList.add("open");
+  document.body.classList.add("modal-open");
+  playlistInput.value = "";
+  playlistInput.focus();
+}
+
+function closeCreatePlaylistModal() {
+  createPlaylistModal.classList.remove("open");
+  document.body.classList.remove("modal-open");
+
+  setTimeout(() => {
+    unmountFromPortal(createPlaylistModal);
+  }, 200);
+}
+
+// BUTTONS
+createPlaylistClose.addEventListener("click", closeCreatePlaylistModal);
+cancelPlaylistBtn.addEventListener("click", closeCreatePlaylistModal);
+
+// CREATE
+confirmPlaylistBtn.onclick = () => {
+
+    const name = playlistInput.value.trim();
+    if (!name) return;
+
+    const newPl = createPlaylist(name);
+    if (!newPl) return;
+
+    closeCreatePlaylistModal();
+    renderPlaylistModal();
+};
+
+
+
+
+const playlistCovers = [
+  "covers/pl1.jpg",
+  "covers/pl2.jpg",
+  "covers/pl3.jpg",
+  "covers/pl4.jpg"
+];
+
+function getRandomPlaylistCover() {
+  return playlistCovers[Math.floor(Math.random() * playlistCovers.length)];
+}
+
+
 // --- DOM CACHE (Batch 2 optimization) ---
 const DOM = {
     body: document.body,
@@ -270,6 +327,100 @@ function updateVolumeIcon() {
 
 
 // --- 4. DATA MANAGEMENT (Local Storage Functions) ---
+
+
+
+// === PLAYLIST STORAGE ===
+function getPlaylists() {
+    try {
+        return JSON.parse(localStorage.getItem("myPlaylists")) || [];
+    } catch {
+        return [];
+    }
+}
+
+function savePlaylists(list) {
+    localStorage.setItem("myPlaylists", JSON.stringify(list));
+}
+
+function createPlaylist(name) {
+    const playlists = getPlaylists();
+
+    // prevent duplicate names
+    if (playlists.some(p => p.name.toLowerCase() === name.toLowerCase())) {
+        alert("Playlist with this name already exists!");
+        return null;
+    }
+
+    const newPlaylist = {
+        id: Date.now(),
+        name,
+        cover: getRandomPlaylistCover(),
+        songs: []
+    };
+
+    playlists.push(newPlaylist);
+    savePlaylists(playlists);
+    return newPlaylist;
+}
+
+function deletePlaylist(id) {
+    const list = getPlaylists().filter(p => p.id !== id);
+    savePlaylists(list);
+}
+
+function renamePlaylist(id, newName) {
+    const list = getPlaylists();
+
+    if (list.some(p => p.name.toLowerCase() === newName.toLowerCase())) {
+        alert("Playlist name already exists!");
+        return;
+    }
+
+    const p = list.find(p => p.id === id);
+    if (p) p.name = newName;
+
+    savePlaylists(list);
+}
+
+function addSongToPlaylist(playlistId, songId) {
+    const list = getPlaylists();
+    const p = list.find(p => p.id === playlistId);
+    if (!p) return;
+
+    if (!p.songs.includes(songId)) {
+        p.songs.push(songId);
+        savePlaylists(list);
+    }
+}
+
+
+
+// === DOWNLOAD MANAGER ===
+function getDownloadedSongs() {
+    try {
+        return JSON.parse(localStorage.getItem("myDownloads")) || [];
+    } catch {
+        return [];
+    }
+}
+
+function saveDownloadedSongs(list) {
+    localStorage.setItem("myDownloads", JSON.stringify(list));
+}
+
+function markSongDownloaded(songId) {
+    const list = getDownloadedSongs();
+    if (!list.includes(songId)) {
+        list.push(songId);
+        saveDownloadedSongs(list);
+    }
+}
+
+function isSongDownloaded(songId) {
+    return getDownloadedSongs().includes(songId);
+}
+
 function saveSongsToStorage() {
     try {
         localStorage.setItem('myMusicPlayerSongs', JSON.stringify(currentSongs));
@@ -857,7 +1008,25 @@ function filterCurrentView() {
         if (clearFavoritesBtn) {
             clearFavoritesBtn.style.display = 'inline-flex';
         }
-    } else if (currentFilter.type === 'category') {
+
+
+
+    }
+    
+        else if (
+        currentFilter.type === 'view' &&
+        currentFilter.value === 'downloads'
+    ) {
+
+        if (viewTitleElement)
+            viewTitleElement.textContent = "My Downloads";
+
+        filteredList = currentSongs.filter(song =>
+            isSongDownloaded(song.id)
+        );
+    }
+
+    else if (currentFilter.type === 'category') {
         if (viewTitleElement) viewTitleElement.textContent = `${currentFilter.value} Songs`;
         filteredList = currentSongs.filter(song => song.category === currentFilter.value);
     } else if (currentFilter.type === 'artist') {
@@ -947,6 +1116,12 @@ function renderSongList(songsToDisplay) {
 
         listItem.innerHTML = `
             <div class="album-card-inner">
+
+
+                ${isSongDownloaded(song.id) ? 
+                `<span class="downloaded-badge">Downloaded</span>` 
+                : ''}
+
                 <button class="options-btn" title="More options" aria-label="More options">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
@@ -954,6 +1129,8 @@ function renderSongList(songsToDisplay) {
                 <button class="favorite-btn ${song.isFavorite ? 'is-favorite' : ''}" data-song-id="${song.id}" aria-label="Toggle favorite">
                     ${favoriteIcon}
                 </button>
+
+                
 
                 <div class="album-cover-wrapper" data-song-id="${song.id}">
                     <img
@@ -982,6 +1159,10 @@ function renderSongList(songsToDisplay) {
                     <button class="option-btn option-add-queue" title="Add to queue" aria-label="Add to queue">
                         <i class="fas fa-list-ul"></i>
                     </button>
+                    <button class="option-btn option-add-playlist" title="Add to playlist">
+                        <i class="fas fa-plus"></i>
+                    </button>
+
                 </div>
             </div>
         `;
@@ -995,7 +1176,7 @@ function renderSongList(songsToDisplay) {
 
         // Download option with custom confirmation modal
         // Download option — instant download (no confirmation)
-const downloadBtn = listItem.querySelector('.option-download');
+        const downloadBtn = listItem.querySelector('.option-download');
 
 
 
@@ -1052,35 +1233,53 @@ songListElement.addEventListener('click', async (e) => {
     }
 
     // ⬇ DOWNLOAD
-    if (e.target.closest('.option-download')) {
-        e.stopPropagation();
-        card.classList.remove('show-options');
+    // ➕ ADD TO PLAYLIST
+if (e.target.closest('.option-add-playlist')) {
+    e.stopPropagation();
+    openPlaylistModalForSong(song.id);
+    card.classList.remove('show-options');
+    return;
+}
 
-        try {
-            const url = resolveAudio(song.filePath);
-            const res = await fetch(url);
-            if (!res.ok) throw new Error();
+// ⬇ DOWNLOAD
+if (e.target.closest('.option-download')) {
 
-            const blob = await res.blob();
-            const urlObj = URL.createObjectURL(blob);
+    e.stopPropagation();
+    card.classList.remove('show-options');
 
-            const link = document.createElement("a");
-            link.href = urlObj;
+    try {
+        const url = resolveAudio(song.filePath);
+        const res = await fetch(url);
+        if (!res.ok) throw new Error();
 
-            link.download =
-                song.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".mp3";
+        const cache = await caches.open("viridxi-media-v2");
+        await cache.put(url, res.clone());
 
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(urlObj); // cleanup
+        const blob = await res.blob();
+        const urlObj = URL.createObjectURL(blob);
 
+        const link = document.createElement("a");
+        link.href = urlObj;
 
-        } catch {
-            alert("Download failed.");
-        }
-        return;
+        link.download =
+            song.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".mp3";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(urlObj);
+
+        markSongDownloaded(song.id);
+        renderCurrentView();
+
+    } catch {
+        alert("Download failed.");
     }
+    return;
+}
+
+
+
 
     // ➕ ADD TO QUEUE
     if (e.target.closest('.option-add-queue')) {
@@ -1905,6 +2104,223 @@ function setupCategoryModalEvents() {
     }
 }
 
+// --- PLAYLIST MODAL LOGIC ---
+
+let selectedSongForPlaylist = null;
+let playlistMode = "view"; // "add" | "view"
+
+function openPlaylistModalForSong(songId) {
+
+    selectedSongForPlaylist = songId;
+    playlistMode = "add"; // add mode
+
+    const modal = document.getElementById("playlist-modal");
+    if (!modal) return;
+
+    mountToPortal(modal);
+
+    if (!history.state || history.state.type !== 'playlistModal') {
+        history.pushState({ type: 'playlistModal' }, '');
+    }
+
+    document.body.classList.add("modal-open");
+    modal.classList.add("open");
+
+    renderPlaylistModal();
+}
+
+
+function openPlaylistModalNormal() {
+
+    selectedSongForPlaylist = null;
+    playlistMode = "view";
+
+    const modal = document.getElementById("playlist-modal");
+    if (!modal) return;
+
+    mountToPortal(modal);
+
+    if (!history.state || history.state.type !== 'playlistModal') {
+        history.pushState({ type: 'playlistModal' }, '');
+    }
+
+    document.body.classList.add("modal-open");
+    modal.classList.add("open");
+
+    renderPlaylistModal();
+}
+
+
+
+function closePlaylistModal() {
+
+    const modal = document.getElementById("playlist-modal");
+    if (!modal) return;
+
+    modal.classList.remove("open");
+
+    setTimeout(() => {
+        unmountFromPortal(modal);
+    }, 250);
+
+    document.body.classList.remove("modal-open");
+
+    // reset state
+    selectedSongForPlaylist = null;
+    playlistMode = "view";
+}
+
+
+function renderPlaylistModal() {
+
+    const body = document.getElementById("playlist-modal-body");
+    if (!body) return;
+
+    body.innerHTML = '';
+
+    const playlists = getPlaylists();
+
+    // EMPTY STATE
+    if (playlists.length === 0) {
+
+        body.innerHTML = `
+            <div class="playlist-empty">
+                <button id="create-playlist-btn" class="playlist-create-circle">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div>Create playlist</div>
+            </div>
+        `;
+
+        document
+            .getElementById("create-playlist-btn")
+            .addEventListener("click", () => {
+                openCreatePlaylistModal();
+            });
+
+        return;
+    }
+
+    // RENDER PLAYLISTS
+    playlists.forEach(pl => {
+
+        const card = document.createElement("div");
+        card.className = "playlist-card";
+
+        card.innerHTML = `
+            <div class="playlist-cover">
+                <img src="${pl.cover}">
+                <button class="playlist-delete" data-id="${pl.id}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="playlist-name">${pl.name}</div>
+
+            <button class="playlist-edit" data-id="${pl.id}">
+                <i class="fas fa-pen"></i>
+            </button>
+        `;
+
+        // CLICK
+        card.addEventListener("click", () => {
+
+            if (playlistMode === "add") {
+
+                addSongToPlaylist(pl.id, selectedSongForPlaylist);
+                closePlaylistModal();
+                alert("Added to playlist");
+
+            } else {
+
+                openSinglePlaylist(pl.id);
+            }
+        });
+
+        // DELETE
+        card.querySelector(".playlist-delete")
+            .addEventListener("click", (e) => {
+                e.stopPropagation();
+                deletePlaylist(pl.id);
+                renderPlaylistModal();
+            });
+
+        // RENAME
+        card.querySelector(".playlist-edit")
+            .addEventListener("click", (e) => {
+                e.stopPropagation();
+                openRenamePlaylist(pl.id, pl.name);
+            });
+
+        body.appendChild(card);
+    });
+}
+
+
+function openSinglePlaylist(id) {
+
+    const modal = document.getElementById("single-playlist-modal");
+    const body = document.getElementById("single-playlist-body");
+    const title = document.getElementById("single-playlist-title");
+
+    if (!modal || !body) return;
+
+    const playlists = getPlaylists();
+    const pl = playlists.find(p => p.id === id);
+    if (!pl) return;
+
+    title.textContent = pl.name;
+
+    body.innerHTML = '';
+
+    if (pl.songs.length === 0) {
+        body.innerHTML = `<li class="playlist-empty">No songs yet</li>`;
+    }
+
+    pl.songs.forEach(songId => {
+
+        const song = currentSongs.find(s => s.id === songId);
+        if (!song) return;
+
+        const li = document.createElement("li");
+        li.className = "playlist-song-item";
+
+        li.innerHTML = `
+            <div>${song.title}</div>
+            <small>${song.artist}</small>
+        `;
+
+        li.addEventListener("click", () => {
+            playSong(song);
+        });
+
+        body.appendChild(li);
+    });
+
+    mountToPortal(modal);
+    modal.classList.add("open");
+    document.body.classList.add("modal-open");
+}
+
+function openRenamePlaylist(id, oldName) {
+
+    openCreatePlaylistModal();
+
+    playlistInput.value = oldName;
+
+    confirmPlaylistBtn.onclick = () => {
+
+        const name = playlistInput.value.trim();
+        if (!name) return;
+
+        renamePlaylist(id, name);
+        closeCreatePlaylistModal();
+        renderPlaylistModal();
+    };
+}
+
+
+
 // --- ARTIST MODAL LOGIC ---
 
 const artistModalBtn = document.getElementById("artists-modal-btn");
@@ -2331,6 +2747,31 @@ function initApp() {
 
     // Main nav filters (Playlist / Favorites)
     const mainNav = document.getElementById('main-nav');
+
+    const downloadsBtn = document.getElementById('my-downloads-btn');
+
+    if (downloadsBtn) {
+        downloadsBtn.addEventListener('click', () => {
+
+            closeSidebarIfMobile();
+
+            if (searchBar) searchBar.value = '';
+
+            currentFilter = {
+                type: 'view',
+                value: 'downloads'
+            };
+
+            currentMainView = 'songs';
+
+            pushViewStateIfNeeded('downloads');
+
+            setActiveMainViewButton();
+            renderCurrentView();
+            setActiveFilterClass();
+        });
+    }
+
     if (mainNav) {
         mainNav.addEventListener('click', (event) => {
             const btn = event.target.closest('button');
@@ -2520,23 +2961,23 @@ function initApp() {
     }
 
 
-    // Mobile menu toggle
-// Mobile menu toggle (with outside click close)
-if (mobileMenuToggle && sidebar) {
+        // Mobile menu toggle
+    // Mobile menu toggle (with outside click close)
+    if (mobileMenuToggle && sidebar) {
 
-mobileMenuToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    sidebar.classList.toggle('open');
-    document.body.classList.toggle('sidebar-open');
-});
-
-
-
-    // Prevent sidebar clicks from closing itself
-    sidebar.addEventListener('click', (e) => {
+    mobileMenuToggle.addEventListener('click', (e) => {
         e.stopPropagation();
+        sidebar.classList.toggle('open');
+        document.body.classList.toggle('sidebar-open');
     });
-}
+
+
+
+        // Prevent sidebar clicks from closing itself
+        sidebar.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
 
 
 
@@ -2697,6 +3138,17 @@ mobileMenuToggle.addEventListener('click', (e) => {
         });
     }
       updateVolumeIcon();
+
+
+      const myPlaylistsBtn = document.getElementById("my-playlists-btn");
+
+        if (myPlaylistsBtn) {
+            myPlaylistsBtn.addEventListener("click", () => {
+                closeSidebarIfMobile();
+                openPlaylistModalNormal();
+            });
+        }
+
 
 }
 
