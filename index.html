@@ -30,58 +30,79 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <div id="player-container">
 <div class="player-card">
 
-<!-- SIDEBAR -->
 <aside id="sidebar">
 <h2>viridxi</h2>
 
+<!-- LIBRARY -->
 <nav id="main-nav">
-<button data-view="playlist"><i class="fas fa-list"></i> All Songs</button>
-<button data-view="favorites"><i class="fas fa-heart"></i> Favorites</button>
-</nav>
-
-<button id="my-playlists-btn" class="sidebar-section-btn">
-  <i class="fas fa-folder"></i>
-  My Playlists
+<button data-view="playlist">
+  <i class="fas fa-list"></i> All Songs
 </button>
 
+<button data-view="favorites">
+  <i class="fas fa-heart"></i> Favorites
+</button>
+</nav>
 
-<button id="my-downloads-btn" class="sidebar-section-btn">
-  <i class="fas fa-download"></i>
-  My Downloads
+<button data-action="playlists" id="my-playlists-btn" class="sidebar-section-btn">
+  <i class="fas fa-folder"></i> My Playlists
+</button>
+
+<button data-view="downloads" id="my-downloads-btn" class="sidebar-section-btn">
+  <i class="fas fa-download"></i> My Downloads
+</button>
+
+<button data-action="device" id="my-device-btn" class="sidebar-section-btn">
+  <i class="fas fa-mobile-alt"></i> My Device
+</button>
+
+<h3>Browse</h3>
+
+<button data-action="artists" id="artists-modal-btn" class="sidebar-section-btn">
+  <i class="fas fa-user"></i> Artists
+</button>
+
+<button data-action="albums" id="albums-modal-btn" class="sidebar-section-btn">
+  <i class="fas fa-compact-disc"></i> Albums
+</button>
+
+<button data-action="genre" id="genre-btn" class="sidebar-section-btn">
+  <i class="fas fa-tags"></i> Genre
 </button>
 
 <h3>Categories</h3>
+
 <div id="categories-list">
-<button data-category="Hindi"><i class="fas fa-music"></i> Hindi</button>
-<button data-category="English"><i class="fas fa-globe"></i> English</button>
-<button data-category="Punjabi"><i class="fas fa-drum"></i> Punjabi</button>
+<button data-category="Hindi">
+  <i class="fas fa-music"></i> Hindi
+</button>
+
+<button data-category="English">
+  <i class="fas fa-globe"></i> English
+</button>
+
+<button data-category="Punjabi">
+  <i class="fas fa-drum"></i> Punjabi
+</button>
 </div>
 
 <button id="view-all-categories-btn" class="view-all-btn">
 <i class="fas fa-layer-group"></i> View all categories
 </button>
 
+<!-- SYSTEM -->
 
+<button id="about-btn" class="sidebar-section-btn" data-action="about">
+  <i class="fas fa-info-circle"></i>
+  About
+</button>
 
-<button id="artists-modal-btn" class="sidebar-section-btn">
-  <i class="fas fa-user"></i>
-  Artists
+<button data-action="settings" id="open-settings-btn" class="sidebar-section-btn">
+  <i class="fas fa-cog"></i> Settings
 </button>
 
 
-<button id="albums-modal-btn" class="sidebar-section-btn">
-  <i class="fas fa-compact-disc"></i>
-  Albums
-</button>
 
-
-
-
-
-<button id="open-settings-btn" class="sidebar-section-btn">
-  <i class="fas fa-cog"></i>
-  <span>Settings</span>
-</button>
 
 </aside>
 

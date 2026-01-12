@@ -304,27 +304,36 @@ function shuffleArrayOnce(array) {
 
 
 function setActiveFilterClass() {
-    document.querySelectorAll('#sidebar button, #artists-list li').forEach(el => {
-        el.classList.remove('active-filter');
-    });
+
+    // remove active from all sidebar buttons
+    document
+      .querySelectorAll('#sidebar button')
+      .forEach(btn => btn.classList.remove('active-filter'));
 
     let selector = '';
 
+    /* ---------- VIEW BASED ---------- */
     if (currentFilter.type === 'view') {
-        selector = `#main-nav button[data-view="${currentFilter.value}"]`;
-    } else if (currentFilter.type === 'category') {
-        selector = `#categories-list button[data-category="${currentFilter.value}"]`;
-    } else if (currentFilter.type === 'artist') {
+        selector = `#sidebar button[data-view="${currentFilter.value}"]`;
+    }
+
+    /* ---------- CATEGORY ---------- */
+    if (currentFilter.type === 'category') {
+        selector = `#sidebar button[data-category="${currentFilter.value}"]`;
+    }
+
+    /* ---------- ARTIST ---------- */
+    if (currentFilter.type === 'artist') {
         selector = `#artists-list li[data-artist="${currentFilter.value}"]`;
     }
 
+    /* ---------- APPLY ---------- */
     if (selector) {
-        const activeElement = document.querySelector(selector);
-        if (activeElement) {
-            activeElement.classList.add('active-filter');
-        }
+        const activeBtn = document.querySelector(selector);
+        activeBtn?.classList.add('active-filter');
     }
 }
+
 
 // theme helpers
 function updateThemeToggleIcon() {
