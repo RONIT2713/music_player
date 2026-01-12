@@ -126,38 +126,72 @@ const confirmPlaylistBtn = document.getElementById("confirm-playlist-btn");
 
 function openCreatePlaylistModal() {
   mountToPortal(createPlaylistModal);
+
+  createPlaylistModal.style.display = "flex";
   createPlaylistModal.classList.add("open");
+
   document.body.classList.add("modal-open");
+
   playlistInput.value = "";
   playlistInput.focus();
 }
 
+
 function closeCreatePlaylistModal() {
+
   createPlaylistModal.classList.remove("open");
   document.body.classList.remove("modal-open");
 
   setTimeout(() => {
+    createPlaylistModal.style.display = "none";
     unmountFromPortal(createPlaylistModal);
   }, 200);
 }
+
 
 // BUTTONS
 createPlaylistClose.addEventListener("click", closeCreatePlaylistModal);
 cancelPlaylistBtn.addEventListener("click", closeCreatePlaylistModal);
 
 // CREATE
+let playlistEditId = null; // global
+
 confirmPlaylistBtn.onclick = () => {
 
     const name = playlistInput.value.trim();
     if (!name) return;
 
-    const newPl = createPlaylist(name);
-    if (!newPl) return;
+    let success = false;
 
-    closeCreatePlaylistModal();
-    renderPlaylistModal();
+    if (playlistEditId) {
+        renamePlaylist(playlistEditId, name);
+        playlistEditId = null;
+        success = true;
+    } 
+    else {
+        const newPl = createPlaylist(name);
+        if (!newPl) return;
+        success = true;
+    }
+
+    if (success) {
+
+        closeCreatePlaylistModal();
+
+        // ⏳ wait for modal animation then refresh UI
+        setTimeout(() => {
+            renderPlaylistModal();
+        }, 250);
+    }
 };
 
+
+
+document.addEventListener("click", (e) => {
+  if (e.target.closest("#create-playlist-btn")) {
+    openCreatePlaylistModal();
+  }
+});
 
 
 
@@ -189,15 +223,25 @@ const uiPortal = document.getElementById('ui-portal');
 
 function mountToPortal(el) {
     if (!el || !uiPortal) return;
-    if (!uiPortal.contains(el)) {
-        uiPortal.appendChild(el);
+
+    // Remove from any parent first
+    if (el.parentElement && el.parentElement !== uiPortal) {
+        el.parentElement.removeChild(el);
     }
+
+    uiPortal.appendChild(el);
 }
 
+
 function unmountFromPortal(el) {
-    if (!el || !el.parentElement) return;
-    el.remove();
+    if (!el) return;
+
+    el.classList.remove("open");
+
+    // Keep element in DOM but hide
+    el.style.display = "none";
 }
+
 
 
 
@@ -2108,16 +2152,21 @@ function setupCategoryModalEvents() {
 
 let selectedSongForPlaylist = null;
 let playlistMode = "view"; // "add" | "view"
+let playlistModalView = "grid"; // "grid" | "songs"
+let activePlaylistId = null;
+
 
 function openPlaylistModalForSong(songId) {
 
     selectedSongForPlaylist = songId;
-    playlistMode = "add"; // add mode
+    playlistMode = "add";
 
     const modal = document.getElementById("playlist-modal");
     if (!modal) return;
 
     mountToPortal(modal);
+
+    modal.style.display = "flex";
 
     if (!history.state || history.state.type !== 'playlistModal') {
         history.pushState({ type: 'playlistModal' }, '');
@@ -2126,8 +2175,14 @@ function openPlaylistModalForSong(songId) {
     document.body.classList.add("modal-open");
     modal.classList.add("open");
 
+    // 🔥 HIDE floating full-player icon
+    if (openPlayerIcon) {
+        openPlayerIcon.style.display = "none";
+    }
+
     renderPlaylistModal();
 }
+
 
 
 function openPlaylistModalNormal() {
@@ -2139,6 +2194,7 @@ function openPlaylistModalNormal() {
     if (!modal) return;
 
     mountToPortal(modal);
+    modal.style.display = "flex";
 
     if (!history.state || history.state.type !== 'playlistModal') {
         history.pushState({ type: 'playlistModal' }, '');
@@ -2147,9 +2203,13 @@ function openPlaylistModalNormal() {
     document.body.classList.add("modal-open");
     modal.classList.add("open");
 
+    // 🔥 HIDE floating full-player icon
+    if (openPlayerIcon) {
+        openPlayerIcon.style.display = "none";
+    }
+
     renderPlaylistModal();
 }
-
 
 
 function closePlaylistModal() {
@@ -2158,123 +2218,138 @@ function closePlaylistModal() {
     if (!modal) return;
 
     modal.classList.remove("open");
+    document.body.classList.remove("modal-open");
 
     setTimeout(() => {
+        modal.style.display = "none";
         unmountFromPortal(modal);
     }, 250);
 
-    document.body.classList.remove("modal-open");
-
-    // reset state
     selectedSongForPlaylist = null;
     playlistMode = "view";
+    playlistModalView = "grid";
+    activePlaylistId = null;
+
+    // 🔥 SHOW floating full-player icon back
+    if (openPlayerIcon) {
+        openPlayerIcon.style.display = "flex";
+    }
+}
+
+
+const playlistModalClose = document.getElementById("playlist-modal-close");
+
+if (playlistModalClose) {
+  playlistModalClose.addEventListener("click", closePlaylistModal);
 }
 
 
 function renderPlaylistModal() {
 
     const body = document.getElementById("playlist-modal-body");
-    if (!body) return;
+    const title = document.querySelector(".playlist-title");
+    const grid = document.getElementById("playlist-grid");
 
-    body.innerHTML = '';
+    if (!body || !title || !grid) return;
 
     const playlists = getPlaylists();
 
-    // EMPTY STATE
-    if (playlists.length === 0) {
+    // RESET
+    grid.innerHTML = '';
 
-        body.innerHTML = `
-            <div class="playlist-empty">
-                <button id="create-playlist-btn" class="playlist-create-circle">
-                    <i class="fas fa-plus"></i>
+    /* ================= GRID VIEW ================= */
+    if (playlistModalView === "grid") {
+
+        title.textContent = "My Playlists";
+
+        // SHOW CREATE BUTTON
+        document.getElementById("playlist-empty").style.display = "flex";
+
+        if (playlists.length === 0) return;
+
+        playlists.forEach(pl => {
+
+            const card = document.createElement("div");
+            card.className = "playlist-card";
+
+            card.innerHTML = `
+                <div class="playlist-cover">
+                    <img src="${pl.cover}">
+                    <button class="playlist-delete" data-id="${pl.id}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="playlist-name">${pl.name}</div>
+
+                <button class="playlist-edit" data-id="${pl.id}">
+                    <i class="fas fa-pen"></i>
                 </button>
-                <div>Create playlist</div>
-            </div>
-        `;
+            `;
 
-        document
-            .getElementById("create-playlist-btn")
-            .addEventListener("click", () => {
-                openCreatePlaylistModal();
+            /* OPEN PLAYLIST */
+            card.addEventListener("click", () => {
+
+                if (playlistMode === "add") {
+
+                    addSongToPlaylist(pl.id, selectedSongForPlaylist);
+                    closePlaylistModal();
+                    alert("Added to playlist");
+
+                } else {
+                    activePlaylistId = pl.id;
+                    playlistModalView = "songs";
+                    renderPlaylistModal();
+                }
             });
 
-        return;
-    }
-
-    // RENDER PLAYLISTS
-    playlists.forEach(pl => {
-
-        const card = document.createElement("div");
-        card.className = "playlist-card";
-
-        card.innerHTML = `
-            <div class="playlist-cover">
-                <img src="${pl.cover}">
-                <button class="playlist-delete" data-id="${pl.id}">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <div class="playlist-name">${pl.name}</div>
-
-            <button class="playlist-edit" data-id="${pl.id}">
-                <i class="fas fa-pen"></i>
-            </button>
-        `;
-
-        // CLICK
-        card.addEventListener("click", () => {
-
-            if (playlistMode === "add") {
-
-                addSongToPlaylist(pl.id, selectedSongForPlaylist);
-                closePlaylistModal();
-                alert("Added to playlist");
-
-            } else {
-
-                openSinglePlaylist(pl.id);
-            }
-        });
-
-        // DELETE
-        card.querySelector(".playlist-delete")
+            /* DELETE */
+            card.querySelector(".playlist-delete")
             .addEventListener("click", (e) => {
                 e.stopPropagation();
                 deletePlaylist(pl.id);
                 renderPlaylistModal();
             });
 
-        // RENAME
-        card.querySelector(".playlist-edit")
+            /* EDIT */
+            card.querySelector(".playlist-edit")
             .addEventListener("click", (e) => {
                 e.stopPropagation();
                 openRenamePlaylist(pl.id, pl.name);
             });
 
-        body.appendChild(card);
-    });
-}
+            grid.appendChild(card);
+        });
 
+        return;
+    }
 
-function openSinglePlaylist(id) {
+    /* ================= SONG VIEW ================= */
 
-    const modal = document.getElementById("single-playlist-modal");
-    const body = document.getElementById("single-playlist-body");
-    const title = document.getElementById("single-playlist-title");
+    document.getElementById("playlist-empty").style.display = "none";
 
-    if (!modal || !body) return;
-
-    const playlists = getPlaylists();
-    const pl = playlists.find(p => p.id === id);
+    const pl = playlists.find(p => p.id === activePlaylistId);
     if (!pl) return;
 
-    title.textContent = pl.name;
+    title.innerHTML = `
+        <button id="playlist-back-btn">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        ${pl.name}
+    `;
 
-    body.innerHTML = '';
+    document
+      .getElementById("playlist-back-btn")
+      .addEventListener("click", () => {
+          playlistModalView = "grid";
+          renderPlaylistModal();
+      });
+
+    grid.innerHTML = '';
 
     if (pl.songs.length === 0) {
-        body.innerHTML = `<li class="playlist-empty">No songs yet</li>`;
+        grid.innerHTML = `<div class="playlist-empty">No songs yet</div>`;
+        return;
     }
 
     pl.songs.forEach(songId => {
@@ -2282,24 +2357,26 @@ function openSinglePlaylist(id) {
         const song = currentSongs.find(s => s.id === songId);
         if (!song) return;
 
-        const li = document.createElement("li");
-        li.className = "playlist-song-item";
+        const li = document.createElement("div");
+        li.className = "playlist-song-card";
 
         li.innerHTML = `
-            <div>${song.title}</div>
-            <small>${song.artist}</small>
+            <div class="psc-left">
+                <img src="${resolveCover(song.coverPath)}">
+            </div>
+
+            <div class="psc-right">
+                <div class="psc-title">${song.title}</div>
+                <div class="psc-artist">${song.artist}</div>
+            </div>
         `;
 
         li.addEventListener("click", () => {
             playSong(song);
         });
 
-        body.appendChild(li);
+        grid.appendChild(li);
     });
-
-    mountToPortal(modal);
-    modal.classList.add("open");
-    document.body.classList.add("modal-open");
 }
 
 function openRenamePlaylist(id, oldName) {
@@ -2307,17 +2384,9 @@ function openRenamePlaylist(id, oldName) {
     openCreatePlaylistModal();
 
     playlistInput.value = oldName;
-
-    confirmPlaylistBtn.onclick = () => {
-
-        const name = playlistInput.value.trim();
-        if (!name) return;
-
-        renamePlaylist(id, name);
-        closeCreatePlaylistModal();
-        renderPlaylistModal();
-    };
+    playlistEditId = id; // 🔥 set mode
 }
+
 
 
 
@@ -3433,6 +3502,8 @@ document.addEventListener('keydown', (e) => {
 
 // 🔙 GLOBAL BACK HANDLER
 window.addEventListener('popstate', () => {
+
+
 
     // 1️⃣ Disclaimer blocks everything
     const overlay = document.getElementById('disclaimer-overlay');

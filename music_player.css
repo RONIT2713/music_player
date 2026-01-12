@@ -3654,14 +3654,19 @@ body.modal-open #open-player-icon {
 /* Grid of playlists */
 .playlist-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 22px;
   margin-top: 20px;
   width: 100%;
   padding: 10px;
+
+  /* FIX */
   overflow-y: auto;
+  overflow-x: hidden;
   justify-items: center;
+  align-content: start;
 }
+
 
 
 /* Playlist circle card */
@@ -3716,6 +3721,9 @@ body.modal-open #open-player-icon {
   font-weight: 900;
   font-size: 26px;
   color: #22c55e;
+}
+.playlist-modal-box {
+  overflow-x: hidden;
 }
 
 
@@ -3823,4 +3831,58 @@ body.modal-open #open-player-icon {
 @keyframes scaleIn {
   from {transform: scale(.8); opacity: 0;}
   to {transform: scale(1); opacity: 1;}
+}
+
+/* Only control PLAYLIST MODAL visibility */
+.playlist-modal {
+    display: none;
+}
+.playlist-modal.open {
+    display: flex !important;
+}
+
+
+.playlist-create-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #000;
+    border: none;
+}
+#create-playlist-modal input {
+    background: var(--bg-card);
+    border: 1px solid var(--primary);
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+}
+#sidebar {
+    overflow: hidden;
+}
+.playlist-cover{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    overflow:hidden;
+    position:relative;
+}
+
+.playlist-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.create-cover{
+    background:#38bdf8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    color:#000;
 }
