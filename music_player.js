@@ -140,19 +140,7 @@ function openPlaylistEditor(mode, playlistId = null) {
     document.body.classList.add("modal-open");
 }
 
-function closePlaylistEditor() {
 
-    if (!playlistEditorModal) return;
-
-    playlistEditorModal.classList.remove("open");
-
-    setTimeout(() => {
-        playlistEditorModal.style.display = "none";
-        unmountFromPortal(playlistEditorModal);
-    }, 200);
-
-    document.body.classList.remove("modal-open");
-}
 
 if (playlistEditorClose) {
     playlistEditorClose.addEventListener("click", closePlaylistEditor);
@@ -3649,34 +3637,24 @@ function openPlaylistEditorEdit(id){
     const deleteBtn = document.getElementById("pe-delete-btn");
     deleteBtn.style.display = "block";
 
-    // REMOVE OLD HANDLER (IMPORTANT)
+    // REMOVE OLD HANDLERS
     deleteBtn.onclick = null;
 
-    // DELETE HANDLER (ONLY ONE)
+    // DIRECT DELETE (NO CONFIRM MODAL)
     deleteBtn.onclick = () => {
 
-        openConfirmModal({
-            title: "Delete playlist?",
-            message: "This action cannot be undone.",
-            confirmLabel: "Delete",
-            confirmIconClass: "fa-trash",
-            onConfirm: () => {
+        // DELETE PLAYLIST
+        deletePlaylist(id);
 
-                // 1. DELETE FROM STORAGE
-                deletePlaylist(editingPlaylistId);
+        // CLOSE EDITOR
+        closePlaylistEditor();
 
-                // 2. CLOSE CONFIRM MODAL
-                closeConfirmModal();
+        // RESET PLAYLIST MODAL STATE
+        playlistModalView = "grid";
+        activePlaylistId = null;
 
-                // 3. CLOSE EDITOR MODAL (FIX PROBLEM 1)
-                closePlaylistEditor();
-
-                // 4. FORCE UI REFRESH (FIX PROBLEM 2)
-                playlistModalView = "grid";
-                activePlaylistId = null;
-                renderPlaylistModal();
-            }
-        });
+        // REFRESH UI
+        renderPlaylistModal();
     };
 }
 
@@ -3693,6 +3671,7 @@ function closePlaylistEditor(){
         modal.style.display="none";
         unmountFromPortal(modal);
     },250);
+    
 }
 
 
