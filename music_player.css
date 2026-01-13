@@ -3720,77 +3720,6 @@ body.modal-open #open-player-icon {
   color: #ef4444;
 }
 
-#create-playlist-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  opacity: 0;
-  pointer-events: none;
-  transition: .25s;
-}
-
-#create-playlist-modal.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.create-playlist-content {
-  background: var(--bg-card);
-  width: 90%;
-  max-width: 380px;
-  border-radius: 16px;
-  padding: 20px;
-  position: relative;
-  animation: scaleIn .25s ease;
-}
-
-.create-playlist-content h3 {
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-#playlist-name-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: var(--bg-main);
-  color: white;
-}
-
-.create-playlist-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.create-playlist-actions button {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-}
-
-#confirm-playlist-btn {
-  background: var(--primary);
-  color: black;
-}
-
-#cancel-playlist-btn {
-  background: #444;
-  color: white;
-}
-
-@keyframes scaleIn {
-  from {transform: scale(.8); opacity: 0;}
-  to {transform: scale(1); opacity: 1;}
-}
 
 /* Only control PLAYLIST MODAL visibility */
 .playlist-modal {
@@ -4202,4 +4131,120 @@ body.sidebar-open #mobile-menu-toggle::before {
 /* Optional subtle glow on name */
 .playlist-card .playlist-name {
     text-shadow: 0 0 6px rgba(56,189,248,0.35);
+}
+
+/* ==============================
+   PLAYLIST EDITOR MODAL (TEMP)
+============================== */
+
+.playlist-editor-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.playlist-editor-modal.open {
+  display: flex;
+}
+
+.playlist-editor-box {
+  width: 90%;
+  max-width: 420px;
+  height: 75vh; /* 🔥 vertical rectangle */
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#playlist-editor-title {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
+  color: var(--primary); /* theme color */
+}
+
+
+.pe-banner{
+  height:120px;
+  background:linear-gradient(135deg,var(--primary),#1e293b);
+  border-radius:12px;
+}
+.pe-avatar{
+  width:120px;
+  height:120px;
+  border-radius:22px;
+  overflow:hidden;
+  margin:-60px auto 10px;
+  border:4px solid var(--bg-card);
+}
+
+.pe-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+#pe-name-input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  background:var(--bg-main);
+  color:#fff;
+  margin-top:10px;
+  font-size:1rem;
+}
+.pe-avatar-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:18px;
+}
+.pe-actions{
+  display:flex;
+  gap:10px;
+  margin-top:auto;
+}
+
+.pe-actions button{
+  flex:1;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+}
+
+#pe-cancel-btn{
+  background:#374151;
+  color:#fff;
+}
+
+#pe-save-btn{
+  background:var(--primary);
+  color:#000;
+}
+#pe-delete-btn{
+  margin-top:12px;
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  display:none; /* edit mode later */
+}
+
+#confirm-modal {
+    z-index: 99999;
+}
+#playlist-editor-modal {
+    z-index: 9999;
 }

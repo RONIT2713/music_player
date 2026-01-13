@@ -395,37 +395,54 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
-<!-- CREATE PLAYLIST MODAL -->
-<div id="create-playlist-modal" class="create-playlist-modal">
+<!-- PLAYLIST EDITOR MODAL (NEW) -->
+<div id="playlist-editor-modal" class="playlist-editor-modal">
 
-  <div class="create-playlist-box">
+  <div class="playlist-editor-box">
 
-    <button id="create-playlist-close" class="modal-close-btn">
+    <button id="playlist-editor-close" class="modal-close-btn">
       <i class="fas fa-times"></i>
     </button>
 
-    <h3>Create Playlist</h3>
+    <h3 id="playlist-editor-title">Playlist</h3>
 
-    <input 
-      id="playlist-name-input" 
-      type="text" 
-      placeholder="Enter playlist name"
-    />
+    <div class="playlist-editor-body">
 
-    <div class="playlist-actions">
+      <!-- TOP BANNER -->
+      <div class="pe-banner"></div>
 
-      <button id="cancel-playlist-btn">Cancel</button>
-      <button id="confirm-playlist-btn">Create</button>
+      <!-- AVATAR PREVIEW -->
+      <div class="pe-avatar">
+        <img id="pe-avatar-img" src="covers/pl1.jpg">
+      </div>
+
+      <!-- NAME INPUT -->
+      <input 
+        id="pe-name-input"
+        type="text"
+        placeholder="Enter playlist name"
+      >
+
+      <!-- AVATAR GRID -->
+      <div class="pe-avatar-grid">
+        <!-- icons later -->
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="pe-actions">
+        <button id="pe-cancel-btn">Cancel</button>
+        <button id="pe-save-btn">Save</button>
+      </div>
+
+      <!-- DELETE (EDIT MODE ONLY) -->
+      <button id="pe-delete-btn">Delete Playlist</button>
 
     </div>
+
 
   </div>
 
 </div>
-
-
-
-
 
 
 

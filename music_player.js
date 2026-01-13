@@ -116,95 +116,129 @@ let deferredInstallPrompt = null;
 const mainHeaderRow = document.getElementById('main-header-row');
 const searchToggleBtn = document.getElementById('search-toggle-btn');
 
+let editorMode = "create"; // create | edit
+let editingPlaylistId = null;
 
-// CREATE PLAYLIST MODAL
-const createPlaylistModal = document.getElementById("create-playlist-modal");
-const createPlaylistClose = document.getElementById("create-playlist-close");
-const playlistInput = document.getElementById("playlist-name-input");
-const cancelPlaylistBtn = document.getElementById("cancel-playlist-btn");
-const confirmPlaylistBtn = document.getElementById("confirm-playlist-btn");
 
-function openCreatePlaylistModal() {
-  mountToPortal(createPlaylistModal);
+// --- PLAYLIST EDITOR MODAL (NEW) ---
 
-  createPlaylistModal.style.display = "flex";
-  createPlaylistModal.classList.add("open");
+const playlistEditorModal = document.getElementById("playlist-editor-modal");
+const playlistEditorClose = document.getElementById("playlist-editor-close");
 
-  document.body.classList.add("modal-open");
+function openPlaylistEditor(mode, playlistId = null) {
 
-  playlistInput.value = "";
-  playlistInput.focus();
+    // mode = "create" | "edit"
+    console.log("Open editor:", mode, playlistId);
+
+    if (!playlistEditorModal) return;
+
+    mountToPortal(playlistEditorModal);
+
+    playlistEditorModal.style.display = "flex";
+    playlistEditorModal.classList.add("open");
+
+    document.body.classList.add("modal-open");
+}
+
+function closePlaylistEditor() {
+
+    if (!playlistEditorModal) return;
+
+    playlistEditorModal.classList.remove("open");
+
+    setTimeout(() => {
+        playlistEditorModal.style.display = "none";
+        unmountFromPortal(playlistEditorModal);
+    }, 200);
+
+    document.body.classList.remove("modal-open");
+}
+
+if (playlistEditorClose) {
+    playlistEditorClose.addEventListener("click", closePlaylistEditor);
+}
+
+const peSaveBtn = document.getElementById("pe-save-btn");
+
+if (peSaveBtn) {
+    peSaveBtn.addEventListener("click", () => {
+
+        const nameInput = document.getElementById("pe-name-input");
+        const avatarImg = document.getElementById("pe-avatar-img");
+
+        if (!nameInput || !avatarImg) return;
+
+        const name = nameInput.value.trim();
+        const cover = avatarImg.src;
+
+        if (!name) {
+            alert("Playlist name required");
+            return;
+        }
+
+        let playlists = getPlaylists();
+
+        /* ========== CREATE MODE ========== */
+        if (editorMode === "create") {
+
+            // duplicate check
+            const exists = playlists.some(
+                p => p.name.toLowerCase() === name.toLowerCase()
+            );
+
+            if (exists) {
+                alert("Playlist already exists");
+                return;
+            }
+
+            const newPlaylist = {
+                id: Date.now(),
+                name: name,
+                cover: cover,
+                songs: []
+            };
+
+            playlists.push(newPlaylist);
+            savePlaylists(playlists);
+        }
+
+        /* ========== EDIT MODE ========== */
+        if (editorMode === "edit") {
+
+            const p = playlists.find(p => p.id === editingPlaylistId);
+            if (!p) return;
+
+            p.name = name;
+            p.cover = cover;
+
+            savePlaylists(playlists);
+        }
+
+        // refresh UI
+        renderPlaylistModal();
+        closePlaylistEditor();
+    });
 }
 
 
-function closeCreatePlaylistModal() {
-
-  createPlaylistModal.classList.remove("open");
-  document.body.classList.remove("modal-open");
-
-  setTimeout(() => {
-    createPlaylistModal.style.display = "none";
-    unmountFromPortal(createPlaylistModal);
-  }, 200);
-}
-
-
-// BUTTONS
-createPlaylistClose.addEventListener("click", closeCreatePlaylistModal);
-cancelPlaylistBtn.addEventListener("click", closeCreatePlaylistModal);
-
-// CREATE
-let playlistEditId = null; // global
-
-confirmPlaylistBtn.onclick = () => {
-
-    const name = playlistInput.value.trim();
-    if (!name) return;
-
-    let success = false;
-
-    if (playlistEditId) {
-        renamePlaylist(playlistEditId, name);
-        playlistEditId = null;
-        success = true;
-    } 
-    else {
-        const newPl = createPlaylist(name);
-        if (!newPl) return;
-        success = true;
-    }
-
-    if (success) {
-
-        closeCreatePlaylistModal();
-
-        // ⏳ wait for modal animation then refresh UI
-        setTimeout(() => {
-            renderPlaylistModal();
-        }, 250);
-    }
-};
 
 
 
-document.addEventListener("click", (e) => {
-  if (e.target.closest("#create-playlist-btn")) {
-    openCreatePlaylistModal();
-  }
-});
 
-
-
-const playlistCovers = [
-  "covers/pl1.jpg",
-  "covers/pl2.jpg",
-  "covers/pl3.jpg",
-  "covers/pl4.jpg"
+const playlistAvatars = [
+  "avatars/pl1.jpg",
+  "avatars/pl2.jpg",
+  "avatars/pl3.jpg",
+  "avatars/pl4.jpg"
 ];
 
-function getRandomPlaylistCover() {
-  return playlistCovers[Math.floor(Math.random() * playlistCovers.length)];
+
+function getRandomPlaylistAvatar() {
+  return playlistAvatars[
+    Math.floor(Math.random() * playlistAvatars.length)
+  ];
 }
+
 
 
 // --- DOM CACHE (Batch 2 optimization) ---
@@ -396,45 +430,12 @@ function savePlaylists(list) {
     localStorage.setItem("myPlaylists", JSON.stringify(list));
 }
 
-function createPlaylist(name) {
-    const playlists = getPlaylists();
-
-    // prevent duplicate names
-    if (playlists.some(p => p.name.toLowerCase() === name.toLowerCase())) {
-        alert("Playlist with this name already exists!");
-        return null;
-    }
-
-    const newPlaylist = {
-        id: Date.now(),
-        name,
-        cover: getRandomPlaylistCover(),
-        songs: []
-    };
-
-    playlists.push(newPlaylist);
-    savePlaylists(playlists);
-    return newPlaylist;
-}
 
 function deletePlaylist(id) {
     const list = getPlaylists().filter(p => p.id !== id);
     savePlaylists(list);
 }
 
-function renamePlaylist(id, newName) {
-    const list = getPlaylists();
-
-    if (list.some(p => p.name.toLowerCase() === newName.toLowerCase())) {
-        alert("Playlist name already exists!");
-        return;
-    }
-
-    const p = list.find(p => p.id === id);
-    if (p) p.name = newName;
-
-    savePlaylists(list);
-}
 
 function addSongToPlaylist(playlistId, songId) {
     const list = getPlaylists();
@@ -2258,8 +2259,9 @@ function renderPlaylistModal() {
     const body = document.getElementById("playlist-modal-body");
     const title = document.querySelector(".playlist-title");
     const grid = document.getElementById("playlist-grid");
+    const emptyBlock = document.getElementById("playlist-empty");
 
-    if (!body || !title || !grid) return;
+    if (!body || !title || !grid || !emptyBlock) return;
 
     const playlists = getPlaylists();
 
@@ -2267,36 +2269,18 @@ function renderPlaylistModal() {
     grid.innerHTML = '';
 
 /* ================= GRID VIEW ================= */
-        if (playlistModalView === "grid") {
+    if (playlistModalView === "grid") {
 
-            title.textContent = "My Playlists";
+        title.textContent = "My Playlists";
 
-            const emptyBlock = document.getElementById("playlist-empty");
+        // hide empty placeholder text (we now use card instead)
+        emptyBlock.style.display = "none";
 
-            // CASE 1: NO PLAYLISTS
-            if (playlists.length === 0) {
-
-                // show create button only
-                emptyBlock.style.display = "flex";
-
-                // center it
-                emptyBlock.style.justifyContent = "center";
-                emptyBlock.style.alignItems = "center";
-
-                // hide grid
-                grid.style.display = "none";
-                return;
-            }
-
-            // CASE 2: PLAYLISTS EXIST
-
-            // hide top create block
-            emptyBlock.style.display = "none";
-
-            // show grid
-            grid.style.display = "grid";
+        // always show grid
+        grid.style.display = "grid";
 
 
+        /* USER PLAYLISTS */
         playlists.forEach(pl => {
 
             const card = document.createElement("div");
@@ -2305,13 +2289,11 @@ function renderPlaylistModal() {
             card.innerHTML = `
                 <div class="playlist-cover">
                     <img src="${pl.cover}">
-                    <button class="playlist-delete" data-id="${pl.id}">
-                        <i class="fas fa-times"></i>
-                    </button>
                 </div>
 
                 <div class="playlist-name">${pl.name}</div>
 
+                <!-- EDIT ICON -->
                 <button class="playlist-edit" data-id="${pl.id}">
                     <i class="fas fa-pen"></i>
                 </button>
@@ -2333,49 +2315,44 @@ function renderPlaylistModal() {
                 }
             });
 
+            /* EDIT BUTTON */
+            const editBtn = card.querySelector(".playlist-edit");
 
-
-            /* DELETE */
-            card.querySelector(".playlist-delete")
-            .addEventListener("click", (e) => {
+            editBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                deletePlaylist(pl.id);
-                renderPlaylistModal();
-            });
+                openPlaylistEditorEdit(pl.id);
 
-            /* EDIT */
-            card.querySelector(".playlist-edit")
-            .addEventListener("click", (e) => {
-                e.stopPropagation();
-                openRenamePlaylist(pl.id, pl.name);
             });
 
             grid.appendChild(card);
         });
+        /* CREATE PLAYLIST CARD (ALWAYS LAST) */
+            const createCard = document.createElement("div");
+            createCard.className = "playlist-card create-card";
 
-        // ADD CREATE CARD AS LAST ITEM
-        const createCard = document.createElement("div");
-        createCard.className = "playlist-card create-card";
+            createCard.innerHTML = `
+                <div class="playlist-cover create-style">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="playlist-name">Create playlist</div>
+            `;
 
-        createCard.innerHTML = `
-            <div class="playlist-cover create-style">
-                <i class="fas fa-plus"></i>
-            </div>
-            <div class="playlist-name">Create playlist</div>
-        `;
+            grid.appendChild(createCard);
 
-        createCard.addEventListener("click", () => {
-            openCreatePlaylistModal();
-        });
 
-        grid.appendChild(createCard);
+
+            createCard.addEventListener("click", () => {
+                openPlaylistEditorCreate();
+
+            });
+
 
         return;
     }
 
-    /* ================= SONG VIEW ================= */
+/* ================= SONG VIEW ================= */
 
-    document.getElementById("playlist-empty").style.display = "none";
+    emptyBlock.style.display = "none";
 
     const pl = playlists.find(p => p.id === activePlaylistId);
     if (!pl) return;
@@ -2426,14 +2403,6 @@ function renderPlaylistModal() {
 
         grid.appendChild(li);
     });
-}
-
-function openRenamePlaylist(id, oldName) {
-
-    openCreatePlaylistModal();
-
-    playlistInput.value = oldName;
-    playlistEditId = id; // 🔥 set mode
 }
 
 
@@ -2707,6 +2676,13 @@ function openConfirmModal({
     if (!confirmModal) return;
 
     mountToPortal(confirmModal);
+   // FORCE TOP LAYER
+    confirmModal.style.zIndex = "10000";
+
+    const editor = document.getElementById("playlist-editor-modal");
+    if (editor) {
+        editor.style.zIndex = "9999";
+    }
 
 
     if (confirmModalTitle && title) {
@@ -2737,6 +2713,11 @@ function closeConfirmModal() {
 
     confirmModal.classList.remove('open');
 
+    // 🔥 RESET LAYER ORDER
+    confirmModal.style.zIndex = "";
+    const editor = document.getElementById("playlist-editor-modal");
+    if (editor) editor.style.zIndex = "";
+
     setTimeout(() => {
         unmountFromPortal(confirmModal);
     }, 200);
@@ -2747,6 +2728,7 @@ function closeConfirmModal() {
     // restore focus
     lastFocusedElement?.focus();
 }
+
 
 
 // --- 17. HELPERS FOR REPOSITIONING PLAYLIST ---
@@ -3617,3 +3599,105 @@ window.addEventListener('popstate', () => {
     row.scrollBy({ left: 200, behavior: 'smooth' });
   });
 })();
+
+
+
+function openPlaylistEditorCreate(){
+
+    editorMode = "create";
+    editingPlaylistId = null;
+
+    const modal = document.getElementById("playlist-editor-modal");
+    if(!modal) return;
+
+    mountToPortal(modal);
+    modal.style.display = "flex";
+    modal.classList.add("open");
+    document.body.classList.add("modal-open");
+
+    // RESET UI
+    document.getElementById("pe-name-input").value = "";
+    document.getElementById("pe-avatar-img").src =
+    COVER_BASE + getRandomPlaylistAvatar();
+
+
+
+    document.getElementById("pe-delete-btn").style.display = "none";
+}
+function openPlaylistEditorEdit(id){
+
+    editorMode = "edit";
+    editingPlaylistId = id;
+
+    const playlists = getPlaylists();
+    const pl = playlists.find(p => p.id === id);
+    if(!pl) return;
+
+    const modal = document.getElementById("playlist-editor-modal");
+    if(!modal) return;
+
+    mountToPortal(modal);
+    modal.style.display = "flex";
+    modal.classList.add("open");
+    document.body.classList.add("modal-open");
+
+    // LOAD DATA
+    document.getElementById("pe-name-input").value = pl.name;
+    document.querySelector(".pe-avatar img").src = pl.cover;
+
+    // SHOW DELETE BUTTON
+    const deleteBtn = document.getElementById("pe-delete-btn");
+    deleteBtn.style.display = "block";
+
+    // REMOVE OLD HANDLER (IMPORTANT)
+    deleteBtn.onclick = null;
+
+    // DELETE HANDLER (ONLY ONE)
+    deleteBtn.onclick = () => {
+
+        openConfirmModal({
+            title: "Delete playlist?",
+            message: "This action cannot be undone.",
+            confirmLabel: "Delete",
+            confirmIconClass: "fa-trash",
+            onConfirm: () => {
+
+                // 1. DELETE FROM STORAGE
+                deletePlaylist(editingPlaylistId);
+
+                // 2. CLOSE CONFIRM MODAL
+                closeConfirmModal();
+
+                // 3. CLOSE EDITOR MODAL (FIX PROBLEM 1)
+                closePlaylistEditor();
+
+                // 4. FORCE UI REFRESH (FIX PROBLEM 2)
+                playlistModalView = "grid";
+                activePlaylistId = null;
+                renderPlaylistModal();
+            }
+        });
+    };
+}
+
+
+function closePlaylistEditor(){
+
+    const modal = document.getElementById("playlist-editor-modal");
+    if(!modal) return;
+
+    modal.classList.remove("open");
+    document.body.classList.remove("modal-open");
+
+    setTimeout(()=>{
+        modal.style.display="none";
+        unmountFromPortal(modal);
+    },250);
+}
+
+
+const peCancelBtn = document.getElementById("pe-cancel-btn");
+
+if (peCancelBtn) {
+    peCancelBtn.addEventListener("click", closePlaylistEditor);
+}
