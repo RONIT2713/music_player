@@ -3801,18 +3801,53 @@ body.modal-open #open-player-icon {
 }
 
 
-.playlist-create-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--primary);
+/* remove default button styles */
+.playlist-empty button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+/* EMPTY STATE CREATE STYLE */
+#playlist-empty {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
-    color: #000;
-    border: none;
 }
+#playlist-empty button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;   /* NEW */
+    gap: 10px;                 /* more breathing space */
+    cursor: pointer;
+}
+
+/* FORCE text to go below icon (text node fix) */
+#playlist-empty button {
+    text-align: center;
+}
+
+#playlist-empty button::after {
+    content: "";
+}
+#playlist-empty button i {
+    display: block;
+}
+
+#playlist-empty span,
+#playlist-empty .create-text {
+    font-size: 13px;
+    opacity: 0.75;
+    letter-spacing: 0.3px;   /* premium feel */
+}
+
+
+
+#playlist-empty i {
+    font-size: 36px;
+    color: var(--primary);
+}
+
 #create-playlist-modal input {
     background: var(--bg-card);
     border: 1px solid var(--primary);
@@ -3901,4 +3936,270 @@ body.sidebar-open #mobile-menu-toggle::before {
   content:"\f00d";
   font-family:"Font Awesome 6 Free";
   font-weight:900;
+}
+
+
+/* CREATE PLAYLIST ICON FIX */
+.playlist-cover.create-style {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playlist-cover.create-style i {
+    font-size: 32px;
+    color: var(--primary); /* matches your theme */
+}
+/* EMPTY STATE – stack text below icon */
+#playlist-empty {
+    display: flex;
+    flex-direction: column;   /* vertical */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* keep button centered */
+#playlist-empty button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* text below */
+#playlist-empty .create-text {
+    margin-top: 2px;
+}
+/* EMPTY STATE TEXT POLISH */
+#playlist-empty .create-text {
+    font-size: 14px;                 /* bigger */
+    font-weight: 600;
+    line-height: 1.4;               /* vertical balance */
+    color: var(--primary);          /* theme color */
+    letter-spacing: 0.4px;
+    text-align: center;
+
+    /* subtle glow */
+    text-shadow: 
+      0 0 6px rgba(56,189,248,0.35),
+      0 0 14px rgba(56,189,248,0.15);
+}
+/* Slight left shift for plus icon */
+#playlist-empty button i {
+    position: relative;
+    left: -3px;   /* adjust value if needed */
+}
+/* ===============================
+   PLAYLIST CARD REDESIGN
+   =============================== */
+
+.playlist-card {
+    width: 120px;     /* increase size */
+    height: 150px;   
+  position: relative;
+  border-radius: 18px;
+  overflow: visible;
+  background: #0f172a;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Lift effect */
+.playlist-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  border-color: rgba(56,189,248,0.6); /* accent */
+}
+
+/* Cover */
+.playlist-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Playlist name */
+.playlist-name {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e5e7eb;
+
+  /* fade long text */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Tooltip on hover */
+.playlist-card:hover .playlist-name {
+  position: relative;
+}
+
+.playlist-card:hover .playlist-name::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 120%;
+  background: #020617;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0.95;
+}
+
+/* Hide icons by default */
+.playlist-delete,
+.playlist-edit {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Show icons on hover */
+.playlist-card:hover .playlist-delete,
+.playlist-card:hover .playlist-edit {
+  opacity: 1;
+}
+
+
+/* Make card reference point */
+.playlist-card {
+    position: relative;
+}
+
+/* Position delete icon on border */
+.playlist-delete {
+    position: absolute;
+    top: -8px;       /* outside border */
+    right: -8px;
+    z-index: 10;
+
+    background: #020617;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    padding: 5px;
+
+    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+}
+
+/* FORCE DELETE ICON VISIBILITY */
+.playlist-delete {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+
+    z-index: 9999; /* force on top */
+    opacity: 1 !important;
+
+    background: #020617;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    padding: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* remove hover hiding */
+.playlist-card:hover .playlist-delete {
+    opacity: 1 !important;
+}
+/* ===============================
+   PLAYLIST DELETE (FINAL FIX)
+================================ */
+
+.playlist-card {
+    position: relative;
+}
+
+/* keep image rounded */
+.playlist-cover {
+    position: relative;
+    overflow: hidden;      /* restore clipping */
+    border-radius: 16px;   /* match your card */
+}
+
+/* delete button */
+.playlist-delete {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+
+    border: none;
+    cursor: pointer;
+
+    z-index: 5;
+
+    /* hidden by default */
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+
+    transition: 0.2s ease;
+}
+
+/* show only on hover */
+.playlist-card:hover .playlist-delete {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+/* hover style */
+.playlist-delete:hover {
+    background: #ff3b3b;
+}
+
+/* icon size */
+.playlist-delete i {
+    font-size: 13px;
+}
+/* TEMP: HIDE PLAYLIST DELETE ICON */
+.playlist-delete {
+    display: none !important;
+}
+/* ================= PLAYLIST CARD POLISH ================= */
+
+/* Space between top border and image */
+.playlist-card .playlist-cover {
+    margin-top: 15px;   /* adjust if needed */
+}
+
+/* Center image nicely */
+.playlist-card .playlist-cover img {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Playlist name color + style */
+.playlist-card .playlist-name {
+    color: #38bdf8;              /* accent blue */
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Optional subtle glow on name */
+.playlist-card .playlist-name {
+    text-shadow: 0 0 6px rgba(56,189,248,0.35);
 }

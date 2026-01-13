@@ -9,12 +9,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Aye Mere Humsafar-Ab Mujhe Raat Din (From \"T-Series Mixtape Rewind Season 3\") - Single",
     "year": "1998",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 243,
     "source": "MusicBrainz",
     "artistCover": "artists/chinmaya_dunster.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/3c/53/1a/3c531af9-34d9-1484-6571-7ab0734e19c6/8903431821560_cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/3c/53/1a/3c531af9-34d9-1484-6571-7ab0734e19c6/8903431821560_cover.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 2,
@@ -26,12 +28,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Dil Hai Ke Manta Nahin (Original Motion Picture Soundtrack)",
     "year": "2003",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 409,
     "source": "MusicBrainz",
     "artistCover": "artists/kumar_sanu.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/6d/9f/97/6d9f97f2-d285-93d8-6f47-8edd0b17b173/8902894105880_cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/6d/9f/97/6d9f97f2-d285-93d8-6f47-8edd0b17b173/8902894105880_cover.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 3,
@@ -43,12 +47,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Brahma Kumaris Audio",
     "year": "2018",
-    "genre": "Religion & Spirituality",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/nusrat_fateh_ali_khan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/da/a6/81/daa6819a-246e-d194-57b6-e481aebc941d/mza_8743180132699124377.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/da/a6/81/daa6819a-246e-d194-57b6-e481aebc941d/mza_8743180132699124377.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 4,
@@ -60,12 +66,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Jaan Love You",
     "year": "2008",
-    "genre": "Relationships",
+    "genre": "Romantic",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/kailash_kher.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/51/9b/0c/519b0c68-9d94-c094-5113-b0361e016e6f/mza_7579773189063904325.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/51/9b/0c/519b0c68-9d94-c094-5113-b0361e016e6f/mza_7579773189063904325.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 5,
@@ -77,12 +85,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2023",
-    "genre": "Regional Indian",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 9045,
     "source": "MusicBrainz",
     "artistCover": "artists/sharry_mann.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video1/v4/ce/5f/d9/ce5fd99c-2586-dba7-9725-0463f88b28e3/VIN013.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video1/v4/ce/5f/d9/ce5fd99c-2586-dba7-9725-0463f88b28e3/VIN013.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 6,
@@ -94,12 +104,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DJ Ravish Remixes",
     "year": "1997",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/kishore_kumar.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 7,
@@ -111,12 +123,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "SICM Qur'an Tafsir by Shaykh Bahmanpour",
     "year": "1997",
-    "genre": "Islam",
+    "genre": "General",
     "language": "Hindi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/roop_kumar_rathod.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/4b/c6/c5/4bc6c5dd-4b04-6a13-45ea-21d3e102a129/mza_14083805657160356422.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/4b/c6/c5/4bc6c5dd-4b04-6a13-45ea-21d3e102a129/mza_14083805657160356422.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 8,
@@ -128,12 +142,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "GAZAL HUB",
     "year": "1997",
-    "genre": "Arts",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/partners_in_rhyme.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e9/e3/e4/e9e3e4b3-1dbe-355e-f7b7-fcb30e27e637/mza_13279876536226940998.jpeg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e9/e3/e4/e9e3e4b3-1dbe-355e-f7b7-fcb30e27e637/mza_13279876536226940998.jpeg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 9,
@@ -145,12 +161,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Martina Motwani",
     "year": "2005",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/roop_kumar_rathod.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 10,
@@ -162,12 +180,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Money Konnect",
     "year": "2004",
-    "genre": "Investing",
+    "genre": "General",
     "language": "Hindi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/shankar-ehsaan-loy.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f4/7f/aa/f47faa7c-bbdb-b4b8-650a-753180d763d5/mza_2558389656674539723.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f4/7f/aa/f47faa7c-bbdb-b4b8-650a-753180d763d5/mza_2558389656674539723.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 11,
@@ -179,12 +199,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Chhaya (Original Motion Picture Soundtrack)",
     "year": "1961",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 216,
     "source": "MusicBrainz",
     "artistCover": "artists/salil_chowdhury.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/74/cb/87/74cb8725-f0ad-5422-d57d-de8384b9cc9f/191773208868.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/74/cb/87/74cb8725-f0ad-5422-d57d-de8384b9cc9f/191773208868.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 12,
@@ -196,12 +218,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Martina Motwani",
     "year": "1999",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/udit_narayan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 13,
@@ -213,12 +237,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "High Potential, Season 1",
     "year": "2020",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 2585,
     "source": "MusicBrainz",
     "artistCover": "artists/yuksek.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/54/d6/13/54d613cf-575b-1f8b-d93d-582c34055211/mzl.mveyjdra.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/54/d6/13/54d613cf-575b-1f8b-d93d-582c34055211/mzl.mveyjdra.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 14,
@@ -230,12 +256,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2007",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 8203,
     "source": "MusicBrainz",
     "artistCover": "artists/jagjit_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video5/v4/e0/40/0d/e0400d6a-9b68-5227-1fca-9c9536dc9f96/mza_6565338074616165395.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video5/v4/e0/40/0d/e0400d6a-9b68-5227-1fca-9c9536dc9f96/mza_6565338074616165395.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 15,
@@ -247,12 +275,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Luna de miel en familia y La mejor de mis bodas - Colección de 2 películas",
     "year": "1998",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 7031,
     "source": "MusicBrainz",
     "artistCover": "artists/megaherz.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video4/v4/5c/76/ae/5c76aea6-1ee5-515a-07d6-e7cbe1b35e4b/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video4/v4/5c/76/ae/5c76aea6-1ee5-515a-07d6-e7cbe1b35e4b/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 16,
@@ -264,12 +294,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Pit Lane Parley",
     "year": "2024",
-    "genre": "Sports",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/jazzy_b.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/eb/2e/e5/eb2ee581-840e-d84d-eb67-b76d8deed637/mza_4451076394468950491.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/eb/2e/e5/eb2ee581-840e-d84d-eb67-b76d8deed637/mza_4451076394468950491.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 17,
@@ -281,12 +313,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Introducing Japanese culture -Popular food and Izakaya menu-: 日本の文化を英語で紹介 〜人気グルメと居酒屋メニュー〜",
     "year": "2019",
-    "genre": "Languages",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "iTunes",
     "artistCover": "artists/講談社.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/2d/5e/f2/2d5ef26f-1f97-db9d-3f2b-a9eaecd8b13f/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/2d/5e/f2/2d5ef26f-1f97-db9d-3f2b-a9eaecd8b13f/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 18,
@@ -298,12 +332,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "1995",
-    "genre": "Thriller",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 5376,
     "source": "MusicBrainz",
     "artistCover": "artists/south_circle_klick.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video5/v4/41/ff/54/41ff54fd-66e3-4316-3fc5-c95f0a28f259/Jailbait3057.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video5/v4/41/ff/54/41ff54fd-66e3-4316-3fc5-c95f0a28f259/Jailbait3057.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 19,
@@ -315,12 +351,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Conjuring 9 Film Collection",
     "year": "2023",
-    "genre": "Horror",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 6599,
     "source": "MusicBrainz",
     "artistCover": "artists/naushad.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video126/v4/08/a3/57/08a357fb-462b-4644-e008-ec4b1617702c/b90871b8-3449-4970-b7bb-f71e5f3f395c_NUN2_STD_APO_V_DD_KA_TT_2000x3000_300dpi_EN-p3.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video126/v4/08/a3/57/08a357fb-462b-4644-e008-ec4b1617702c/b90871b8-3449-4970-b7bb-f71e5f3f395c_NUN2_STD_APO_V_DD_KA_TT_2000x3000_300dpi_EN-p3.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 20,
@@ -332,12 +370,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Get Group of Full Audiobooks in Self Development, Health & Wellness",
     "year": "2022",
-    "genre": "Investing",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/richa_sharma.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/3b/61/18/3b6118d9-6279-d651-9c1e-1ccd7e4ba73e/mza_14475885647921766649.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/3b/61/18/3b6118d9-6279-d651-9c1e-1ccd7e4ba73e/mza_14475885647921766649.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 21,
@@ -349,12 +389,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2019",
-    "genre": "Action & Adventure",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 8718,
     "source": "MusicBrainz",
     "artistCover": "artists/talat_mahmood.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/ae/33/82/ae3382c8-2d43-7372-8685-17dc628eb98c/FR_AP_RATSASAN_HD_000030.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/ae/33/82/ae3382c8-2d43-7372-8685-17dc628eb98c/FR_AP_RATSASAN_HD_000030.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 22,
@@ -366,12 +408,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "गीता का सार (Geeta Ka Saar) #BhagavadGita #SpiritualKnowledge",
     "year": "1998",
-    "genre": "Spirituality",
+    "genre": "Devotional",
     "language": "Haryanavi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/whosane?.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/94/e3/f8/94e3f8b0-2a09-3d7e-e178-8e9aa932e642/mza_2499244427697709973.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/94/e3/f8/94e3f8b0-2a09-3d7e-e178-8e9aa932e642/mza_2499244427697709973.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 23,
@@ -383,12 +427,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "1991",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 5003,
     "source": "MusicBrainz",
     "artistCover": "artists/talat_aziz.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/57/5a/c5/575ac512-588a-2d9c-8eac-6ade178cbf40/LostBoys_iTunes_Poster_2000x3000.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/57/5a/c5/575ac512-588a-2d9c-8eac-6ade178cbf40/LostBoys_iTunes_Poster_2000x3000.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 24,
@@ -400,12 +446,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Tirath Naha Lyange - Single",
     "year": "2022",
-    "genre": "Haryanvi",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 152,
     "source": "MusicBrainz",
     "artistCover": "artists/soo_yeon_lim.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0e/6b/c4/0e6bc4e5-43d2-5954-8470-6854493e0351/6161126850918.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0e/6b/c4/0e6bc4e5-43d2-5954-8470-6854493e0351/6161126850918.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 25,
@@ -417,12 +465,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "90s Bitch",
     "year": "2004",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/jazzy_b.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/df/6d/99/df6d9944-2427-3982-4ef8-4392f37c112c/9780062791351.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/df/6d/99/df6d9944-2427-3982-4ef8-4392f37c112c/9780062791351.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 26,
@@ -434,12 +484,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Cnut the Great: The Life and Legacy of Scandinavia's Most Famous King (Unabridged)",
     "year": "2014",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/young_doctors_in_love.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music7/v4/81/10/ef/8110ef7c-6960-c41f-766b-5f1876161731/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music7/v4/81/10/ef/8110ef7c-6960-c41f-766b-5f1876161731/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 27,
@@ -451,12 +503,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Acquainted with the Night (Unabridged)",
     "year": "2019",
-    "genre": "Mysteries & Thrillers",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/cj_flemings.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/ee/6f/b8/ee6fb8bc-0a3d-139d-ba37-c0e5c117a7d4/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/ee/6f/b8/ee6fb8bc-0a3d-139d-ba37-c0e5c117a7d4/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 28,
@@ -468,12 +522,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Aesop's Fables (Unabridged)",
     "year": "2014",
-    "genre": "Classics",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/dynamic_duo.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/b7/3a/20/b73a20d6-1e85-4123-a797-b651aa72cb20/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/b7/3a/20/b73a20d6-1e85-4123-a797-b651aa72cb20/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 29,
@@ -485,12 +541,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Almost 30",
     "year": "2018",
-    "genre": "Self-Development",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/msc.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d1/18/38/d1183842-53cd-5f37-8f3f-404d7892a0c2/9781250400499.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d1/18/38/d1183842-53cd-5f37-8f3f-404d7892a0c2/9781250400499.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 30,
@@ -502,12 +560,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Alone, Season 12",
     "year": "2024",
-    "genre": "Reality & Nonfiction",
+    "genre": "General",
     "language": "English",
     "duration": 4061,
     "source": "MusicBrainz",
     "artistCover": "artists/aphextwinsucks.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/03/9d/ae/039dae30-f2fb-e23d-cff9-d472d918d210/Alone_12_3000x3000.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/03/9d/ae/039dae30-f2fb-e23d-cff9-d472d918d210/Alone_12_3000x3000.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 31,
@@ -519,12 +579,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "As Our World Ends: A Post-Apocalyptic Survival Thriller (Cyber Apocalypse, Book 1) (Unabridged)",
     "year": "2001",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/nynaeve.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/96/bc/be/96bcbeb7-5ba7-d708-7e9a-3d5a69d75d6f/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/96/bc/be/96bcbeb7-5ba7-d708-7e9a-3d5a69d75d6f/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 32,
@@ -536,12 +598,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Come Back to Me (Waters of Time)",
     "year": "2005",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/kathleen_edwards.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/58/df/26/58df2679-1ee0-3049-2c47-5fa4abb9b70e/9781705298305.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/58/df/26/58df2679-1ee0-3049-2c47-5fa4abb9b70e/9781705298305.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 33,
@@ -553,12 +617,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Black Space Chronicles: The Mysteries Beyond Observable Light",
     "year": "2001",
-    "genre": "Science & Nature",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/love_to_sing.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b5/a4/45/b5a445c3-632d-06e2-e0e4-3c8ba77e52e4/9798318387616.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b5/a4/45/b5a445c3-632d-06e2-e0e4-3c8ba77e52e4/9798318387616.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 34,
@@ -570,12 +636,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Blinding Light (Unabridged)",
     "year": "2022",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/ravenlight.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/db/7e/81/db7e81ed-9c52-24eb-3c09-7bfc8878417d/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/db/7e/81/db7e81ed-9c52-24eb-3c09-7bfc8878417d/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 35,
@@ -587,12 +655,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Just Call My Name",
     "year": "1994",
-    "genre": "Kids & Young Adults",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/chris_von_sneidern.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/d1/1b/62/d11b628c-70bd-05a4-e37f-63556d37d510/9781666595109.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/d1/1b/62/d11b628c-70bd-05a4-e37f-63556d37d510/9781666595109.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 36,
@@ -604,12 +674,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2021",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "English",
     "duration": 4007,
     "source": "MusicBrainz",
     "artistCover": "artists/kid_buu.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/03/77/cf/0377cf99-0f2c-af3a-110f-2265c438bd31/SarahColonna_CantFeelMyLegs15.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/03/77/cf/0377cf99-0f2c-af3a-110f-2265c438bd31/SarahColonna_CantFeelMyLegs15.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 37,
@@ -621,12 +693,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Outside the Law",
     "year": "1998",
-    "genre": "Romance",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/eskimo_joe.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/ed/a7/5c/eda75c19-c319-f859-1815-25cd3232671d/9781488222825.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/ed/a7/5c/eda75c19-c319-f859-1815-25cd3232671d/9781488222825.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 38,
@@ -638,12 +712,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2016",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "English",
     "duration": 5478,
     "source": "MusicBrainz",
     "artistCover": "artists/tv_girl.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/0e/b1/79/0eb17969-94e0-190c-2e4b-2d3648a29f6b/pr_source.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/0e/b1/79/0eb17969-94e0-190c-2e4b-2d3648a29f6b/pr_source.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 39,
@@ -655,12 +731,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Come Back to Me (Come Back to Me)",
     "year": "2018",
-    "genre": "Kids & Young Adults",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/aretha_franklin.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f4/65/18/f465189a-6723-11ce-e737-046e17702a59/9781705297841.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f4/65/18/f465189a-6723-11ce-e737-046e17702a59/9781705297841.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 40,
@@ -672,12 +750,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2020",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "English",
     "duration": 3162,
     "source": "MusicBrainz",
     "artistCover": "artists/347aidan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/ca/aa/ab/mzi.wrbrrguy.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/ca/aa/ab/mzi.wrbrrguy.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 41,
@@ -689,12 +769,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Stephen King 8 Movie Collection",
     "year": "1998",
-    "genre": "Horror",
+    "genre": "General",
     "language": "English",
     "duration": 5604,
     "source": "MusicBrainz",
     "artistCover": "artists/jack_black.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/45/9f/e3/mzi.wqtwbmst.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/45/9f/e3/mzi.wqtwbmst.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 42,
@@ -706,12 +788,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2015",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 6471,
     "source": "MusicBrainz",
     "artistCover": "artists/the_hermit_crabs.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music/63/e5/4c/mzi.ocvkmfel.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music/63/e5/4c/mzi.ocvkmfel.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 43,
@@ -723,12 +807,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The James Bond Collection",
     "year": "1991",
-    "genre": "Action & Adventure",
+    "genre": "General",
     "language": "English",
     "duration": 7677,
     "source": "MusicBrainz",
     "artistCover": "artists/alice_cooper.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video2/v4/95/5d/6d/955d6dbe-ef7a-2d29-54a6-d023b1fc1ddf/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video2/v4/95/5d/6d/955d6dbe-ef7a-2d29-54a6-d023b1fc1ddf/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 44,
@@ -740,12 +826,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Expresso Messo: Sweet Home Mystery Series, Book 6 (Unabridged)",
     "year": "1986",
-    "genre": "Mysteries & Thrillers",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/gong.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music111/v4/70/cd/00/70cd0085-f4b2-b10a-7bd1-77ce79ea5299/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music111/v4/70/cd/00/70cd0085-f4b2-b10a-7bd1-77ce79ea5299/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 45,
@@ -757,12 +845,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Dying Eyes Don't Lie (Unabridged)",
     "year": "2006",
-    "genre": "Mysteries & Thrillers",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/hüseyin_karadayı.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/db/b4/4bdbb4b2-fb16-6a39-7cd5-0e4a1a549cc4/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/db/b4/4bdbb4b2-fb16-6a39-7cd5-0e4a1a549cc4/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 46,
@@ -774,12 +864,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2001",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "English",
     "duration": 5155,
     "source": "MusicBrainz",
     "artistCover": "artists/default.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/f8/02/c1/f802c158-b763-f758-59ef-6737b8427e5a/FadedGlory-Poster.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/f8/02/c1/f802c158-b763-f758-59ef-6737b8427e5a/FadedGlory-Poster.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 47,
@@ -791,12 +883,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2009",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 5505,
     "source": "MusicBrainz",
     "artistCover": "artists/joel_plaskett.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video118/v4/a6/30/4e/a6304e67-f535-7081-b679-adbf36ba9217/ARROW_HEARTLESS_2017.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video118/v4/a6/30/4e/a6304e67-f535-7081-b679-adbf36ba9217/ARROW_HEARTLESS_2017.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 48,
@@ -808,12 +902,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Hello Beautiful (Oprah's Book Club): A Novel (Unabridged)",
     "year": "2007",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/mini_roc.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/c5/54/5c/c5545c7c-8dae-f280-e78a-094c301bd227/9780593664049.d.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/c5/54/5c/c5545c7c-8dae-f280-e78a-094c301bd227/9780593664049.d.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 49,
@@ -825,12 +921,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "In Him I Trust : An Urban Romance",
     "year": "2023",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/bliss365.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e5/38/0e/e5380e9f-92d5-7a8f-8ae0-09cb96b25482/9798895943915.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e5/38/0e/e5380e9f-92d5-7a8f-8ae0-09cb96b25482/9798895943915.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 50,
@@ -842,12 +940,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Sneaky Pete, Season 2",
     "year": "1975",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 3235,
     "source": "MusicBrainz",
     "artistCover": "artists/national_philharmonic_orchestra.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/e3/d1/d2/e3d1d2c4-dc9f-6fb2-7458-a1d0a861048d/mzl.mffgcwgu.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/e3/d1/d2/e3d1d2c4-dc9f-6fb2-7458-a1d0a861048d/mzl.mffgcwgu.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 51,
@@ -859,12 +959,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2012",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 8068,
     "source": "MusicBrainz",
     "artistCover": "artists/dweller_on_the_threshold.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video49/v4/2f/70/b9/2f70b903-6836-af5b-d621-0f47c96e8f07/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video49/v4/2f/70/b9/2f70b903-6836-af5b-d621-0f47c96e8f07/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 52,
@@ -876,12 +978,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Yaané ? Aux confins des identités",
     "year": "2021",
-    "genre": "Society & Culture",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/rakshita_suresh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/f3/97/9e/f3979e8c-8d6f-2bf4-0192-376d9207e837/mza_837368415853663955.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/f3/97/9e/f3979e8c-8d6f-2bf4-0192-376d9207e837/mza_837368415853663955.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 53,
@@ -893,12 +997,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "1996",
-    "genre": "Romance",
+    "genre": "General",
     "language": "English",
     "duration": 5425,
     "source": "MusicBrainz",
     "artistCover": "artists/ricardo_caliente.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/6e/f3/6b/6ef36bda-6e29-625f-187c-143d7a20bbc7/IDO_FINAL_V3_1400x2100.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/6e/f3/6b/6ef36bda-6e29-625f-187c-143d7a20bbc7/IDO_FINAL_V3_1400x2100.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 54,
@@ -910,12 +1016,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2022",
-    "genre": "Action & Adventure",
+    "genre": "General",
     "language": "English",
     "duration": 4762,
     "source": "MusicBrainz",
     "artistCover": "artists/jamie_miller.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video118/v4/2a/51/86/2a518602-5e6f-43ba-c033-26778ecafccd/CPL_Loving_You_SL295001-artwork.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video118/v4/2a/51/86/2a518602-5e6f-43ba-c033-26778ecafccd/CPL_Loving_You_SL295001-artwork.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 55,
@@ -927,12 +1035,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Swimming in the Dark",
     "year": "1991",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/rod_piazza.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/ce/75/9b/ce759bf4-10f3-ca2b-bb4f-2a8550a0b4b4/9780062987761.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/ce/75/9b/ce759bf4-10f3-ca2b-bb4f-2a8550a0b4b4/9780062987761.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 56,
@@ -944,12 +1054,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2019",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 5087,
     "source": "MusicBrainz",
     "artistCover": "artists/鹿乃.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video1/v4/5e/16/6e/5e166e2c-f6a1-d472-592d-62bc20f6454c/B360_005_2014.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video1/v4/5e/16/6e/5e166e2c-f6a1-d472-592d-62bc20f6454c/B360_005_2014.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 57,
@@ -961,12 +1073,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2017",
-    "genre": "Drama",
+    "genre": "Romantic",
     "language": "English",
     "duration": 5100,
     "source": "MusicBrainz",
     "artistCover": "artists/8-bit_misfits.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/53/06/ec/5306ec27-1e17-3ed7-d45a-dbc34d622bb7/pr_source.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/53/06/ec/5306ec27-1e17-3ed7-d45a-dbc34d622bb7/pr_source.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 58,
@@ -978,12 +1092,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Howling at the Moon: The Odyssey of a Monstrous Music Mogul in an Age of Excess (Abridged)",
     "year": "2011",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/drake.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/2c/c1/90/2cc190e6-0746-b442-9336-a75e4a38d9e2/9780739311639.d.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/2c/c1/90/2cc190e6-0746-b442-9336-a75e4a38d9e2/9780739311639.d.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 59,
@@ -995,12 +1111,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2000",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "English",
     "duration": 6262,
     "source": "MusicBrainz",
     "artistCover": "artists/marie_wilson.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/3a/77/d2/mzi.gplksjnx.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/3a/77/d2/mzi.gplksjnx.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 60,
@@ -1012,12 +1130,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Twirling Naked in the Streets and No One Noticed: Growing Up with Undiagnosed Autism (Unabridged)",
     "year": "1996",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/sunshine_blind.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/18/97/d6/1897d6bb-707e-9f68-9d06-242bdf8c90b8/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/18/97/d6/1897d6bb-707e-9f68-9d06-242bdf8c90b8/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 61,
@@ -1029,12 +1149,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Nobody Walks",
     "year": "2025",
-    "genre": "Mysteries & Thrillers",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/the_marías.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/b4/81/97/b4819746-7962-ba05-b87a-3baea39a0644/9781490657592.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/b4/81/97/b4819746-7962-ba05-b87a-3baea39a0644/9781490657592.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 62,
@@ -1046,12 +1168,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Brooke Shields Is Not Allowed to Get Old",
     "year": "2025",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/karmen.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/0a/36/df/0a36dfe6-2520-76d3-b58a-2c6931b1b15c/9781250354082.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/0a/36/df/0a36dfe6-2520-76d3-b58a-2c6931b1b15c/9781250354082.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 63,
@@ -1063,12 +1187,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Dude, the World's Gonna Punch You in the Face: Here's How to Make it Hurt Less (Unabridged)",
     "year": "2021",
-    "genre": "Sports & Outdoors",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/rebecca_ferguson.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/19/01/b0/1901b0d9-d3d2-e9d4-ad98-6f0670680d3d/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/19/01/b0/1901b0d9-d3d2-e9d4-ad98-6f0670680d3d/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 64,
@@ -1080,12 +1206,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "One Call Away",
     "year": "2004",
-    "genre": "Romance",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/chingy.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/09/6e/f5/096ef551-b764-c5dd-4525-ed55123f5085/9798889490722.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/09/6e/f5/096ef551-b764-c5dd-4525-ed55123f5085/9798889490722.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 65,
@@ -1097,12 +1225,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2001",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 4994,
     "source": "MusicBrainz",
     "artistCover": "artists/greg_trooper.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/76/3f/48/763f48a7-1612-8618-057f-e0af91deae3c/CEG10027935_OverTheMoonInLove_iTunes_2000x3000.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/76/3f/48/763f48a7-1612-8618-057f-e0af91deae3c/CEG10027935_OverTheMoonInLove_iTunes_2000x3000.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 66,
@@ -1114,12 +1244,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Paranoia",
     "year": "1989",
-    "genre": "Mysteries & Thrillers",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/bauhaus.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b3/e0/b7/b3e0b740-0c81-33e8-1f3d-497c409706e4/9781668646625.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b3/e0/b7/b3e0b740-0c81-33e8-1f3d-497c409706e4/9781668646625.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 67,
@@ -1131,12 +1263,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Please Twins!",
     "year": "2013",
-    "genre": "Animation",
+    "genre": "General",
     "language": "English",
     "duration": 1444,
     "source": "MusicBrainz",
     "artistCover": "artists/simba_tagz.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/8e/da/b2/8edab2f5-1c59-bb10-0150-53232d44be49/pr_source.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/8e/da/b2/8edab2f5-1c59-bb10-0150-53232d44be49/pr_source.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 68,
@@ -1148,12 +1282,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Want to Watch Me Screw a Stranger?: A Wife Sharing Public Sex Short (Unabridged)",
     "year": "2020",
-    "genre": "Erotica",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/the_garden.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ed/4b/ad/ed4bad5e-d482-272e-9696-4f6bf8b304e7/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ed/4b/ad/ed4bad5e-d482-272e-9696-4f6bf8b304e7/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 69,
@@ -1165,12 +1301,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Myth Takes: Rhyme and Reason in the Age of Entitlement (Unabridged)",
     "year": "2006",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/talisman.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/bc/da/b1/bcdab137-fb21-0c86-0ef4-a531d49c324c/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/bc/da/b1/bcdab137-fb21-0c86-0ef4-a531d49c324c/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 70,
@@ -1182,12 +1320,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "ROAR, Revised Edition: Match Your Food and Fitness to Your Unique Female Physiology for Optimum Performance, Great Health, and a Strong Body for Life (Unabridged)",
     "year": "2007",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/bodies_of_water.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/6c/28/72/6c28720f-c1aa-faf4-bb11-612bd5633bc4/9780593860663.d.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/6c/28/72/6c28720f-c1aa-faf4-bb11-612bd5633bc4/9780593860663.d.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 71,
@@ -1199,12 +1339,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2000",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 5890,
     "source": "MusicBrainz",
     "artistCover": "artists/scared_weird_little_guys.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video122/v4/e5/60/3e/e5603ed3-c67d-2357-fe12-f590b6ca8caf/TheRoyal_SGF_2022.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video122/v4/e5/60/3e/e5603ed3-c67d-2357-fe12-f590b6ca8caf/TheRoyal_SGF_2022.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 72,
@@ -1216,12 +1358,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2019",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "English",
     "duration": 5040,
     "source": "MusicBrainz",
     "artistCover": "artists/destiny’s_child.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video125/v4/a1/36/ca/a136ca17-cc4e-5350-b8ed-23606cba61c5/SayMyName_.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video125/v4/a1/36/ca/a136ca17-cc4e-5350-b8ed-23606cba61c5/SayMyName_.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 73,
@@ -1233,12 +1377,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2001",
-    "genre": "Comedy",
+    "genre": "Romantic",
     "language": "English",
     "duration": 5835,
     "source": "MusicBrainz",
     "artistCover": "artists/alan_tew.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music/f1/46/c2/mzi.ulsyafly.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music/f1/46/c2/mzi.ulsyafly.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 74,
@@ -1250,12 +1396,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2009",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 6566,
     "source": "MusicBrainz",
     "artistCover": "artists/joy_electric.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/09/4f/f8/094ff812-925f-6a89-a69e-f5e33dfe6e88/SomewhereOnlyWeKnow_iTunes_Poster.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/09/4f/f8/094ff812-925f-6a89-a69e-f5e33dfe6e88/SomewhereOnlyWeKnow_iTunes_Poster.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 75,
@@ -1267,12 +1415,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Souvenir",
     "year": "1995",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/stereo_total.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/0f/a1/cc/0fa1ccf3-c61a-69ae-2982-e96a58abd84d/9781474622325.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/0f/a1/cc/0fa1ccf3-c61a-69ae-2982-e96a58abd84d/9781474622325.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 76,
@@ -1284,12 +1434,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Grown-Ish, The Complete Series",
     "year": "2003",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "English",
     "duration": 1252,
     "source": "MusicBrainz",
     "artistCover": "artists/breadmachine.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/74/8d/e7/748de7ca-c3ff-af8d-680e-41c1078b830b/17d0d89d-e4a6-4ae3-bea0-8329f5e1e437_FF_GRN_Apple_CoverArt_3000x3000_Bundle.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/74/8d/e7/748de7ca-c3ff-af8d-680e-41c1078b830b/17d0d89d-e4a6-4ae3-bea0-8329f5e1e437_FF_GRN_Apple_CoverArt_3000x3000_Bundle.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 77,
@@ -1301,12 +1453,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2014",
-    "genre": "Romance",
+    "genre": "General",
     "language": "English",
     "duration": 4571,
     "source": "MusicBrainz",
     "artistCover": "artists/stereo_motion.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video3/v4/45/66/3a/45663ac1-517f-1843-9295-5f53aa68a7c9/poster_WW.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video3/v4/45/66/3a/45663ac1-517f-1843-9295-5f53aa68a7c9/poster_WW.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 78,
@@ -1318,12 +1472,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Sugar Beach Sunsets: Cliffside Point, Book 3 (Unabridged)",
     "year": "2017",
-    "genre": "Romance",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/cigarettes_after_sex.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/bb/22/c2/bb22c2ba-a4ad-f5c2-05dd-13b5e75d9b15/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/bb/22/c2/bb22c2ba-a4ad-f5c2-05dd-13b5e75d9b15/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 79,
@@ -1335,12 +1491,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2018",
-    "genre": "Independent",
+    "genre": "General",
     "language": "English",
     "duration": 5375,
     "source": "MusicBrainz",
     "artistCover": "artists/arma_secreta.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/e8/4b/07/e84b07d3-fa22-fe77-c873-1afcf9b6a4c4/BGP764-en-US.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/e8/4b/07/e84b07d3-fa22-fe77-c873-1afcf9b6a4c4/BGP764-en-US.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 80,
@@ -1352,12 +1510,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Tears of Gold (Unabridged)",
     "year": "1990",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/commando.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music/v4/c4/57/47/c45747bc-f94b-2b40-c2ac-66e34fb12796/itunes.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music/v4/c4/57/47/c45747bc-f94b-2b40-c2ac-66e34fb12796/itunes.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 81,
@@ -1369,12 +1529,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Pretty Little Liars, Season 3",
     "year": "1995",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 2651,
     "source": "MusicBrainz",
     "artistCover": "artists/plow_united.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video49/v4/be/6a/23/be6a2325-762a-8623-8365-7ea94fefe534/mzl.csykojhg.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video49/v4/be/6a/23/be6a2325-762a-8623-8365-7ea94fefe534/mzl.csykojhg.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 82,
@@ -1386,12 +1548,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Let the Drum Speak (Unabridged)",
     "year": "1974",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/slapp_happy.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/38/b8/58/38b85851-d268-589e-68f7-ee6b328116bd/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/38/b8/58/38b85851-d268-589e-68f7-ee6b328116bd/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 83,
@@ -1403,12 +1567,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The One That Got Away, Series 1",
     "year": "2002",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 2948,
     "source": "MusicBrainz",
     "artistCover": "artists/allister.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/9d/df/f9/9ddff9b3-b887-c5ca-423a-ac78fbb53ea7/AMCNSN0000007582_onethatgotaway_01_3000x3000_ca.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/9d/df/f9/9ddff9b3-b887-c5ca-423a-ac78fbb53ea7/AMCNSN0000007582_onethatgotaway_01_3000x3000_ca.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 84,
@@ -1420,12 +1586,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "True Friends",
     "year": "2005",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/bruce_campbell.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b3/db/04/b3db040c-80b3-c76e-5280-b43c3cfe4d2e/9781942704287.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b3/db/04/b3db040c-80b3-c76e-5280-b43c3cfe4d2e/9781942704287.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 85,
@@ -1437,12 +1605,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2015",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "English",
     "duration": 5954,
     "source": "MusicBrainz",
     "artistCover": "artists/princess_sharifa.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/ce/d1/df/ced1df0e-40b5-f78e-a537-2842dc17625b/mzm.izlzhwwz.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/ce/d1/df/ced1df0e-40b5-f78e-a537-2842dc17625b/mzm.izlzhwwz.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 86,
@@ -1454,12 +1624,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Hallmark 6-Movie Collection: Under the Christmas Sky, Where Are You, Christmas?, Christmas By Design, Checkin’ It Twice, Our Christmas Mural, Christmas with a Kiss",
     "year": "2008",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 5040,
     "source": "MusicBrainz",
     "artistCover": "artists/groanbox_boys.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/80/d4/8d/80d48d48-0894-c2be-c336-c44d05a2b9a5/1000000049303_WhereAreYouChristmas_iTunes_2000x3000.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/80/d4/8d/80d48d48-0894-c2be-c336-c44d05a2b9a5/1000000049303_WhereAreYouChristmas_iTunes_2000x3000.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 87,
@@ -1471,12 +1643,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2015",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "English",
     "duration": 5079,
     "source": "MusicBrainz",
     "artistCover": "artists/over_the_rhine.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video7/v4/a2/9e/00/a29e0021-7c6d-857a-6439-cc8515ebe1ea/AFasterHorse_iTunes.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video7/v4/a2/9e/00/a29e0021-7c6d-857a-6439-cc8515ebe1ea/AFasterHorse_iTunes.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 88,
@@ -1488,12 +1662,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "You Belong with Me",
     "year": "1980",
-    "genre": "Romance",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/paul_carrack.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5c/89/7d/5c897dde-3259-2366-56bc-df3d2427b6b3/9780063417243.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5c/89/7d/5c897dde-3259-2366-56bc-df3d2427b6b3/9780063417243.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 89,
@@ -1505,12 +1681,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Toni Makkaroni singt seine Tarantella",
     "year": "2005",
-    "genre": "Kids & Young Adults",
+    "genre": "General",
     "language": "English",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/tarantella.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/5d/8d/62/5d8d6215-82d8-9a14-763c-34caab051c44/4064066919016.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/5d/8d/62/5d8d6215-82d8-9a14-763c-34caab051c44/4064066919016.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 90,
@@ -1522,12 +1700,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "1963",
-    "genre": "Drama",
+    "genre": "General",
     "language": "English",
     "duration": 6080,
     "source": "MusicBrainz",
     "artistCover": "artists/the_campers.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/71/20/75/712075a4-e419-2e81-99db-9d8ef4ad9f06/pr_source.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/71/20/75/712075a4-e419-2e81-99db-9d8ef4ad9f06/pr_source.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 91,
@@ -1539,12 +1719,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "You too can learn Thai -- Listening practice, beginner & intermediate Thai vocab / grammar / culture",
     "year": "2023",
-    "genre": "Language Learning",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/sharry_mann.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/1d/59/35/1d59350b-be5a-ef14-c2ee-6df9d2672a9a/mza_18242691753381995026.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/1d/59/35/1d59350b-be5a-ef14-c2ee-6df9d2672a9a/mza_18242691753381995026.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 92,
@@ -1556,12 +1738,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Last Good Album",
     "year": "2023",
-    "genre": "Regional Indian",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 216,
     "source": "MusicBrainz",
     "artistCover": "artists/sharry_mann.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/a9/83/5d/a9835d85-5315-4430-a7f4-fb87a01f8fbc/cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/a9/83/5d/a9835d85-5315-4430-a7f4-fb87a01f8fbc/cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 93,
@@ -1573,12 +1757,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Hashtag Kissa",
     "year": "2023",
-    "genre": "Philosophy",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/sharry_mann.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/29/d2/00/29d20005-e5a4-8f6a-e179-6c56d7c5e313/mza_14315128923685951148.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/29/d2/00/29d20005-e5a4-8f6a-e179-6c56d7c5e313/mza_14315128923685951148.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 94,
@@ -1590,12 +1776,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Ink Master: Grudge Match, Season 1",
     "year": "2006",
-    "genre": "Reality & Nonfiction",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 2415,
     "source": "MusicBrainz",
     "artistCover": "artists/maria_miller.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/ae/7e/fc/ae7efc29-83fd-23ba-d5c5-580f1f8a57b7/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/ae/7e/fc/ae7efc29-83fd-23ba-d5c5-580f1f8a57b7/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 95,
@@ -1607,12 +1795,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Eddie Murphy 4-Movie Collection",
     "year": "2022",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 7002,
     "source": "MusicBrainz",
     "artistCover": "artists/the_supermen_lovers.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video112/v4/1b/c1/33/1bc13346-9f37-03a7-258b-c3eba94676dc/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video112/v4/1b/c1/33/1bc13346-9f37-03a7-258b-c3eba94676dc/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 96,
@@ -1624,12 +1814,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Coffee Bean: A Simple Lesson to Create Positive Change (Unabridged)",
     "year": "1994",
-    "genre": "Business & Personal Finance",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/s.w.a.t..jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/23/47/4b/23474b63-d59a-d889-fec2-cabec82eb93d/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/23/47/4b/23474b63-d59a-d889-fec2-cabec82eb93d/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 97,
@@ -1641,12 +1833,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2025",
-    "genre": "Thriller",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 5040,
     "source": "MusicBrainz",
     "artistCover": "artists/big_l.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/d9/60/2d/d9602d9c-1508-62a8-f747-6df72e4bd2ea/4j7d-n83p-2x3.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/d9/60/2d/d9602d9c-1508-62a8-f747-6df72e4bd2ea/4j7d-n83p-2x3.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 98,
@@ -1658,12 +1852,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2016",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 6421,
     "source": "MusicBrainz",
     "artistCover": "artists/2-l8.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/a7/91/0d/a7910dc3-2583-ce16-8bda-501f1fce33f4/posterart.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/a7/91/0d/a7910dc3-2583-ce16-8bda-501f1fce33f4/posterart.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 99,
@@ -1675,12 +1871,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "1983",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 2565,
     "source": "MusicBrainz",
     "artistCover": "artists/bappi_lahiri.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video116/v4/51/67/ba/5167ba6c-0372-15d8-6a32-ac3ca1c49b0f/DuaLipaElevating_iTunes_Poster_2000x3000.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video116/v4/51/67/ba/5167ba6c-0372-15d8-6a32-ac3ca1c49b0f/DuaLipaElevating_iTunes_Poster_2000x3000.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 100,
@@ -1692,12 +1890,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2002",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 4630,
     "source": "MusicBrainz",
     "artistCover": "artists/black_knights.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video51/v4/a1/85/f2/a185f2fd-8f45-7c28-a2ea-a94d9ca4c183/filmrise_thedrew.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video51/v4/a1/85/f2/a185f2fd-8f45-7c28-a2ea-a94d9ca4c183/filmrise_thedrew.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 101,
@@ -1709,12 +1909,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Goat : A Memoir",
     "year": "2006",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/svalastog.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/63/0f/1c/630f1cd5-fcd4-16c1-7f85-92966c087131/9781501992544.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/63/0f/1c/630f1cd5-fcd4-16c1-7f85-92966c087131/9781501992544.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 102,
@@ -1726,12 +1928,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Matcha Green Tea Superfood: How a Miraculous Tea Can Help You Get in the Best Shape of Your Life (Unabridged)",
     "year": "2002",
-    "genre": "Self-Development",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/slow_supreme.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/ed/f7/b5/edf7b562-fa96-c9b3-6212-2cd68143c5a4/itunes.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/ed/f7/b5/edf7b562-fa96-c9b3-6212-2cd68143c5a4/itunes.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 103,
@@ -1743,12 +1947,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2013",
-    "genre": "Horror",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 5272,
     "source": "MusicBrainz",
     "artistCover": "artists/sodoma_gomora.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video112/v4/f4/d7/99/f4d7994c-2af9-d490-90d4-618ea5a49a4c/knB3C6853E-2x3.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video112/v4/f4/d7/99/f4d7994c-2af9-d490-90d4-618ea5a49a4c/knB3C6853E-2x3.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 104,
@@ -1760,12 +1966,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Eriksson & Söderman",
     "year": "2008",
-    "genre": "Politics",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 5,
     "source": "MusicBrainz",
     "artistCover": "artists/kulwinder_dhanoa.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/9a/91/b8/9a91b857-f9c4-8759-187d-0b6fd2d20a04/mza_6288403490613629877.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/9a/91/b8/9a91b857-f9c4-8759-187d-0b6fd2d20a04/mza_6288403490613629877.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 105,
@@ -1777,12 +1985,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "All In One Podcast Like Story Telling,reviews,biography, News,etc",
     "year": "2023",
-    "genre": "Arts",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/sharry_mann.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/0b/f6/4e/0bf64e48-698e-fbc3-1a71-49e794a4abf1/mza_5608743825876725303.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/0b/f6/4e/0bf64e48-698e-fbc3-1a71-49e794a4abf1/mza_5608743825876725303.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 106,
@@ -1794,12 +2004,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Khaab Shayaris",
     "year": "2021",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/akhil.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/8a/94/5a/8a945a48-7fb1-0844-c3c6-9cfb0ee51ade/mza_3246620847569089871.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/8a/94/5a/8a945a48-7fb1-0844-c3c6-9cfb0ee51ade/mza_3246620847569089871.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 107,
@@ -1811,12 +2023,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2023",
-    "genre": "Drama",
+    "genre": "Romantic",
     "language": "Punjabi",
     "duration": 5844,
     "source": "MusicBrainz",
     "artistCover": "artists/sharry_mann.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/ee/b4/fc/eeb4fcd9-2800-e74e-23d9-06b06b789ddb/UE1497-en-US.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/ee/b4/fc/eeb4fcd9-2800-e74e-23d9-06b06b789ddb/UE1497-en-US.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 108,
@@ -1828,12 +2042,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Evil Lives Here, Season 16",
     "year": "2024",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 2496,
     "source": "MusicBrainz",
     "artistCover": "artists/owhy.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/17/e2/04/17e204ff-27a3-7c80-a74d-1f38db425688/f4a23c86-ff57-4b10-8dd7-67139e4dc265_ELH-S9-1x1-iTunesCoverArt-3000x3000.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/17/e2/04/17e204ff-27a3-7c80-a74d-1f38db425688/f4a23c86-ff57-4b10-8dd7-67139e4dc265_ELH-S9-1x1-iTunesCoverArt-3000x3000.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 109,
@@ -1845,12 +2061,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Story of Prophet Musa",
     "year": "2005",
-    "genre": "Religion & Spirituality",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/vova.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3a/34/14/3a341419-49be-63b6-3109-1fc757ecde30/goz2995502017701828642.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3a/34/14/3a341419-49be-63b6-3109-1fc757ecde30/goz2995502017701828642.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 110,
@@ -1862,12 +2080,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Marrow Masters",
     "year": "2020",
-    "genre": "Medicine",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/ap_dhillon.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/34/42/07/344207bb-be24-408c-0248-8775e82de020/mza_5154948583130713804.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/34/42/07/344207bb-be24-408c-0248-8775e82de020/mza_5154948583130713804.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 111,
@@ -1879,12 +2099,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Hidden Gems - EP",
     "year": "2021",
-    "genre": "Punjabi Pop",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 170,
     "source": "MusicBrainz",
     "artistCover": "artists/ap_dhillon.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/24/77/cb/2477cbbb-563f-5ef1-9b05-299a4f34e5f1/859751714458_cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/24/77/cb/2477cbbb-563f-5ef1-9b05-299a4f34e5f1/859751714458_cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 112,
@@ -1896,12 +2118,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Conscious_Planet",
     "year": "1990",
-    "genre": "Education",
+    "genre": "Romantic",
     "language": "Punjabi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/carte_de_séjour.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/b9/c5/0a/b9c50a9a-5272-066c-27ee-f08ab035b1e4/mza_18436721318133100578.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/b9/c5/0a/b9c50a9a-5272-066c-27ee-f08ab035b1e4/mza_18436721318133100578.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 113,
@@ -1913,12 +2137,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2024",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 7317,
     "source": "MusicBrainz",
     "artistCover": "artists/dakota_slim.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/b0/09/22/b0092286-b104-a8d8-4721-fd50764dfea7/Sira_2000x3000_Poster.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/b0/09/22/b0092286-b104-a8d8-4721-fd50764dfea7/Sira_2000x3000_Poster.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 114,
@@ -1930,12 +2156,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Sunken Spaceship",
     "year": "2024",
-    "genre": "Sci-Fi & Fantasy",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/my_place_in_space.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/93/84/fb/9384fbd1-b2e2-0b40-be6a-74ddb49e2374/9781666657920.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/93/84/fb/9384fbd1-b2e2-0b40-be6a-74ddb49e2374/9781666657920.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 115,
@@ -1947,12 +2175,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "One Last Summer",
     "year": "2012",
-    "genre": "Romance",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/skerryvore.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/26/cd/75/26cd7560-e52e-90af-fa5f-e5f48516c29c/9798887143200.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/26/cd/75/26cd7560-e52e-90af-fa5f-e5f48516c29c/9798887143200.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 116,
@@ -1964,12 +2194,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Swag",
     "year": "2014",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/crack_ignaz.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/db/b4/e6/dbb4e691-08f0-ec7e-d512-2ae1602a4afc/9780061993688.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/db/b4/e6/dbb4e691-08f0-ec7e-d512-2ae1602a4afc/9780061993688.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 117,
@@ -1981,12 +2213,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "¿Por qué nos mentimos si nos amamos?",
     "year": "2019",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/guru_randhawa.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/52/2d/b0/522db0e0-f3ca-2e64-d283-4a5e01e28e67/9786070780578.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/52/2d/b0/522db0e0-f3ca-2e64-d283-4a5e01e28e67/9786070780578.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 118,
@@ -1998,12 +2232,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Stray Bullets (Detective Ari Greene)",
     "year": "2023",
-    "genre": "Mysteries & Thrillers",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/sharry_mann.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/6a/56/aa/6a56aa36-6774-c2ef-700c-e57c4d5860b1/9781490619729.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/6a/56/aa/6a56aa36-6774-c2ef-700c-e57c4d5860b1/9781490619729.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 119,
@@ -2015,12 +2251,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2021",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 7224,
     "source": "MusicBrainz",
     "artistCover": "artists/kadiata.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/ff/4d/55/ff4d5503-036c-de30-eee2-a1d6c2faa14a/NEWMainPoster_2000x3000_real.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/ff/4d/55/ff4d5503-036c-de30-eee2-a1d6c2faa14a/NEWMainPoster_2000x3000_real.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 120,
@@ -2032,12 +2270,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Hard Sell: The Evolution of a Viagra Salesman (Unabridged)",
     "year": "2010",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/dippa_satrang.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8a/0d/17/8a0d1790-91b4-e0c9-9b17-c4d3048dea08/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8a/0d/17/8a0d1790-91b4-e0c9-9b17-c4d3048dea08/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 121,
@@ -2049,12 +2289,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Earth Matters",
     "year": "2000",
-    "genre": "News",
+    "genre": "General",
     "language": "Punjabi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/gurdas_maan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/b1/37/f9/b137f9e3-79ff-c6af-6346-309ac15bc73f/mza_5448647565719771942.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/b1/37/f9/b137f9e3-79ff-c6af-6346-309ac15bc73f/mza_5448647565719771942.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 122,
@@ -2066,12 +2308,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "YRF Spy Universe",
     "year": "2019",
-    "genre": "Action & Adventure",
+    "genre": "General",
     "language": "Punjabi",
     "duration": 9108,
     "source": "MusicBrainz",
     "artistCover": "artists/elephant_man.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/a7/85/ea/a785ea52-b7c7-724d-83d6-510e247a64d6/YRF086.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/a7/85/ea/a785ea52-b7c7-724d-83d6-510e247a64d6/YRF086.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 123,
@@ -2083,12 +2327,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Firesong: The Wind on Fire Trilogy, Book 3 (Unabridged)",
     "year": "1997",
-    "genre": "Kids & Young Adults",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/the_untamed_youth.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/13/e5/ec/13e5ecea-a75f-eb4f-b273-2cb69dceaee4/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/13/e5/ec/13e5ecea-a75f-eb4f-b273-2cb69dceaee4/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 124,
@@ -2100,12 +2346,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Daf Yomi: Babble on Talmud",
     "year": "2017",
-    "genre": "Judaism",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/payung_teduh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/76/4e/b7/764eb74b-7bbc-1719-4d3d-048dc15dabce/mza_3084626019761857804.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/76/4e/b7/764eb74b-7bbc-1719-4d3d-048dc15dabce/mza_3084626019761857804.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 125,
@@ -2117,12 +2365,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2020",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 8956,
     "source": "MusicBrainz",
     "artistCover": "artists/bandish_projekt.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video127/v4/52/d4/56/52d456c8-93be-0247-f774-e00ff6eb3331/VRC012.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video127/v4/52/d4/56/52d456c8-93be-0247-f774-e00ff6eb3331/VRC012.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 126,
@@ -2134,12 +2384,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Bahu Chatori - Single",
     "year": "1992",
-    "genre": "Music",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 162,
     "source": "MusicBrainz",
     "artistCover": "artists/elita_5.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/d8/05/8a/d8058a04-3d28-86c8-8961-cdb1ad497cb5/196626511263.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/d8/05/8a/d8058a04-3d28-86c8-8961-cdb1ad497cb5/196626511263.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 127,
@@ -2151,12 +2403,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2002",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 9387,
     "source": "MusicBrainz",
     "artistCover": "artists/geeta_dutt.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video51/v4/e6/26/b0/e626b0f4-0c05-74a4-a190-0346ca800fcc/WW.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video51/v4/e6/26/b0/e626b0f4-0c05-74a4-a190-0346ca800fcc/WW.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 128,
@@ -2168,12 +2422,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Kittu Aur Chittu - Fun Jokes for Kids",
     "year": "2021",
-    "genre": "Education for Kids",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 0,
     "source": "iTunes",
     "artistCover": "artists/chimes.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/be/a0/13/bea01336-e5c9-fa09-0819-59aaa9fbe7a0/mza_12171593341392771143.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/be/a0/13/bea01336-e5c9-fa09-0819-59aaa9fbe7a0/mza_12171593341392771143.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 129,
@@ -2185,12 +2441,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Radio 1 - Huutnöch",
     "year": "2023",
-    "genre": "Politics",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/armaan_dhillon.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/d2/18/04/d2180467-7dc1-93bb-d00b-e75dc16a97b9/mza_2860020401286100427.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/d2/18/04/d2180467-7dc1-93bb-d00b-e75dc16a97b9/mza_2860020401286100427.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 130,
@@ -2202,12 +2460,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2021",
-    "genre": "Action & Adventure",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 5030,
     "source": "MusicBrainz",
     "artistCover": "artists/harnoor.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/6f/2e/4f/mzi.vwotjjqq.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/6f/2e/4f/mzi.vwotjjqq.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 131,
@@ -2219,12 +2479,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "That Filmy Game Show",
     "year": "1998",
-    "genre": "TV & Film",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 5,
     "source": "MusicBrainz",
     "artistCover": "artists/lata_mangeshkar.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/8f/35/1c/8f351c7f-62af-acf5-27a4-b3625422b282/mza_6432067348627224207.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/8f/35/1c/8f351c7f-62af-acf5-27a4-b3625422b282/mza_6432067348627224207.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 132,
@@ -2236,12 +2498,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Nuvvu Nenu O Cinema",
     "year": "2025",
-    "genre": "Film Reviews",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 0,
     "source": "iTunes",
     "artistCover": "artists/radio_city.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/2a/40/2c/2a402cad-7842-2eae-9925-65e78ee61e34/mza_9516412651708426605.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/2a/40/2c/2a402cad-7842-2eae-9925-65e78ee61e34/mza_9516412651708426605.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 133,
@@ -2253,12 +2517,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Mera Wala Grief",
     "year": "2012",
-    "genre": "Personal Journals",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/diljit_dosanjh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/14/52/68/145268f2-65d6-270a-5600-733bc1269838/mza_17397419376862440646.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/14/52/68/145268f2-65d6-270a-5600-733bc1269838/mza_17397419376862440646.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 134,
@@ -2270,12 +2536,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Overdue Homework Podcast",
     "year": "2021",
-    "genre": "Leisure",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 6,
     "source": "MusicBrainz",
     "artistCover": "artists/dronark.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/b4/9a/0f/b49a0fe3-6779-e747-7776-58b845dd86a1/mza_9963582023395817335.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/b4/9a/0f/b49a0fe3-6779-e747-7776-58b845dd86a1/mza_9963582023395817335.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 135,
@@ -2287,12 +2555,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Danda Deniya - Single",
     "year": "2005",
-    "genre": "Pop",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 184,
     "source": "MusicBrainz",
     "artistCover": "artists/chris_field.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/20/b5/07/20b50742-1014-1ca7-ad3c-4863daf8c887/5034644563374.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/20/b5/07/20b50742-1014-1ca7-ad3c-4863daf8c887/5034644563374.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 136,
@@ -2304,12 +2574,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DadBodPod",
     "year": "2004",
-    "genre": "Comedy Interviews",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/gianni_morandi.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/28/87/e2/2887e260-3b9a-1009-9f38-b5543c6a7359/mza_15348397389458917798.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/28/87/e2/2887e260-3b9a-1009-9f38-b5543c6a7359/mza_15348397389458917798.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 137,
@@ -2321,12 +2593,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2008",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 6421,
     "source": "MusicBrainz",
     "artistCover": "artists/bal-e_lasara.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/a7/91/0d/a7910dc3-2583-ce16-8bda-501f1fce33f4/posterart.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/a7/91/0d/a7910dc3-2583-ce16-8bda-501f1fce33f4/posterart.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 138,
@@ -2338,12 +2612,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Dj Pe Matkungi (feat. Renuka Panwar) - Single",
     "year": "2004",
-    "genre": "Regional Indian",
+    "genre": "Energetic",
     "language": "Haryanavi",
     "duration": 145,
     "source": "MusicBrainz",
     "artistCover": "artists/wojciech_młynarski.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/97/bf/5f/97bf5f51-8889-cf53-0c29-40c79839457d/cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/97/bf/5f/97bf5f51-8889-cf53-0c29-40c79839457d/cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 139,
@@ -2355,12 +2631,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DJ Rukna Nahi Chahiye - Single",
     "year": "2025",
-    "genre": "Pop",
+    "genre": "Energetic",
     "language": "Haryanavi",
     "duration": 180,
     "source": "MusicBrainz",
     "artistCover": "artists/arun_adhikari.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/79/03/cb/7903cb29-5cca-0dfd-301c-0ad672105c11/5059552387119.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/79/03/cb/7903cb29-5cca-0dfd-301c-0ad672105c11/5059552387119.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 140,
@@ -2372,12 +2650,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Insecure in Love : How Anxious Attachment Can Make You Feel Jealous, Needy, and Worried and What You Can Do About It",
     "year": "2014",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/daniel_tiger.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7a/38/64/7a38644b-3c48-c44d-03d8-36f81ca3ba67/9781515970989.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7a/38/64/7a38644b-3c48-c44d-03d8-36f81ca3ba67/9781515970989.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 141,
@@ -2389,12 +2669,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2022",
-    "genre": "Action & Adventure",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 5484,
     "source": "MusicBrainz",
     "artistCover": "artists/dilraj_grewal.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/49/cc/0a/mzi.nigfzafw.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/49/cc/0a/mzi.nigfzafw.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 142,
@@ -2406,12 +2688,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Bridge - Sammy Chand",
     "year": "2005",
-    "genre": "Music Commentary",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 4,
     "source": "MusicBrainz",
     "artistCover": "artists/hülya_bozkaya.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/90/2c/f7/902cf76b-00e4-a27d-d919-457bb7e0f0ef/mza_7427674043865490120.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/90/2c/f7/902cf76b-00e4-a27d-d919-457bb7e0f0ef/mza_7427674043865490120.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 143,
@@ -2423,12 +2707,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2021",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 7026,
     "source": "MusicBrainz",
     "artistCover": "artists/pondora.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video50/v4/81/7d/61/817d61fa-195a-7e82-faa3-053c92bddcc4/FK_517_VI_BHTB.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video50/v4/81/7d/61/817d61fa-195a-7e82-faa3-053c92bddcc4/FK_517_VI_BHTB.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 144,
@@ -2440,12 +2726,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "A Change of Heart at the Vintage Dress Shop",
     "year": "1992",
-    "genre": "Romance",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/des_dyer.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cf/81/b8/cf81b81b-0032-5102-724c-5532df5d9448/9781399715348.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cf/81/b8/cf81b81b-0032-5102-724c-5532df5d9448/9781399715348.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 145,
@@ -2457,12 +2745,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2019",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 7403,
     "source": "MusicBrainz",
     "artistCover": "artists/sabertooth_unicorn.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video221/v4/10/39/e9/1039e907-a268-4e36-68f5-b7f408ccbcc4/2000x3000_RedOne_PosterArt.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video221/v4/10/39/e9/1039e907-a268-4e36-68f5-b7f408ccbcc4/2000x3000_RedOne_PosterArt.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 146,
@@ -2474,12 +2764,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DIVINE LOVE TABERNACLE, New Delhi, India",
     "year": "2026",
-    "genre": "Christianity",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 7,
     "source": "MusicBrainz",
     "artistCover": "artists/sonu_nigam.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/5b/f3/c5/5bf3c5b0-acc4-1ed7-daa1-145fbf2620cb/mza_13141241973899587887.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/5b/f3/c5/5bf3c5b0-acc4-1ed7-daa1-145fbf2620cb/mza_13141241973899587887.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 147,
@@ -2491,12 +2783,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DC Super-Villains 6-Film Bundle Vol 1",
     "year": "2007",
-    "genre": "Action & Adventure",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 4611,
     "source": "MusicBrainz",
     "artistCover": "artists/neeraj_shridhar.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/1a/dd/ab/1addab7e-d23a-c8bf-0082-bf9401558762/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/v4/1a/dd/ab/1addab7e-d23a-c8bf-0082-bf9401558762/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 148,
@@ -2508,12 +2802,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Halki Si Barsaat - Single",
     "year": "2013",
-    "genre": "Worldwide",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 213,
     "source": "MusicBrainz",
     "artistCover": "artists/shaan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f9/20/3f/f9203fed-ba9f-1a5b-137e-7232c55fd0fc/3616847768941_Cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f9/20/3f/f9203fed-ba9f-1a5b-137e-7232c55fd0fc/3616847768941_Cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 149,
@@ -2525,12 +2821,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2017",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 8081,
     "source": "MusicBrainz",
     "artistCover": "artists/umi_10.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video51/v4/3a/28/4a/3a284a64-b760-49ee-4f96-c5e2091a775d/FK_711_DH_OKJaanu.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video51/v4/3a/28/4a/3a284a64-b760-49ee-4f96-c5e2091a775d/FK_711_DH_OKJaanu.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 150,
@@ -2542,12 +2840,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Jhanjhar",
     "year": "2022",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/hans_raj_hans.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6d/41/d9/6d41d9a0-0eb5-1d60-fe62-25bd0b96ccab/9789355443601.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6d/41/d9/6d41d9a0-0eb5-1d60-fe62-25bd0b96ccab/9789355443601.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 151,
@@ -2559,12 +2859,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Croc's Tales",
     "year": "2020",
-    "genre": "Visual Arts",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/varte.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/a2/6c/5e/a26c5eb1-fef2-ddb3-4a34-1c2ca5677f7f/mza_690711248140789065.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/a2/6c/5e/a26c5eb1-fef2-ddb3-4a34-1c2ca5677f7f/mza_690711248140789065.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 152,
@@ -2576,12 +2878,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Let's Dance - der offizielle Podcast",
     "year": "2013",
-    "genre": "After Shows",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/young_chang_mc.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/ab/27/26/ab2726ea-eb99-9211-0544-5c7f6e1e84d8/mza_652870779664790111.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/ab/27/26/ab2726ea-eb99-9211-0544-5c7f6e1e84d8/mza_652870779664790111.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 153,
@@ -2593,12 +2897,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Legend (Unabridged)",
     "year": "2016",
-    "genre": "Kids & Young Adults",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/knights_of_neon.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/e6/e0/21/e6e02186-9237-4b45-ad85-20dca32115e2/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/e6/e0/21/e6e02186-9237-4b45-ad85-20dca32115e2/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 154,
@@ -2610,12 +2916,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Gtown Desi - The Discography",
     "year": "2020",
-    "genre": "Music",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 0,
     "source": "iTunes",
     "artistCover": "artists/gtown_desi.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/4b/1d/b9/4b1db994-e68f-0e81-bdba-9bea864573ce/mza_15761112772853173995.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/4b/1d/b9/4b1db994-e68f-0e81-bdba-9bea864573ce/mza_15761112772853173995.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 155,
@@ -2627,12 +2935,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2024",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 5224,
     "source": "MusicBrainz",
     "artistCover": "artists/anurag_saikia.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video71/v4/fd/5d/2c/fd5d2cdc-e712-7c94-deec-3a6f38e952f9/pr_source.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video71/v4/fd/5d/2c/fd5d2cdc-e712-7c94-deec-3a6f38e952f9/pr_source.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 156,
@@ -2644,12 +2954,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2025",
-    "genre": "Sci-Fi & Fantasy",
+    "genre": "Romantic",
     "language": "Haryanavi",
     "duration": 5344,
     "source": "MusicBrainz",
     "artistCover": "artists/paul_renard_(nl).jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/f4/aa/bf/f4aabf7c-4b04-d216-937f-685500568641/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/f4/aa/bf/f4aabf7c-4b04-d216-937f-685500568641/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 157,
@@ -2661,12 +2973,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Lungaad - Single",
     "year": "2022",
-    "genre": "Regional Indian",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 184,
     "source": "iTunes",
     "artistCover": "artists/raj_mawer.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/97/49/d3/9749d31a-85e6-0104-1392-c481c4685e4f/cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/97/49/d3/9749d31a-85e6-0104-1392-c481c4685e4f/cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 158,
@@ -2678,12 +2992,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Shruti Says",
     "year": "2021",
-    "genre": "Hinduism",
+    "genre": "Devotional",
     "language": "Haryanavi",
     "duration": 4,
     "source": "MusicBrainz",
     "artistCover": "artists/kan_takahiko.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/88/6f/5f/886f5f5c-b0f4-ef11-b2f4-0896edf669b7/mza_3020809723828575659.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/88/6f/5f/886f5f5c-b0f4-ef11-b2f4-0896edf669b7/mza_3020809723828575659.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 159,
@@ -2695,12 +3011,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2006",
-    "genre": "Sci-Fi & Fantasy",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 5722,
     "source": "MusicBrainz",
     "artistCover": "artists/juan_carlos_baglietto.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/4d/cf/f2/4dcff26f-caab-d543-bd3e-0b36a1092245/Ash_Alt_2000x3000_Poster.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/4d/cf/f2/4dcff26f-caab-d543-bd3e-0b36a1092245/Ash_Alt_2000x3000_Poster.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 160,
@@ -2712,12 +3030,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "1998",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 6326,
     "source": "MusicBrainz",
     "artistCover": "artists/pimpadelic.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video114/v4/f1/88/94/f1889418-ed8e-576d-0611-e963533aba6a/pr_source.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video114/v4/f1/88/94/f1889418-ed8e-576d-0611-e963533aba6a/pr_source.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 161,
@@ -2729,12 +3049,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Tip Top",
     "year": "2008",
-    "genre": "Punjabi",
-    "language": "Haryanavi",
+    "genre": "General",
+    "language": "Punjabi",
     "duration": 240,
     "source": "MusicBrainz",
     "artistCover": "artists/bikram_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b6/de/61/b6de617c-46f3-c1cf-73bb-da571ea6c29d/5065001045356.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b6/de/61/b6de617c-46f3-c1cf-73bb-da571ea6c29d/5065001045356.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 162,
@@ -2746,12 +3068,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Nilli Ankh (feat. Deepak Kajla & Ruba Khan) - Single",
     "year": "2018",
-    "genre": "Haryanvi",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 183,
     "source": "MusicBrainz",
     "artistCover": "artists/metadronos.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cb/92/14/cb9214ff-9028-b536-67d9-d5bfadda1b95/8905410797682.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cb/92/14/cb9214ff-9028-b536-67d9-d5bfadda1b95/8905410797682.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 163,
@@ -2763,12 +3087,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Rogue Soldier: One Man's War (Unabridged)",
     "year": "2000",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/binary_star.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/42/5f/a5/425fa52f-69f2-f6a1-d9a5-07e49ec79481/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/42/5f/a5/425fa52f-69f2-f6a1-d9a5-07e49ec79481/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 164,
@@ -2780,12 +3106,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Brahma Kumaris Audio",
     "year": "2022",
-    "genre": "Religion & Spirituality",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/mika_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/da/a6/81/daa6819a-246e-d194-57b6-e481aebc941d/mza_8743180132699124377.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/da/a6/81/daa6819a-246e-d194-57b6-e481aebc941d/mza_8743180132699124377.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 165,
@@ -2797,12 +3125,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "P.C.R",
     "year": "2021",
-    "genre": "Kids & Young Adults",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/farfarello.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/9a/68/10/9a6810a9-c5e5-75f8-639d-1c3bad43fafd/9786445228858.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/9a/68/10/9a6810a9-c5e5-75f8-639d-1c3bad43fafd/9786445228858.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 166,
@@ -2814,12 +3144,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Splicefire 1: Teeth of the Rakshasa",
     "year": "2023",
-    "genre": "Sci-Fi & Fantasy",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "iTunes",
     "artistCover": "artists/b.j._west.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/2e/bb/c9/2ebbc918-9ba5-7ef0-bebb-c5fdedd8036b/9798368996899.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/2e/bb/c9/2ebbc918-9ba5-7ef0-bebb-c5fdedd8036b/9798368996899.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 167,
@@ -2831,12 +3163,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Dhara 302 - Single",
     "year": "2024",
-    "genre": "Pop",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 169,
     "source": "iTunes",
     "artistCover": "artists/amit_saini_rohtakiya.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/37/20/a7/3720a715-b97e-b47a-ad80-839e16cb7a98/3617664669299.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/37/20/a7/3720a715-b97e-b47a-ad80-839e16cb7a98/3617664669299.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 168,
@@ -2848,12 +3182,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Sanjha Geet - Single",
     "year": "2018",
-    "genre": "Haryanvi",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 274,
     "source": "MusicBrainz",
     "artistCover": "artists/ranjit_bawa.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a5/3c/55/a53c5521-33c3-1031-f7b5-d59c9c66c1c0/Sanjha_Geet-Inlay.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a5/3c/55/a53c5521-33c3-1031-f7b5-d59c9c66c1c0/Sanjha_Geet-Inlay.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 169,
@@ -2865,12 +3201,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Shikanji Pilyo Saiyaan Ji - Single",
     "year": "2022",
-    "genre": "Haryanvi",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 162,
     "source": "MusicBrainz",
     "artistCover": "artists/romy.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/e3/99/da/e399dad2-9bba-dd51-61b3-98cedcfef2e5/8905410207822.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/e3/99/da/e399dad2-9bba-dd51-61b3-98cedcfef2e5/8905410207822.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 170,
@@ -2882,12 +3220,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "R Yitzchak Shifman Torah Classes",
     "year": "2024",
-    "genre": "Judaism",
+    "genre": "Devotional",
     "language": "Haryanavi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/amrit_maan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/88/2c/49/882c49a0-35aa-08a8-8149-01251217ebf2/mza_1297290557590836478.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/88/2c/49/882c49a0-35aa-08a8-8149-01251217ebf2/mza_1297290557590836478.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 171,
@@ -2899,12 +3239,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2017",
-    "genre": "Anime",
+    "genre": "Devotional",
     "language": "Haryanavi",
     "duration": 4684,
     "source": "MusicBrainz",
     "artistCover": "artists/pandit_dinesh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video125/v4/70/87/c7/7087c725-125a-fe61-7d96-29c28c07dd4f/FK_986_VI_STSWOVC.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video125/v4/70/87/c7/7087c725-125a-fe61-7d96-29c28c07dd4f/FK_986_VI_STSWOVC.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 172,
@@ -2916,12 +3258,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Shaan and Jyoti",
     "year": "2023",
-    "genre": "Stories for Kids",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/8-bit_arcade.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/fe/d1/aa/fed1aaf7-c81f-2864-9d06-e1645bd976d8/mza_14540038335241941520.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/fe/d1/aa/fed1aaf7-c81f-2864-9d06-e1645bd976d8/mza_14540038335241941520.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 173,
@@ -2933,12 +3277,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Simple Life 2:  Road Trip",
     "year": "2006",
-    "genre": "Reality & Nonfiction",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 1265,
     "source": "MusicBrainz",
     "artistCover": "artists/american_princes.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Features/ab/f2/a0/dj.vkuymaym.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Features/ab/f2/a0/dj.vkuymaym.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 174,
@@ -2950,12 +3296,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2015",
-    "genre": "Turkish",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 6435,
     "source": "MusicBrainz",
     "artistCover": "artists/cheatahs.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video69/v4/f2/92/2e/f2922e2f-281a-1f00-7886-72ca51261012/pr_source.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video69/v4/f2/92/2e/f2922e2f-281a-1f00-7886-72ca51261012/pr_source.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 175,
@@ -2967,12 +3315,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "My Werewolf System: A Cultivation LitRPG",
     "year": "1985",
-    "genre": "Sci-Fi & Fantasy",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/second_auschwitz.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2f/54/c1/2f54c1f0-b992-147e-be20-a1f924ea5361/9781039417922.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2f/54/c1/2f54c1f0-b992-147e-be20-a1f924ea5361/9781039417922.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 176,
@@ -2984,12 +3334,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Rajdoot (feat. Anjali Raghav) - Single",
     "year": "2017",
-    "genre": "Regional Indian",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 210,
     "source": "MusicBrainz",
     "artistCover": "artists/brijesh_tripati_sandilya.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/83/41/eb/8341ebdc-94bb-99ff-4c32-fdbf6ddf6628/cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/83/41/eb/8341ebdc-94bb-99ff-4c32-fdbf6ddf6628/cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 177,
@@ -3001,12 +3353,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "MGM 100 Anniversary Collection",
     "year": "2020",
-    "genre": "Action & Adventure",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 7081,
     "source": "MusicBrainz",
     "artistCover": "artists/king.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video116/v4/c4/8f/71/c48f7122-0434-585d-f7e3-9282726d50a3/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video116/v4/c4/8f/71/c48f7122-0434-585d-f7e3-9282726d50a3/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 178,
@@ -3018,12 +3372,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Tuition Badmashi Kaa (feat. Hemant Faujdar) - Single",
     "year": "2022",
-    "genre": "Regional Indian",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 224,
     "source": "MusicBrainz",
     "artistCover": "artists/barbie_maan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/bc/fb/c1/bcfbc104-0b2c-1532-5a82-fa6415849d12/cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/bc/fb/c1/bcfbc104-0b2c-1532-5a82-fa6415849d12/cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 179,
@@ -3035,12 +3391,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Ok Mom Podcast",
     "year": "1965",
-    "genre": "Parenting",
+    "genre": "General",
     "language": "Haryanavi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/asha_bhosle.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/PodcastSource126/v4/46/0c/3c/460c3cdc-3c19-1aef-8842-660cdef9f736/6d6723c8-0e64-4a22-81f3-3238373678d9.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/PodcastSource126/v4/46/0c/3c/460c3cdc-3c19-1aef-8842-660cdef9f736/6d6723c8-0e64-4a22-81f3-3238373678d9.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 180,
@@ -3052,12 +3410,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Why Not Me? - 2",
     "year": "2022",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/anupama_chakraborty_shrivastava.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a0/42/a1/a042a145-91d3-eb40-5996-360f32cfcda6/9789362136916.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a0/42/a1/a042a145-91d3-eb40-5996-360f32cfcda6/9789362136916.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 181,
@@ -3069,12 +3429,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Feel Free To Talk",
     "year": "2023",
-    "genre": "Society & Culture",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/porshia_(kurdish).jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/4b/2f/23/4b2f236e-55c4-8474-13c4-9d2840695d2e/mza_4531490492746293109.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/4b/2f/23/4b2f236e-55c4-8474-13c4-9d2840695d2e/mza_4531490492746293109.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 182,
@@ -3086,12 +3448,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Anticipating the Unintended",
     "year": "2023",
-    "genre": "Government",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/porshia_(kurdish).jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/f9/63/f5/f963f55e-b4b0-7698-f90f-227be5b3f2a0/mza_16518236791875942281.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/f9/63/f5/f963f55e-b4b0-7698-f90f-227be5b3f2a0/mza_16518236791875942281.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 183,
@@ -3103,12 +3467,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Bollywood is For Lovers",
     "year": "2021",
-    "genre": "Film Reviews",
+    "genre": "General",
     "language": "Hindi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/vishal_dadlani.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/7a/c9/3b/7ac93bdd-206f-c24a-6e66-4025197b56dc/mza_1717799328857119336.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/7a/c9/3b/7ac93bdd-206f-c24a-6e66-4025197b56dc/mza_1717799328857119336.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 184,
@@ -3120,12 +3486,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2020",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 9333,
     "source": "MusicBrainz",
     "artistCover": "artists/d-snare.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video122/v4/36/97/5d/36975ddc-7efc-e88a-4d60-1f04d1452918/FK_655_FOX_ADHM.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video122/v4/36/97/5d/36975ddc-7efc-e88a-4d60-1f04d1452918/FK_655_FOX_ADHM.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 185,
@@ -3137,12 +3505,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DJ Ravish Remixes",
     "year": "2021",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/pritam.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 186,
@@ -3154,12 +3524,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Kerala Story (Original Motion Picture Soundtrack) - EP",
     "year": "2023",
-    "genre": "Soundtrack",
+    "genre": "General",
     "language": "Hindi",
     "duration": 177,
     "source": "MusicBrainz",
     "artistCover": "artists/athul_narukara.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/40/0d/db/400ddb7c-99d9-dd32-286b-7d55a8d379c3/196922470202.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/40/0d/db/400ddb7c-99d9-dd32-286b-7d55a8d379c3/196922470202.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 187,
@@ -3171,12 +3543,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Amma: The Most Powerful Spiritual Light the World Has Ever Known (Unabridged)",
     "year": "2011",
-    "genre": "Biographies & Memoirs",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/s._p._balasubrahmanyam.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/73/5d/f7/735df75a-9aa2-80e7-1c89-3ce29c8eb93a/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/73/5d/f7/735df75a-9aa2-80e7-1c89-3ce29c8eb93a/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 188,
@@ -3188,12 +3562,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Sanak (Original Motion Picture Soundtrack)",
     "year": "2021",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 247,
     "source": "MusicBrainz",
     "artistCover": "artists/raj_barman.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/dd/01/63/dd0163ee-3285-04d9-2a48-1c3a64ae0db3/840214417771.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/dd/01/63/dd0163ee-3285-04d9-2a48-1c3a64ae0db3/840214417771.png/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 189,
@@ -3205,12 +3581,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2023",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "Hindi",
     "duration": 3489,
     "source": "MusicBrainz",
     "artistCover": "artists/k._s._chithra.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/89/aa/06/89aa06e3-29fb-a86d-9c01-8e5b1332cb82/ErikGriffin_AmERIKan18.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/89/aa/06/89aa06e3-29fb-a86d-9c01-8e5b1332cb82/ErikGriffin_AmERIKan18.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 190,
@@ -3222,12 +3600,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "AuroMaa Daily",
     "year": "2026",
-    "genre": "Spirituality",
+    "genre": "General",
     "language": "Hindi",
     "duration": 4,
     "source": "MusicBrainz",
     "artistCover": "artists/darshan_raval.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/b3/85/94/b38594b6-34c6-5c42-e2e5-e1e468335358/mza_16994993270471075493.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/b3/85/94/b38594b6-34c6-5c42-e2e5-e1e468335358/mza_16994993270471075493.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 191,
@@ -3239,12 +3619,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2015",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 8719,
     "source": "MusicBrainz",
     "artistCover": "artists/hariharan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video5/v4/20/3c/65/203c6506-c76b-8265-ffe7-cfd6a318cc47/EROS_PEHLI.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video5/v4/20/3c/65/203c6506-c76b-8265-ffe7-cfd6a318cc47/EROS_PEHLI.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 192,
@@ -3256,12 +3638,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Rinal Das Singha Roy’s Musical Podcast",
     "year": "2025",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/project_hamsadhwani.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/25/c1/e7/25c1e7e5-71c0-7dc6-f063-604ffa898236/mza_11692736130755635980.jpeg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/25/c1/e7/25c1e7e5-71c0-7dc6-f063-604ffa898236/mza_11692736130755635980.jpeg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 193,
@@ -3273,12 +3657,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Kahani Project",
     "year": "2022",
-    "genre": "Arts",
+    "genre": "Devotional",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/shilpa_rao.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/84/81/d3/8481d331-d124-3a6e-8920-2c90d9a91edd/mza_893230036382478316.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/84/81/d3/8481d331-d124-3a6e-8920-2c90d9a91edd/mza_893230036382478316.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 194,
@@ -3290,12 +3676,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2021",
-    "genre": "Regional Indian",
+    "genre": "General",
     "language": "Hindi",
     "duration": 6714,
     "source": "MusicBrainz",
     "artistCover": "artists/mika_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/21/f8/4a/21f84aaa-2b52-645f-575e-fefe1698e2d5/FK_866_VI_Bhai.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/21/f8/4a/21f84aaa-2b52-645f-575e-fefe1698e2d5/FK_866_VI_Bhai.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 195,
@@ -3307,12 +3695,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Ringu Complete Collection | 4 Movies",
     "year": "2021",
-    "genre": "Horror",
+    "genre": "General",
     "language": "Hindi",
     "duration": 5925,
     "source": "MusicBrainz",
     "artistCover": "artists/sajid_khan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/9d/c2/35/9dc2356d-52de-6025-dfc9-36b8f57373b5/ARROW_RING_0_2019_US.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/9d/c2/35/9dc2356d-52de-6025-dfc9-36b8f57373b5/ARROW_RING_0_2019_US.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 196,
@@ -3324,12 +3714,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Pothcast",
     "year": "2022",
-    "genre": "Comedy Fiction",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/mika_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/f7/c7/aa/f7c7aa6a-4793-de51-00f4-f3f999f68003/mza_3850553372328299336.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/f7/c7/aa/f7c7aa6a-4793-de51-00f4-f3f999f68003/mza_3850553372328299336.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 197,
@@ -3341,12 +3733,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2022",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "Hindi",
     "duration": 3312,
     "source": "MusicBrainz",
     "artistCover": "artists/shreya_ghoshal.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/af/bb/9c/afbb9c25-79cc-ed18-e024-11161146a798/HalfLifeOfMemory_2000x3000_Poster.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video211/v4/af/bb/9c/afbb9c25-79cc-ed18-e024-11161146a798/HalfLifeOfMemory_2000x3000_Poster.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 198,
@@ -3358,12 +3752,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "UsmanGee Universe — Official Galaxy",
     "year": "1999",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 4,
     "source": "MusicBrainz",
     "artistCover": "artists/junoon.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/45/dc/69/45dc6915-02bf-728a-ef48-f5dc66515eb3/mza_7123775990931821863.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/45/dc/69/45dc6915-02bf-728a-ef48-f5dc66515eb3/mza_7123775990931821863.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 199,
@@ -3375,12 +3771,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Dance Moms, Season 3",
     "year": "2024",
-    "genre": "Reality & Nonfiction",
+    "genre": "General",
     "language": "Hindi",
     "duration": 2484,
     "source": "MusicBrainz",
     "artistCover": "artists/jyeuhair.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video114/v4/74/88/12/7488123a-2d0b-97ac-d81b-b7d3565eeb35/pr_source.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video114/v4/74/88/12/7488123a-2d0b-97ac-d81b-b7d3565eeb35/pr_source.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 200,
@@ -3392,12 +3790,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Desinformacine Podcast",
     "year": "2012",
-    "genre": "TV & Film",
+    "genre": "General",
     "language": "Hindi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/mika_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/81/e5/89/81e589d8-7ca8-c663-53a7-64d53651b9c9/mza_18352976931743136757.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/81/e5/89/81e589d8-7ca8-c663-53a7-64d53651b9c9/mza_18352976931743136757.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 201,
@@ -3409,12 +3809,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Bollywood Besharams",
     "year": "2022",
-    "genre": "TV & Film",
+    "genre": "Party",
     "language": "Hindi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/arijit_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/a0/26/ce/a026ce95-fe97-0321-e4ff-45748269e173/mza_159500403520151449.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/a0/26/ce/a026ce95-fe97-0321-e4ff-45748269e173/mza_159500403520151449.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 202,
@@ -3426,12 +3828,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Dhindhora Baje Re (From \"Rocky Aur Rani Kii Prem Kahaani\") - Single",
     "year": "2024",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 254,
     "source": "MusicBrainz",
     "artistCover": "artists/pritam.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/f5/f0/0b/f5f00bb0-687d-df1e-2c89-068081af3d84/197189435324.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/f5/f0/0b/f5f00bb0-687d-df1e-2c89-068081af3d84/197189435324.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 203,
@@ -3443,12 +3847,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2022",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 11536,
     "source": "MusicBrainz",
     "artistCover": "artists/b_praak.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video52/v4/57/d0/d7/57d0d7c2-d1a1-45af-eac2-7c229bd7d5e8/FK_720_RJ_MPK.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video52/v4/57/d0/d7/57d0d7c2-d1a1-45af-eac2-7c229bd7d5e8/FK_720_RJ_MPK.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 204,
@@ -3460,12 +3866,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Dhol Bajaa - Single",
     "year": "2022",
-    "genre": "Indian Pop",
+    "genre": "General",
     "language": "Hindi",
     "duration": 227,
     "source": "MusicBrainz",
     "artistCover": "artists/darshan_raval.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/46/62/e0/4662e0c1-5a9a-22e5-d0d8-9309b753c533/196589454348.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/46/62/e0/4662e0c1-5a9a-22e5-d0d8-9309b753c533/196589454348.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 205,
@@ -3477,12 +3885,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Sollu Kaburz",
     "year": "2021",
-    "genre": "Society & Culture",
+    "genre": "General",
     "language": "Hindi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/zara_khan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts114/v4/97/c2/df/97c2df98-5a79-a2d4-acf6-1c857f47fa33/mza_13876618786645551272.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts114/v4/97/c2/df/97c2df98-5a79-a2d4-acf6-1c857f47fa33/mza_13876618786645551272.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 206,
@@ -3494,12 +3904,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Black Phone 2-Movie Collection",
     "year": "2019",
-    "genre": "Horror",
+    "genre": "General",
     "language": "Hindi",
     "duration": 6841,
     "source": "MusicBrainz",
     "artistCover": "artists/nakash_aziz.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video221/v4/e8/11/0b/e8110b0e-efb4-a46a-a8b5-ca86462e12cc/UNI_BLACK_PHONE_2_TH_ITUNES_EPO_WW_ARTWORK_EN_2000x3000_539ACU000001U4.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video221/v4/e8/11/0b/e8110b0e-efb4-a46a-a8b5-ca86462e12cc/UNI_BLACK_PHONE_2_TH_ITUNES_EPO_WW_ARTWORK_EN_2000x3000_539ACU000001U4.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 207,
@@ -3511,12 +3923,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Kahani Project",
     "year": "2004",
-    "genre": "Arts",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/anand_raj_anand.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/84/81/d3/8481d331-d124-3a6e-8920-2c90d9a91edd/mza_893230036382478316.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/84/81/d3/8481d331-d124-3a6e-8920-2c90d9a91edd/mza_893230036382478316.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 208,
@@ -3528,12 +3942,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Fluent Fiction - Hindi",
     "year": "2021",
-    "genre": "Language Learning",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/shruti_rane.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/5b/6c/15/5b6c156f-8d91-34f3-3c66-80d75ffdb85a/mza_10831176415094577569.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/5b/6c/15/5b6c156f-8d91-34f3-3c66-80d75ffdb85a/mza_10831176415094577569.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 209,
@@ -3545,12 +3961,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Ehsaas Ektarfa",
     "year": "2021",
-    "genre": "Romance",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/parth_siddhpura.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e6/65/9a/e6659ad9-0382-a8c4-0ccb-6939da4a1b95/9789356049581.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e6/65/9a/e6659ad9-0382-a8c4-0ccb-6939da4a1b95/9789356049581.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 210,
@@ -3562,12 +3980,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DIVINE LOVE TABERNACLE, New Delhi, India",
     "year": "2022",
-    "genre": "Christianity",
+    "genre": "General",
     "language": "Hindi",
     "duration": 7,
     "source": "MusicBrainz",
     "artistCover": "artists/sagnik_sen.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/5b/f3/c5/5bf3c5b0-acc4-1ed7-daa1-145fbf2620cb/mza_13141241973899587887.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/5b/f3/c5/5bf3c5b0-acc4-1ed7-daa1-145fbf2620cb/mza_13141241973899587887.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 211,
@@ -3579,12 +3999,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Gay Romance on Garda (Unabridged)",
     "year": "2021",
-    "genre": "Erotica",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/madman.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/b6/c6/7e/b6c67e65-9c78-d697-ab1f-57b0769cf1c1/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/b6/c6/7e/b6c67e65-9c78-d697-ab1f-57b0769cf1c1/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 212,
@@ -3596,12 +4018,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Martina Motwani",
     "year": "2022",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/sireesha_bhagavatula.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 213,
@@ -3613,12 +4037,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Martina Motwani",
     "year": "2021",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/shreya_ghoshal.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 214,
@@ -3630,12 +4056,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Bullets Over Bombay",
     "year": "1998",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/mano.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/df/96/ba/df96ba1e-7dc0-fd20-0d8b-b40c852a5e4d/9789354223167.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/df/96/ba/df96ba1e-7dc0-fd20-0d8b-b40c852a5e4d/9789354223167.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 215,
@@ -3647,12 +4075,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Martina Motwani",
     "year": "2021",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/jubin_nautiyal.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/06/93/ef/0693ef3b-d15b-82ba-92b4-98d3726cefaa/mza_17484799780442118708.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 216,
@@ -3664,12 +4094,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2017",
-    "genre": "Thriller",
+    "genre": "General",
     "language": "Hindi",
     "duration": 5194,
     "source": "MusicBrainz",
     "artistCover": "artists/mike.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video117/v4/47/28/b6/4728b6be-de25-668a-e98d-d679328c93af/bitmax1248142.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video117/v4/47/28/b6/4728b6be-de25-668a-e98d-d679328c93af/bitmax1248142.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 217,
@@ -3681,12 +4113,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Srijan Foundation Talks",
     "year": "2020",
-    "genre": "Society & Culture",
+    "genre": "General",
     "language": "Hindi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/himesh_reshammiya.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/67/6c/bc/676cbc1a-aa37-97a0-9ba1-52ea1f3ba82b/mza_6305353576034837792.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/67/6c/bc/676cbc1a-aa37-97a0-9ba1-52ea1f3ba82b/mza_6305353576034837792.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 218,
@@ -3698,12 +4132,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Widows of Malabar Hill (Perveen Mistry Mysteries)",
     "year": "2022",
-    "genre": "Mysteries & Thrillers",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/vivienne_pocha.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/19/c9/83/19c98377-50c2-c093-277a-0247b2f9a4f8/9781501979477.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/19/c9/83/19c98377-50c2-c093-277a-0247b2f9a4f8/9781501979477.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 219,
@@ -3715,12 +4151,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2021",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 7890,
     "source": "MusicBrainz",
     "artistCover": "artists/shashaa_tirupati.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/fe/54/b1/fe54b1ab-ea63-bcbf-270a-50b544350d24/FK_936_FOX_Panga.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/fe/54/b1/fe54b1ab-ea63-bcbf-270a-50b544350d24/FK_936_FOX_Panga.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 220,
@@ -3732,12 +4170,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Ishq mein Shahar Hona",
     "year": "2010",
-    "genre": "Romance",
+    "genre": "Romantic",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/monali_thakur.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/38/6d/d3/386dd382-ecdb-5caa-6887-7ff9c411b312/9789352843527.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/38/6d/d3/386dd382-ecdb-5caa-6887-7ff9c411b312/9789352843527.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 221,
@@ -3749,12 +4189,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Shershaah (Original Motion Picture Soundtrack)",
     "year": "2021",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 152,
     "source": "MusicBrainz",
     "artistCover": "artists/vikram_montrose.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/61/65/ae/6165aee9-8bb9-0bd4-02b0-5d0f1e6257a3/886449510238.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/61/65/ae/6165aee9-8bb9-0bd4-02b0-5d0f1e6257a3/886449510238.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 222,
@@ -3766,12 +4208,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Anouk Hoogeveen Podcast",
     "year": "2021",
-    "genre": "Self-Improvement",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/atif_aslam.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/2e/f3/2d/2ef32dee-4327-cd76-fc1d-f7f3ebf6fdf2/mza_9069245198246484043.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/2e/f3/2d/2ef32dee-4327-cd76-fc1d-f7f3ebf6fdf2/mza_9069245198246484043.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 223,
@@ -3783,12 +4227,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Fake Monster👹",
     "year": "2021",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/darshan_raval.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/5f/a1/ca/5fa1ca6d-8312-24b4-fbe6-caf363f8b8ba/mza_8388049375599256098.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/5f/a1/ca/5fa1ca6d-8312-24b4-fbe6-caf363f8b8ba/mza_8388049375599256098.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 224,
@@ -3800,12 +4246,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2021",
-    "genre": "",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/darshan_raval.jpg",
-    "albumCover": ""
+    "albumCover": "",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 225,
@@ -3817,12 +4265,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Maja Ma (Original Series Soundtrack)",
     "year": "2022",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 236,
     "source": "MusicBrainz",
     "artistCover": "artists/arijit_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/0d/60/64/0d6064a9-419b-7ec9-4b88-a5962d6d0829/196589527882.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/0d/60/64/0d6064a9-419b-7ec9-4b88-a5962d6d0829/196589527882.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 226,
@@ -3834,12 +4284,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2010",
-    "genre": "Comedy",
+    "genre": "Romantic",
     "language": "Hindi",
     "duration": 9121,
     "source": "MusicBrainz",
     "artistCover": "artists/udit_narayan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video51/v4/ef/09/71/ef0971f7-762c-fe4a-58d3-dd270c159197/WW.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video51/v4/ef/09/71/ef0971f7-762c-fe4a-58d3-dd270c159197/WW.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 227,
@@ -3851,12 +4303,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Hits of Katrina Kaif",
     "year": "2018",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 10251,
     "source": "MusicBrainz",
     "artistCover": "artists/sukhwinder_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video1/v4/2d/43/4f/2d434fec-5c0c-3bd7-4a6d-b988fc214b1e/VIS063.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video1/v4/2d/43/4f/2d434fec-5c0c-3bd7-4a6d-b988fc214b1e/VIS063.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 228,
@@ -3868,12 +4322,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Katha Katta",
     "year": "2005",
-    "genre": "Relationships",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/midival_punditz.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/aa/75/d1/aa75d1fd-3353-c892-ad24-0e0e2fbf5ce3/mza_13790327298096130400.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/aa/75/d1/aa75d1fd-3353-c892-ad24-0e0e2fbf5ce3/mza_13790327298096130400.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 229,
@@ -3885,12 +4341,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Khairiyat",
     "year": "2023",
-    "genre": "Music Interviews",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/parth_siddhpura.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts114/v4/c0/54/56/c0545604-baaa-352d-d350-9a096af5a6b9/mza_1769906227426063286.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts114/v4/c0/54/56/c0545604-baaa-352d-d350-9a096af5a6b9/mza_1769906227426063286.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 230,
@@ -3902,12 +4360,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Rocky Aur Rani Kii Prem Kahaani (Original Motion Picture Soundtrack)",
     "year": "2023",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 265,
     "source": "MusicBrainz",
     "artistCover": "artists/sachet_tandon.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7e/9f/9c/7e9f9c4a-f392-d779-ff66-e6a13980d131/198588108598.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7e/9f/9c/7e9f9c4a-f392-d779-ff66-e6a13980d131/198588108598.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 231,
@@ -3919,12 +4379,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Fir aur kya chahiye",
     "year": "2023",
-    "genre": "Society & Culture",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/b_praak.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/43/14/2a/43142ab4-1d5e-33ab-6751-04d948e88097/mza_6496301153422049081.jpeg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/43/14/2a/43142ab4-1d5e-33ab-6751-04d948e88097/mza_6496301153422049081.jpeg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 232,
@@ -3936,12 +4398,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Bad Bromance: 2 Film Collection",
     "year": "2022",
-    "genre": "Comedy",
+    "genre": "Romantic",
     "language": "Hindi",
     "duration": 6314,
     "source": "MusicBrainz",
     "artistCover": "artists/maddie_is_real.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video49/v4/f9/09/92/f9099274-a59c-21cd-6e7a-42dd02cee27c/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video49/v4/f9/09/92/f9099274-a59c-21cd-6e7a-42dd02cee27c/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 233,
@@ -3953,12 +4417,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Story of Prophet Musa",
     "year": "2005",
-    "genre": "Religion & Spirituality",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/vova.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3a/34/14/3a341419-49be-63b6-3109-1fc757ecde30/goz2995502017701828642.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3a/34/14/3a341419-49be-63b6-3109-1fc757ecde30/goz2995502017701828642.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 234,
@@ -3970,12 +4436,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Melodic journeys of india",
     "year": "2023",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/udit_narayan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f9/f5/8c/f9f58ccd-bd30-e3c4-b9a7-be497fe360ab/mza_7897541774543219789.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f9/f5/8c/f9f58ccd-bd30-e3c4-b9a7-be497fe360ab/mza_7897541774543219789.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 235,
@@ -3987,12 +4455,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DJ Ravish Remixes",
     "year": "2021",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/b_praak.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 236,
@@ -4004,12 +4474,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "9XM SoundcastE",
     "year": "2021",
-    "genre": "Music Interviews",
+    "genre": "General",
     "language": "Hindi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/gurnazar.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/48/42/1e/48421e19-1b6f-ff46-301a-3e3aa195049a/mza_6035245625754688887.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/48/42/1e/48421e19-1b6f-ff46-301a-3e3aa195049a/mza_6035245625754688887.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 237,
@@ -4021,12 +4493,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DJ Ravish Remixes",
     "year": "1970",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/lata_mangeshkar.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 238,
@@ -4038,12 +4512,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Tip Tip Barsa Pyaar",
     "year": "2021",
-    "genre": "Relationships",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/armaan_malik.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/e4/a3/6d/e4a36df0-78c5-b3b8-bf44-402eeca1adf8/mza_9530748325160277002.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/e4/a3/6d/e4a36df0-78c5-b3b8-bf44-402eeca1adf8/mza_9530748325160277002.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 239,
@@ -4055,12 +4531,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Evolution Show",
     "year": "2024",
-    "genre": "Self-Improvement",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/g._v._prakash.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/89/90/c8/8990c81d-2c23-5061-e55b-589e7e55e847/mza_16407472272699346326.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/89/90/c8/8990c81d-2c23-5061-e55b-589e7e55e847/mza_16407472272699346326.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 240,
@@ -4072,12 +4550,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2015",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Hindi",
     "duration": 6573,
     "source": "MusicBrainz",
     "artistCover": "artists/altaf_raja.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/d0/b9/22/d0b922de-c51e-96bd-5f39-edfb244683da/MoonInThe12thHouse_iTunes_Poster.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/d0/b9/22/d0b922de-c51e-96bd-5f39-edfb244683da/MoonInThe12thHouse_iTunes_Poster.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 241,
@@ -4089,12 +4569,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Omg 2 (Original Motion Picture Soundtrack) - EP",
     "year": "2023",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 238,
     "source": "MusicBrainz",
     "artistCover": "artists/hansraj_raghuwanshi.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/0e/d5/6f/0ed56f99-eeb8-eac8-1c43-3cca970061ce/840214495526.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/0e/d5/6f/0ed56f99-eeb8-eac8-1c43-3cca970061ce/840214495526.png/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 242,
@@ -4106,12 +4588,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "DJ Ravish Remixes",
     "year": "2020",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/asees_kaur.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f7/ba/ac/f7baac2a-c0bb-cb13-e978-32d8f248227c/mza_7530536649336342174.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 243,
@@ -4123,12 +4607,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Kerala Story (Original Motion Picture Soundtrack) - EP",
     "year": "2023",
-    "genre": "Soundtrack",
+    "genre": "General",
     "language": "Hindi",
     "duration": 307,
     "source": "MusicBrainz",
     "artistCover": "artists/sunidhi_chauhan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/40/0d/db/400ddb7c-99d9-dd32-286b-7d55a8d379c3/196922470202.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/40/0d/db/400ddb7c-99d9-dd32-286b-7d55a8d379c3/196922470202.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 244,
@@ -4140,12 +4626,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Home Alone 5-Movie Collection",
     "year": "1992",
-    "genre": "Comedy",
+    "genre": "General",
     "language": "Hindi",
     "duration": 7207,
     "source": "MusicBrainz",
     "artistCover": "artists/f4.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/da/2d/95/da2d9531-f63a-50e8-7fcc-631c82980fa6/FOX_HOME_ALONE_2_ENGLISH_POST_HOLIDAY_WW_ARTWORK_EN_2000x3000_2K36LY000000LP.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/da/2d/95/da2d9531-f63a-50e8-7fcc-631c82980fa6/FOX_HOME_ALONE_2_ENGLISH_POST_HOLIDAY_WW_ARTWORK_EN_2000x3000_2K36LY000000LP.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 245,
@@ -4157,12 +4645,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Long Take",
     "year": "2021",
-    "genre": "TV & Film",
+    "genre": "Devotional",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/shreya_ghoshal.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts114/v4/d3/60/44/d36044ba-f68b-f23e-f59b-445f42925e5e/mza_6305177955764262672.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts114/v4/d3/60/44/d36044ba-f68b-f23e-f59b-445f42925e5e/mza_6305177955764262672.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 246,
@@ -4174,12 +4664,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Mimi (Original Motion Picture Soundtrack)",
     "year": "2021",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 177,
     "source": "MusicBrainz",
     "artistCover": "artists/shilpa_rao.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/0d/4a/71/0d4a71dd-b09d-50b4-b1e9-6c13ab4bdd1e/886449445875.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/0d/4a/71/0d4a71dd-b09d-50b4-b1e9-6c13ab4bdd1e/886449445875.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 247,
@@ -4191,12 +4683,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2025",
-    "genre": "Kids & Family",
+    "genre": "General",
     "language": "Hindi",
     "duration": 9365,
     "source": "MusicBrainz",
     "artistCover": "artists/rito_riba.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video52/v4/7f/94/f3/7f94f3b9-e2a5-29bf-011f-998f7a66ec41/WW.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video52/v4/7f/94/f3/7f94f3b9-e2a5-29bf-011f-998f7a66ec41/WW.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 248,
@@ -4208,12 +4702,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Fake Monster👹",
     "year": "2021",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "Hindi",
     "duration": 1,
     "source": "MusicBrainz",
     "artistCover": "artists/jubin_nautiyal.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/5f/a1/ca/5fa1ca6d-8312-24b4-fbe6-caf363f8b8ba/mza_8388049375599256098.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/5f/a1/ca/5fa1ca6d-8312-24b4-fbe6-caf363f8b8ba/mza_8388049375599256098.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 249,
@@ -4225,12 +4721,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Santman Show",
     "year": "2021",
-    "genre": "Society & Culture",
+    "genre": "General",
     "language": "Hindi",
     "duration": 4,
     "source": "MusicBrainz",
     "artistCover": "artists/arijit_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/47/2e/06/472e063b-b123-c458-8981-d857f34f1ac6/mza_9338138879857098464.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/47/2e/06/472e063b-b123-c458-8981-d857f34f1ac6/mza_9338138879857098464.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 250,
@@ -4242,12 +4740,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Rangeeni (From \"Azaad Collab\") - Single",
     "year": "2024",
-    "genre": "Pop",
+    "genre": "General",
     "language": "Hindi",
     "duration": 219,
     "source": "MusicBrainz",
     "artistCover": "artists/amit_trivedi.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c9/bb/3d/c9bb3da7-5d28-13e4-9815-5de974162650/cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c9/bb/3d/c9bb3da7-5d28-13e4-9815-5de974162650/cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 251,
@@ -4259,12 +4759,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2025",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 6460,
     "source": "MusicBrainz",
     "artistCover": "artists/divya_kumar.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video52/v4/89/77/25/89772531-ecbc-8753-6d3d-9e0dcc2fb8e4/VEI281.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video52/v4/89/77/25/89772531-ecbc-8753-6d3d-9e0dcc2fb8e4/VEI281.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 252,
@@ -4276,12 +4778,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "sohailsop",
     "year": "2021",
-    "genre": "Society & Culture",
+    "genre": "General",
     "language": "Hindi",
     "duration": 3,
     "source": "MusicBrainz",
     "artistCover": "artists/a.r._rahman.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/48/43/56/48435606-0b5b-7ad3-3ca2-e5004e94beb0/mza_7077104009200137597.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/48/43/56/48435606-0b5b-7ad3-3ca2-e5004e94beb0/mza_7077104009200137597.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 253,
@@ -4293,12 +4797,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Godfather Trilogy",
     "year": "2024",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Hindi",
     "duration": 12031,
     "source": "MusicBrainz",
     "artistCover": "artists/pritam.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video116/v4/1c/35/fd/1c35fd83-cc58-ccc4-1df7-778c4fa3166d/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video116/v4/1c/35/fd/1c35fd83-cc58-ccc4-1df7-778c4fa3166d/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 254,
@@ -4310,12 +4816,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Jerry Lewis 10-Movie Collection",
     "year": "1998",
-    "genre": "Classics",
+    "genre": "General",
     "language": "Hindi",
     "duration": 6232,
     "source": "MusicBrainz",
     "artistCover": "artists/connie_dycus.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/f3/7a/ae/f37aae14-39ec-f2dd-7ce6-c879e6020981/pr_source.lsr/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video124/v4/f3/7a/ae/f37aae14-39ec-f2dd-7ce6-c879e6020981/pr_source.lsr/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 255,
@@ -4327,12 +4835,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2025",
-    "genre": "Documentary",
+    "genre": "General",
     "language": "Hindi",
     "duration": 4421,
     "source": "MusicBrainz",
     "artistCover": "artists/courtney_melody.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video221/v4/5f/dd/10/5fdd1058-7979-ded1-6a15-96c17651d174/TCPMM20061.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video221/v4/5f/dd/10/5fdd1058-7979-ded1-6a15-96c17651d174/TCPMM20061.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 256,
@@ -4344,12 +4854,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "ᴰᴶ ᴰᴴᴿᵁⱽ",
     "year": "2022",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/asha_bhosle.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/99/75/6b/99756be2-14aa-045e-1f75-efb0bd970902/mza_8235350671735728125.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/99/75/6b/99756be2-14aa-045e-1f75-efb0bd970902/mza_8235350671735728125.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 257,
@@ -4361,12 +4873,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2009",
-    "genre": "Horror",
+    "genre": "General",
     "language": "Hindi",
     "duration": 5876,
     "source": "MusicBrainz",
     "artistCover": "artists/musafir.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music/80/91/e7/mzi.aezaaejc.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music/80/91/e7/mzi.aezaaejc.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 258,
@@ -4378,12 +4892,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2022",
-    "genre": "Anime",
+    "genre": "Devotional",
     "language": "Hindi",
     "duration": 4684,
     "source": "MusicBrainz",
     "artistCover": "artists/javed_ali.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video125/v4/70/87/c7/7087c725-125a-fe61-7d96-29c28c07dd4f/FK_986_VI_STSWOVC.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video125/v4/70/87/c7/7087c725-125a-fe61-7d96-29c28c07dd4f/FK_986_VI_STSWOVC.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 259,
@@ -4395,12 +4911,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Killing Edge (Unabridged)",
     "year": "2021",
-    "genre": "Romance",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/jubin_nautiyal.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/68/86/03/68860335-6e1d-a3e6-e6b5-0f9f069d876e/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/68/86/03/68860335-6e1d-a3e6-e6b5-0f9f069d876e/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 260,
@@ -4412,12 +4930,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Suno Bollywood with Rix",
     "year": "2022",
-    "genre": "TV & Film",
+    "genre": "General",
     "language": "Hindi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/saud_khan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/24/15/b9/2415b9b7-95c2-d846-8139-111dbb2a3dbb/mza_13196754896147122111.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/24/15/b9/2415b9b7-95c2-d846-8139-111dbb2a3dbb/mza_13196754896147122111.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 261,
@@ -4429,12 +4949,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Teri Meri Kahani By Ra",
     "year": "2020",
-    "genre": "Society & Culture",
+    "genre": "General",
     "language": "Hindi",
     "duration": 2,
     "source": "MusicBrainz",
     "artistCover": "artists/himesh_reshammiya.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/81/92/3f/81923f5b-d5b3-ef7e-8c25-cab24e22a7c0/mza_3984773444650474525.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/81/92/3f/81923f5b-d5b3-ef7e-8c25-cab24e22a7c0/mza_3984773444650474525.png/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 262,
@@ -4446,12 +4968,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Pete the Cat and the Tip-Top Tree House",
     "year": "2023",
-    "genre": "Kids & Young Adults",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/6rano.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/fd/42/24/fd4224b8-5624-2762-6482-30a1472cd195/9780063026711.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/fd/42/24/fd4224b8-5624-2762-6482-30a1472cd195/9780063026711.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 263,
@@ -4463,12 +4987,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Atrangi Re (Original Motion Picture Soundtrack)",
     "year": "2021",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 217,
     "source": "MusicBrainz",
     "artistCover": "artists/rashid_ali.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/ca/f3/4f/caf34f9c-617b-5d0e-6e36-056792df20b8/8903431857224_cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/ca/f3/4f/caf34f9c-617b-5d0e-6e36-056792df20b8/8903431857224_cover.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 264,
@@ -4480,12 +5006,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "All'estremo. Storie erotiche di donne dominanti",
     "year": "2019",
-    "genre": "Erotica",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/ashwin_adwani.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/6d/3e/b9/6d3eb983-93b9-1d81-8557-1db0a334ab78/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/6d/3e/b9/6d3eb983-93b9-1d81-8557-1db0a334ab78/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 265,
@@ -4497,12 +5025,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Tum Kab Aaoge - Single",
     "year": "2021",
-    "genre": "Indian",
+    "genre": "General",
     "language": "Hindi",
     "duration": 252,
     "source": "MusicBrainz",
     "artistCover": "artists/armaan_malik.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/31/25/28/312528e4-deef-fd32-9f3b-91142e75fe9a/cover.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/31/25/28/312528e4-deef-fd32-9f3b-91142e75fe9a/cover.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 266,
@@ -4514,12 +5044,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "The Kahani Project",
     "year": "2023",
-    "genre": "Arts",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/arijit_singh.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/84/81/d3/8481d331-d124-3a6e-8920-2c90d9a91edd/mza_893230036382478316.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/84/81/d3/8481d331-d124-3a6e-8920-2c90d9a91edd/mza_893230036382478316.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 267,
@@ -4531,12 +5063,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2021",
-    "genre": "Drama",
+    "genre": "General",
     "language": "Hindi",
     "duration": 11468,
     "source": "MusicBrainz",
     "artistCover": "artists/kailash_kher.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/4d/a7/42/mzi.aeqgrbsj.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video/4d/a7/42/mzi.aeqgrbsj.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 268,
@@ -4548,12 +5082,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Tum Mere Ho",
     "year": "2016",
-    "genre": "Music History",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/dev_negi.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/36/57/5a/36575adf-211d-2588-c622-618cfdfd0f79/mza_10378789932906161870.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/36/57/5a/36575adf-211d-2588-c622-618cfdfd0f79/mza_10378789932906161870.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 269,
@@ -4565,12 +5101,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Mujhe Pyar Tumse Nahi Hai",
     "year": "2021",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/vishal_mishra.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/14/c5/7b/14c57b24-8f00-0825-4728-a99dc9245296/0408100084010.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/14/c5/7b/14c57b24-8f00-0825-4728-a99dc9245296/0408100084010.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 270,
@@ -4582,12 +5120,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Gadar 2 (Original Motion Picture Soundtrack)",
     "year": "2023",
-    "genre": "Bollywood",
+    "genre": "General",
     "language": "Hindi",
     "duration": 288,
     "source": "MusicBrainz",
     "artistCover": "artists/udit_narayan.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/e7/4e/5b/e74e5b0c-3919-a0d4-13fe-cd3e560ab997/840214499609.png/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/e7/4e/5b/e74e5b0c-3919-a0d4-13fe-cd3e560ab997/840214499609.png/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 271,
@@ -4599,12 +5139,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "",
     "year": "2003",
-    "genre": "Bollywood",
+    "genre": "Devotional",
     "language": "Hindi",
     "duration": 11011,
     "source": "MusicBrainz",
     "artistCover": "artists/ekatman.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video117/v4/35/60/82/356082e8-6d85-ade1-160b-eafb6b83aeef/FK034_PV_KheleinHumJeeJaanSey-en-US.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Video117/v4/35/60/82/356082e8-6d85-ade1-160b-eafb6b83aeef/FK034_PV_KheleinHumJeeJaanSey-en-US.jpg/600x600bb.jpg",
+    "industry": "Bollywood",
+    "mood": ""
   },
   {
     "id": 272,
@@ -4616,12 +5158,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Hintli Kulübesi",
     "year": "2024",
-    "genre": "Fiction",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/pritam.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/55/8e/e1/558ee1bb-c471-fc69-2c99-b8a213f8f277/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/55/8e/e1/558ee1bb-c471-fc69-2c99-b8a213f8f277/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 273,
@@ -4633,12 +5177,14 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Unusual Punishment: Inside the Walla Walla Prison, 1970-1985 (Unabridged)",
     "year": "1998",
-    "genre": "Nonfiction",
+    "genre": "General",
     "language": "Hindi",
     "duration": "",
     "source": "MusicBrainz",
     "artistCover": "artists/the_offspring.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music71/v4/55/b3/b5/55b3b5e1-13ce-e4cd-aa15-a5e94e3fb10f/rm_image.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Music71/v4/55/b3/b5/55b3b5e1-13ce-e4cd-aa15-a5e94e3fb10f/rm_image.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   },
   {
     "id": 274,
@@ -4650,11 +5196,13 @@ const INITIAL_SONG_DATA = [
     "isFavorite": false,
     "album": "Vik4S Remixes",
     "year": "2024",
-    "genre": "Music",
+    "genre": "General",
     "language": "Hindi",
     "duration": 0,
     "source": "MusicBrainz",
     "artistCover": "artists/pritam.jpg",
-    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/0f/e1/ac/0fe1acd8-9604-23c5-9489-dd2f6e828385/mza_15657828439232948386.jpg/600x600bb.jpg"
+    "albumCover": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/0f/e1/ac/0fe1acd8-9604-23c5-9489-dd2f6e828385/mza_15657828439232948386.jpg/600x600bb.jpg",
+    "industry": "",
+    "mood": ""
   }
 ];

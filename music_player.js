@@ -2266,15 +2266,36 @@ function renderPlaylistModal() {
     // RESET
     grid.innerHTML = '';
 
-    /* ================= GRID VIEW ================= */
-    if (playlistModalView === "grid") {
+/* ================= GRID VIEW ================= */
+        if (playlistModalView === "grid") {
 
-        title.textContent = "My Playlists";
+            title.textContent = "My Playlists";
 
-        // SHOW CREATE BUTTON
-        document.getElementById("playlist-empty").style.display = "flex";
+            const emptyBlock = document.getElementById("playlist-empty");
 
-        if (playlists.length === 0) return;
+            // CASE 1: NO PLAYLISTS
+            if (playlists.length === 0) {
+
+                // show create button only
+                emptyBlock.style.display = "flex";
+
+                // center it
+                emptyBlock.style.justifyContent = "center";
+                emptyBlock.style.alignItems = "center";
+
+                // hide grid
+                grid.style.display = "none";
+                return;
+            }
+
+            // CASE 2: PLAYLISTS EXIST
+
+            // hide top create block
+            emptyBlock.style.display = "none";
+
+            // show grid
+            grid.style.display = "grid";
+
 
         playlists.forEach(pl => {
 
@@ -2312,6 +2333,8 @@ function renderPlaylistModal() {
                 }
             });
 
+
+
             /* DELETE */
             card.querySelector(".playlist-delete")
             .addEventListener("click", (e) => {
@@ -2329,6 +2352,23 @@ function renderPlaylistModal() {
 
             grid.appendChild(card);
         });
+
+        // ADD CREATE CARD AS LAST ITEM
+        const createCard = document.createElement("div");
+        createCard.className = "playlist-card create-card";
+
+        createCard.innerHTML = `
+            <div class="playlist-cover create-style">
+                <i class="fas fa-plus"></i>
+            </div>
+            <div class="playlist-name">Create playlist</div>
+        `;
+
+        createCard.addEventListener("click", () => {
+            openCreatePlaylistModal();
+        });
+
+        grid.appendChild(createCard);
 
         return;
     }
