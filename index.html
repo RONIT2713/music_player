@@ -363,6 +363,52 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
+<!-- VIEW ALL AVATAR MODAL -->
+<div id="avatar-viewall-modal" class="avatar-viewall-modal">
+
+  <div class="avatar-viewall-box">
+
+    <!-- CLOSE -->
+    <button id="avatar-viewall-close" class="modal-close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <!-- HEADER (TABS) -->
+    <div class="avatar-viewall-header">
+
+      <button 
+        class="viewall-tab active-viewall-tab" 
+        id="viewall-tab-avatars"
+      >
+        Avatars
+      </button>
+
+      <button 
+        class="viewall-tab" 
+        id="viewall-tab-banners"
+        disabled
+      >
+        Banners
+      </button>
+
+    </div>
+
+    <!-- BODY (ONLY AVATARS) -->
+    <div class="avatar-viewall-body">
+
+      <div 
+        class="av-grid viewall-avatar-grid" 
+        id="viewall-avatar-grid"
+      >
+        <!-- avatars injected by JS -->
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 
 
 
@@ -405,39 +451,68 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     </button>
 
     <h3 id="playlist-editor-title">Playlist</h3>
+<div class="playlist-editor-body">
 
-    <div class="playlist-editor-body">
+  <!-- TOP BANNER -->
+  <div class="pe-banner"></div>
 
-      <!-- TOP BANNER -->
-      <div class="pe-banner"></div>
+  <!-- AVATAR PREVIEW -->
+  <div class="pe-avatar">
+    <img id="pe-avatar-img" src="">
+  </div>
 
-      <!-- AVATAR PREVIEW -->
-      <div class="pe-avatar">
-        <img id="pe-avatar-img" src="covers/pl1.jpg">
-      </div>
+  <!-- NAME INPUT -->
+  <input 
+    id="pe-name-input"
+    type="text"
+    placeholder="Enter playlist name"
+  >
 
-      <!-- NAME INPUT -->
-      <input 
-        id="pe-name-input"
-        type="text"
-        placeholder="Enter playlist name"
+  <!-- AVATAR SELECTOR HEADER -->
+  <div class="pe-avatar-header">
+    <span class="pe-avatar-title">Choose your avatar</span>
+    <button 
+        class="pe-view-all" 
+        id="pe-view-all-btn"
       >
+        View all →
+      </button>
+  </div>
 
-      <!-- AVATAR GRID -->
-      <div class="pe-avatar-grid">
-        <!-- icons later -->
-      </div>
+  <!-- AVATAR GRID (MAIN - SHOW 4 ONLY) -->
+  <div class="pe-avatar-grid">
+    <!-- 4 avatars will be injected here later -->
+  </div>
 
-      <!-- ACTION BUTTONS -->
-      <div class="pe-actions">
-        <button id="pe-cancel-btn">Cancel</button>
-        <button id="pe-save-btn">Save</button>
-      </div>
 
-      <!-- DELETE (EDIT MODE ONLY) -->
-      <button id="pe-delete-btn">Delete Playlist</button>
+  <!-- BANNER SELECTOR HEADER (NEW) -->
+  <div class="pe-banner-header">
+    <span class="pe-banner-title">Choose your banner</span>
+    <button 
+        class="pe-view-all" 
+        id="pe-banner-view-all-btn"
+      >
+        View all →
+      </button>
+  </div>
 
-    </div>
+  <!-- BANNER GRID (MAIN - SHOW 4 ONLY) -->
+  <div class="pe-banner-grid">
+    <!-- 4 banners will be injected here later -->
+  </div>
+
+
+  <!-- ACTION BUTTONS -->
+  <div class="pe-actions">
+    <button id="pe-cancel-btn">Cancel</button>
+    <button id="pe-save-btn">Save</button>
+  </div>
+
+  <!-- DELETE (EDIT MODE ONLY) -->
+  <button id="pe-delete-btn">Delete Playlist</button>
+
+</div>
+
 
 
   </div>
@@ -510,6 +585,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
 <script src="data.js"></script>
+<script src="avatar.js"></script>
 <script src="music_player.js"></script>
 
 

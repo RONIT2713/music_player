@@ -1,5 +1,8 @@
 const AUDIO_BASE = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/";
 const COVER_BASE = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/";
+const AVATAR_BASE_PATH = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/avatars/";
+
+
 
 function resolveAudio(path) {
     if (!path) return "";
@@ -211,24 +214,6 @@ if (peSaveBtn) {
 
 
 
-
-
-const playlistAvatars = [
-  "avatars/pl1.jpg",
-  "avatars/pl2.jpg",
-  "avatars/pl3.jpg",
-  "avatars/pl4.jpg"
-];
-
-
-function getRandomPlaylistAvatar() {
-  return playlistAvatars[
-    Math.floor(Math.random() * playlistAvatars.length)
-  ];
-}
-
-
-
 // --- DOM CACHE (Batch 2 optimization) ---
 const DOM = {
     body: document.body,
@@ -280,6 +265,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 
 
+let selectedAvatar = "a1"; // default
 
 
 // --- 2. STATE ---
@@ -3606,11 +3592,16 @@ function openPlaylistEditorCreate(){
     // RESET UI
     document.getElementById("pe-name-input").value = "";
     document.getElementById("pe-avatar-img").src =
-    COVER_BASE + getRandomPlaylistAvatar();
+    AVATAR_BASE_PATH + "a1.jpg";
+
 
 
 
     document.getElementById("pe-delete-btn").style.display = "none";
+
+    selectedAvatar = "a1";
+    renderEditorAvatars();
+
 }
 function openPlaylistEditorEdit(id){
 
@@ -3679,4 +3670,105 @@ const peCancelBtn = document.getElementById("pe-cancel-btn");
 
 if (peCancelBtn) {
     peCancelBtn.addEventListener("click", closePlaylistEditor);
+}
+
+/* ===== STEP E: VIEW ALL BUTTON ===== */
+
+const viewAllAvatarBtn = document.getElementById("pe-view-all-btn");
+
+if(viewAllAvatarBtn){
+  viewAllAvatarBtn.addEventListener("click", openAvatarViewAll);
+}
+
+
+function renderEditorAvatars() {
+
+  const grid = document.querySelector(".pe-avatar-grid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  // show only first 4 avatars
+  const avatars = INITIAL_AVATAR_DATA.slice(0,4);
+
+  avatars.forEach(avatar => {
+
+    const div = document.createElement("div");
+    div.className = "pe-avatar-item";
+
+    if(avatar.name === selectedAvatar){
+      div.classList.add("active");
+    }
+
+    const img = document.createElement("img");
+    img.src = AVATAR_BASE_PATH + avatar.file;
+
+    div.appendChild(img);
+
+    div.onclick = () => {
+      selectedAvatar = avatar.name;
+      document.getElementById("pe-avatar-img").src =
+        AVATAR_BASE_PATH + avatar.file;
+
+      renderEditorAvatars();
+    };
+
+    grid.appendChild(div);
+  });
+}
+function openAvatarViewAll(){
+
+  const modal = document.getElementById("avatar-viewall-modal");
+  if(!modal) return;
+
+  mountToPortal(modal);
+  modal.style.display = "flex";
+  modal.classList.add("open");
+  document.body.classList.add("modal-open");
+
+  renderViewAllAvatars();
+}
+function closeAvatarViewAll(){
+
+  const modal = document.getElementById("avatar-viewall-modal");
+  if(!modal) return;
+
+  modal.classList.remove("open");
+  document.body.classList.remove("modal-open");
+
+  setTimeout(()=>{
+    modal.style.display="none";
+    unmountFromPortal(modal);
+  },250);
+}
+const avatarViewAllClose = document.getElementById("avatar-viewall-close");
+
+if(avatarViewAllClose){
+  avatarViewAllClose.addEventListener("click", closeAvatarViewAll);
+}
+function renderViewAllAvatars(){
+
+  const grid = document.querySelector(".av-grid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  INITIAL_AVATAR_DATA.forEach(avatar=>{
+
+    const img = document.createElement("img");
+    img.src = AVATAR_BASE_PATH + avatar.file;
+
+    img.onclick = ()=>{
+
+      selectedAvatar = avatar.name;
+
+      document.getElementById("pe-avatar-img").src =
+        AVATAR_BASE_PATH + avatar.file;
+
+      closeAvatarViewAll();
+      renderEditorAvatars();
+    };
+
+    grid.appendChild(img);
+  });
 }
