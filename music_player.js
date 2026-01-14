@@ -1004,6 +1004,7 @@ function toggleFavorite(songId) {
         }
 
         highlightFullPlaylistPlaying();
+        
     }
 }
 
@@ -2357,11 +2358,25 @@ function renderPlaylistModal() {
     if (!pl) return;
 
     title.innerHTML = `
-        <button id="playlist-back-btn">
-            <i class="fas fa-arrow-left"></i>
+        <div class="playlist-header-left">
+            <button id="playlist-back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
+            <div class="playlist-header-text">
+                <div class="playlist-header-name">${pl.name}</div>
+                <div class="playlist-header-count">
+                    ${pl.songs.length} song${pl.songs.length === 1 ? '' : 's'}
+                </div>
+            </div>
+        </div>
+
+        <button class="playlist-header-edit" id="playlist-edit-top">
+            Edit
         </button>
-        ${pl.name}
+
     `;
+
 
     document
       .getElementById("playlist-back-btn")
@@ -2369,49 +2384,46 @@ function renderPlaylistModal() {
           playlistModalView = "grid";
           renderPlaylistModal();
       });
+grid.style.display = "none";
 
-    grid.innerHTML = '';
+const ul = document.createElement("ul");
+ul.className = "playlist-song-list";
 
-    if (pl.songs.length === 0) {
-        grid.innerHTML = `<div class="playlist-empty">No songs yet</div>`;
-        return;
-    }
+pl.songs.forEach(songId => {
 
-    pl.songs.forEach(songId => {
+    const song = currentSongs.find(s => s.id === songId);
+    if (!song) return;
 
-        const song = currentSongs.find(s => s.id === songId);
-        if (!song) return;
+    const li = document.createElement("li");
+    li.className = "playlist-song-item";
 
-        const li = document.createElement("li");
-        li.className = "category-modal-song-item";
+    li.innerHTML = `
+        <div class="playlist-song-main">
+            <div class="playlist-song-title">${song.title}</div>
+            <div class="playlist-song-artist">${song.artist}</div>
+        </div>
 
-        li.innerHTML = `
-            <div class="category-modal-song-main">
-                <div class="category-modal-song-title">
-                    ${song.title}
-                </div>
-                <div class="category-modal-song-artist">
-                    ${song.artist}
-                </div>
-            </div>
+        <button class="playlist-song-play">
+            <i class="fas fa-play"></i>
+        </button>
+    `;
 
-            <button class="category-modal-play-btn">
-                <i class="fas fa-play"></i>
-            </button>
-        `;
-        li.addEventListener("click", () => {
-            playSong(song);
-        });
-
-        li.querySelector(".category-modal-play-btn")
-        .addEventListener("click", (e) => {
-            e.stopPropagation();
-            playSong(song);
-        });
-
-
-        grid.appendChild(li);
+    li.addEventListener("click", () => {
+        playSong(song);
     });
+
+    li.querySelector(".playlist-song-play")
+      .addEventListener("click", (e) => {
+        e.stopPropagation();
+        playSong(song);
+      });
+
+    ul.appendChild(li);
+});
+
+body.appendChild(ul);
+
+
 }
 
 
