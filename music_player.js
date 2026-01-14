@@ -1,6 +1,7 @@
 const AUDIO_BASE = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/";
 const COVER_BASE = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/";
 const AVATAR_BASE_PATH = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/avatars/";
+const BANNER_BASE_PATH = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/banners/";
 
 
 
@@ -141,6 +142,8 @@ function openPlaylistEditor(mode, playlistId = null) {
     playlistEditorModal.classList.add("open");
 
     document.body.classList.add("modal-open");
+
+    
 }
 
 
@@ -150,7 +153,6 @@ if (playlistEditorClose) {
 }
 
 const peSaveBtn = document.getElementById("pe-save-btn");
-
 if (peSaveBtn) {
     peSaveBtn.addEventListener("click", () => {
 
@@ -162,6 +164,9 @@ if (peSaveBtn) {
         const name = nameInput.value.trim();
         const cover = avatarImg.src;
 
+        // banner filename only
+        const banner = selectedBanner;
+
         if (!name) {
             alert("Playlist name required");
             return;
@@ -172,7 +177,6 @@ if (peSaveBtn) {
         /* ========== CREATE MODE ========== */
         if (editorMode === "create") {
 
-            // duplicate check
             const exists = playlists.some(
                 p => p.name.toLowerCase() === name.toLowerCase()
             );
@@ -186,6 +190,7 @@ if (peSaveBtn) {
                 id: Date.now(),
                 name: name,
                 cover: cover,
+                banner: banner, // 🔥 NEW
                 songs: []
             };
 
@@ -201,11 +206,11 @@ if (peSaveBtn) {
 
             p.name = name;
             p.cover = cover;
+            p.banner = banner; // 🔥 NEW
 
             savePlaylists(playlists);
         }
 
-        // refresh UI
         renderPlaylistModal();
         closePlaylistEditor();
     });
@@ -266,6 +271,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 
 let selectedAvatar = "a1"; // default
+let selectedBanner = "b1"; // default
+
 
 
 // --- 2. STATE ---
@@ -3575,7 +3582,6 @@ window.addEventListener('popstate', () => {
 })();
 
 
-
 function openPlaylistEditorCreate(){
 
     editorMode = "create";
@@ -3591,16 +3597,29 @@ function openPlaylistEditorCreate(){
 
     // RESET UI
     document.getElementById("pe-name-input").value = "";
+
+    // DEFAULT AVATAR
+    selectedAvatar = "a1";
     document.getElementById("pe-avatar-img").src =
-    AVATAR_BASE_PATH + "a1.jpg";
+      AVATAR_BASE_PATH + "a1.jpg";
 
-
-
+    // DEFAULT BANNER
+    selectedBanner = "b1";
+    const bannerDiv = document.querySelector(".pe-banner");
+    if(bannerDiv){
+      bannerDiv.style.backgroundImage =
+        `url(${BANNER_BASE_PATH}b1.jpg)`;
+    }
 
     document.getElementById("pe-delete-btn").style.display = "none";
 
-    selectedAvatar = "a1";
     renderEditorAvatars();
+    renderEditorBanners();
+
+    setTimeout(()=>{
+    document.getElementById("pe-name-input").focus();
+    },100);
+
 
 }
 function openPlaylistEditorEdit(id){
@@ -3622,31 +3641,48 @@ function openPlaylistEditorEdit(id){
 
     // LOAD DATA
     document.getElementById("pe-name-input").value = pl.name;
+
+    // AVATAR
     document.querySelector(".pe-avatar img").src = pl.cover;
+
+    // extract avatar name from url
+    const avatarFile = pl.cover.split("/").pop();
+    selectedAvatar = avatarFile.replace(".jpg","");
+
+    // BANNER
+    selectedBanner = pl.banner || "b1";
+
+    const bannerDiv = document.querySelector(".pe-banner");
+    if(bannerDiv){
+      bannerDiv.style.backgroundImage =
+        `url(${BANNER_BASE_PATH}${selectedBanner}.jpg)`;
+    }
 
     // SHOW DELETE BUTTON
     const deleteBtn = document.getElementById("pe-delete-btn");
     deleteBtn.style.display = "block";
 
-    // REMOVE OLD HANDLERS
     deleteBtn.onclick = null;
 
-    // DIRECT DELETE (NO CONFIRM MODAL)
     deleteBtn.onclick = () => {
 
-        // DELETE PLAYLIST
         deletePlaylist(id);
-
-        // CLOSE EDITOR
         closePlaylistEditor();
 
-        // RESET PLAYLIST MODAL STATE
         playlistModalView = "grid";
         activePlaylistId = null;
 
-        // REFRESH UI
         renderPlaylistModal();
     };
+
+    renderEditorAvatars();
+    renderEditorBanners();
+
+    setTimeout(()=>{
+    document.getElementById("pe-name-input").focus();
+    },100);
+
+
 }
 
 
@@ -3662,8 +3698,11 @@ function closePlaylistEditor(){
         modal.style.display="none";
         unmountFromPortal(modal);
     },250);
-    
+
+    // 🔥 ALSO CLOSE VIEW ALL
+    closeAvatarViewAll();
 }
+
 
 
 const peCancelBtn = document.getElementById("pe-cancel-btn");
@@ -3697,8 +3736,9 @@ function renderEditorAvatars() {
     div.className = "pe-avatar-item";
 
     if(avatar.name === selectedAvatar){
-      div.classList.add("active");
+    div.classList.add("selected-avatar");
     }
+
 
     const img = document.createElement("img");
     img.src = AVATAR_BASE_PATH + avatar.file;
@@ -3719,15 +3759,14 @@ function renderEditorAvatars() {
 function openAvatarViewAll(){
 
   const modal = document.getElementById("avatar-viewall-modal");
-  if(!modal) return;
 
   mountToPortal(modal);
   modal.style.display = "flex";
   modal.classList.add("open");
-  document.body.classList.add("modal-open");
 
-  renderViewAllAvatars();
+  setAvatarTab(); // 🔥 FORCE ACTIVE STATE
 }
+
 function closeAvatarViewAll(){
 
   const modal = document.getElementById("avatar-viewall-modal");
@@ -3765,10 +3804,166 @@ function renderViewAllAvatars(){
       document.getElementById("pe-avatar-img").src =
         AVATAR_BASE_PATH + avatar.file;
 
-      closeAvatarViewAll();
+      // ❌ removed closeAvatarViewAll()
       renderEditorAvatars();
     };
 
     grid.appendChild(img);
   });
 }
+
+
+function renderEditorBanners() {
+
+  const grid = document.querySelector(".pe-banner-grid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  // show only first 4 banners
+  const banners = INITIAL_BANNER_DATA.slice(0,4);
+
+  banners.forEach(banner => {
+
+    const div = document.createElement("div");
+    div.className = "pe-banner-item";
+
+   if(banner.name === selectedBanner){
+    div.classList.add("selected-banner");
+    }
+
+
+    const img = document.createElement("img");
+    img.src = BANNER_BASE_PATH + banner.file;
+
+    div.appendChild(img);
+
+    div.onclick = () => {
+
+      selectedBanner = banner.name;
+
+      const bannerDiv = document.querySelector(".pe-banner");
+      if(bannerDiv){
+        bannerDiv.style.backgroundImage =
+          `url(${BANNER_BASE_PATH}${banner.file})`;
+      }
+
+      renderEditorBanners();
+    };
+
+    grid.appendChild(div);
+  });
+}
+
+const viewAllBannerBtn = document.getElementById("pe-banner-view-all-btn");
+
+if(viewAllBannerBtn){
+  viewAllBannerBtn.addEventListener("click", openBannerViewAll);
+}
+function openBannerViewAll(){
+
+  const modal = document.getElementById("avatar-viewall-modal");
+
+  mountToPortal(modal);
+  modal.style.display = "flex";
+  modal.classList.add("open");
+
+  setBannerTab(); // already good
+}
+
+function switchToBannerTab(){
+
+  document
+    .getElementById("viewall-tab-avatars")
+    .classList.remove("active-viewall-tab");
+
+  document
+    .getElementById("viewall-tab-banners")
+    .classList.add("active-viewall-tab");
+
+  renderViewAllBanners();
+}
+function renderViewAllBanners(){
+
+  const grid = document.getElementById("viewall-avatar-grid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  INITIAL_BANNER_DATA.forEach(banner=>{
+
+    const img = document.createElement("img");
+    img.src = BANNER_BASE_PATH + banner.file;
+
+    if(banner.name === selectedBanner){
+      img.classList.add("active");
+    }
+
+    img.onclick = ()=>{
+
+      selectedBanner = banner.name;
+
+      const bannerDiv = document.querySelector(".pe-banner");
+      bannerDiv.style.backgroundImage =
+        `url(${BANNER_BASE_PATH}${banner.file})`;
+
+      // ❌ removed closeAvatarViewAll()
+      renderEditorBanners();
+    };
+
+    grid.appendChild(img);
+  });
+}
+
+document
+.getElementById("viewall-tab-avatars")
+.addEventListener("click", ()=>{
+  setAvatarTab();
+});
+
+document
+.getElementById("viewall-tab-banners")
+.addEventListener("click", ()=>{
+  setBannerTab();
+});
+
+
+function setAvatarTab(){
+  document
+    .getElementById("viewall-tab-avatars")
+    .classList.add("active-viewall-tab");
+
+  document
+    .getElementById("viewall-tab-banners")
+    .classList.remove("active-viewall-tab");
+
+  renderViewAllAvatars();
+}
+
+function setBannerTab(){
+  document
+    .getElementById("viewall-tab-banners")
+    .classList.add("active-viewall-tab");
+
+  document
+    .getElementById("viewall-tab-avatars")
+    .classList.remove("active-viewall-tab");
+
+  renderViewAllBanners();
+}
+const avatarTab = document.getElementById("viewall-tab-avatars");
+const bannerTab = document.getElementById("viewall-tab-banners");
+
+avatarTab.addEventListener("click", () => {
+  avatarTab.classList.add("active-viewall-tab");
+  bannerTab.classList.remove("active-viewall-tab");
+
+  showAvatarGrid(); // your existing function
+});
+
+bannerTab.addEventListener("click", () => {
+  bannerTab.classList.add("active-viewall-tab");
+  avatarTab.classList.remove("active-viewall-tab");
+
+  showBannerGrid(); // your existing function
+});

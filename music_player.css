@@ -4181,10 +4181,17 @@ body.sidebar-open #mobile-menu-toggle::before {
 
 
 .pe-banner{
-  height:120px;
-  background:linear-gradient(135deg,var(--primary),#1e293b);
-  border-radius:12px;
+  width: 100%;
+  height: 140px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%; /* 🔥 KEY LINE */
+
+  border-radius: 12px;
 }
+
+
 .pe-avatar{
   width:120px;
   height:120px;
@@ -4249,8 +4256,9 @@ body.sidebar-open #mobile-menu-toggle::before {
   color:#fff;
   border:none;
   padding:10px;
-  border-radius:10px;
-  display:none; /* edit mode later */
+  width: 100%;
+  display: block;
+  border-radius: 8px;
 }
 
 #confirm-modal {
@@ -4258,6 +4266,7 @@ body.sidebar-open #mobile-menu-toggle::before {
 }
 #playlist-editor-modal {
     z-index: 9999;
+    align-items: center;
 }
 
 /* FIX HEADER PART */
@@ -4266,6 +4275,14 @@ body.sidebar-open #mobile-menu-toggle::before {
   flex-direction:column;
   height:100%;
   overflow:hidden; /* block outer scroll */
+  max-height: 85vh;        /* modal height limit */
+  overflow-y: auto;       /* enable vertical scroll */
+  padding-right: 6px;     /* avoid scrollbar overlap */
+
+}
+/* Smooth scroll */
+.playlist-editor-body {
+  scroll-behavior: smooth;
 }
 
 /* fixed section */
@@ -4525,13 +4542,152 @@ body.sidebar-open #mobile-menu-toggle::before {
   border:2px solid transparent;
 }
 
-/* hover */
-.pe-banner-grid img:hover{
-  transform:scale(1.03);
+.pe-banner-grid img{
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
 }
+
+
+.pe-banner-grid img.selected-banner{
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56,189,248,0.9);
+}
+
 
 /* active banner */
 .pe-banner-grid img.active-banner{
   border-color:var(--primary);
   box-shadow:0 0 12px rgba(56,189,248,.4);
+}
+
+
+/* MODAL BODY */
+.playlist-editor-body{
+  height: 80vh;           /* REQUIRED */
+  display: flex;
+  flex-direction: column;
+}
+
+/* FIXED (NO SCROLL) */
+.pe-banner,
+.pe-avatar{
+  flex-shrink: 0;
+}
+
+/* SCROLL CONTAINER */
+.pe-scroll-area{
+  flex: 1;                /* 🔥 THIS ENABLES SCROLL */
+  overflow-y: auto;
+  padding-right: 6px;
+}
+/* SCROLLBAR BASE */
+.pe-scroll-area::-webkit-scrollbar,
+.avatar-viewall-body::-webkit-scrollbar{
+  width: 6px;
+}
+
+/* TRACK */
+.pe-scroll-area::-webkit-scrollbar-track,
+.avatar-viewall-body::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+/* THUMB */
+.pe-scroll-area::-webkit-scrollbar-thumb,
+.avatar-viewall-body::-webkit-scrollbar-thumb{
+  background: linear-gradient(180deg,#38bdf8,#0ea5e9);
+  border-radius: 10px;
+}
+
+/* HOVER */
+.pe-scroll-area::-webkit-scrollbar-thumb:hover,
+.avatar-viewall-body::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(180deg,#7dd3fc,#38bdf8);
+}
+/*FIREFOX SUPPORT */
+.pe-scroll-area,
+.avatar-viewall-body{
+  scrollbar-width: thin;
+  scrollbar-color: #38bdf8 transparent;
+}
+/* AVATAR HOVER */
+.pe-avatar-grid img{
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+}
+
+
+
+/* SELECTED AVATAR */
+.pe-avatar-grid img.selected-avatar{
+  border-color: #38bdf8;
+  box-shadow: 0 0 8px rgba(56,189,248,0.6);
+}
+/* BANNER */
+.pe-banner-item{
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+}
+
+
+
+.pe-banner-item.selected-banner{
+  border-color: #38bdf8;
+ 
+}
+
+
+/* AVATAR */
+.pe-avatar-item{
+  border-radius: 12px;
+  border: 2px solid transparent;
+ 
+}
+
+
+.pe-avatar-item.selected-avatar{
+  border-color: #38bdf8;
+}
+
+.pe-banner-item{
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+
+  aspect-ratio: 16 / 6;  /* 👈 makes it shorter (≈55% height look) */
+}
+.pe-banner-grid{
+  margin-bottom: 24px; /* space before action buttons */
+}
+/* Banner header */
+.pe-banner-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 14px 0 10px;
+}
+
+/* SAME STYLE AS AVATAR TITLE */
+.pe-banner-title{
+  font-size: 15px;
+  font-weight: 600;
+  color: #4fc3ff;
+}
+/* ACTIVE BANNER */
+.pe-banner-item.active-banner{
+  border: 2px solid #38bdf8;
+  box-shadow: none; /* ❌ remove glow */
+}
+
+.avatar-viewall-modal{
+  pointer-events: none; /* allow click-through */
+}
+
+.avatar-viewall-box{
+  pointer-events: auto; /* only modal itself clickable */
 }
