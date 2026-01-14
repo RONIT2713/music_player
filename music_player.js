@@ -2087,29 +2087,45 @@ function renderCategorySongsInModal(categoryKey, label) {
 function openCategoryModal() {
     if (!categoryModal) return;
 
+    // 🔥 FORCE RESET EVERY TIME
+    unmountFromPortal(categoryModal);
+
     mountToPortal(categoryModal);
-    if (!history.state || history.state.type !== 'categoryModal') {
+
     history.pushState({ type: 'categoryModal' }, '');
-    }
 
     document.body.classList.add('modal-open');
+
+    categoryModal.style.display = "flex";
+
+    // 🔥 FORCE REFLOW (restart animation)
+    categoryModal.offsetHeight;
+
     categoryModal.classList.add('open');
+
     renderCategoryGridInModal();
 }
 
+
 function closeCategoryModal() {
 
-    if (categoryModal) {
-        categoryModal.classList.remove('open');
+    if (!categoryModal) return;
 
-        // wait for animation end before removing
-        setTimeout(() => {
-            unmountFromPortal(categoryModal);
-        }, 250);
-    }
+    categoryModal.classList.remove('open');
 
     document.body.classList.remove('modal-open');
+
+    setTimeout(() => {
+        categoryModal.style.display = "none";
+        unmountFromPortal(categoryModal);
+    }, 250);
+
+    // 🔥 RESET HISTORY STATE
+    if (history.state?.type === "categoryModal") {
+        history.back();
+    }
 }
+
 
 
 
@@ -2130,6 +2146,8 @@ function setupCategoryModalEvents() {
             }
         });
     }
+    categoryModal.style.pointerEvents = "auto";
+
     if (categoryModal) {
         categoryModal.addEventListener('click', (e) => {
             if (e.target === categoryModal) {
@@ -2364,23 +2382,33 @@ function renderPlaylistModal() {
         const song = currentSongs.find(s => s.id === songId);
         if (!song) return;
 
-        const li = document.createElement("div");
-        li.className = "playlist-song-card";
+        const li = document.createElement("li");
+        li.className = "category-modal-song-item";
 
         li.innerHTML = `
-            <div class="psc-left">
-                <img src="${resolveCover(song.coverPath)}">
+            <div class="category-modal-song-main">
+                <div class="category-modal-song-title">
+                    ${song.title}
+                </div>
+                <div class="category-modal-song-artist">
+                    ${song.artist}
+                </div>
             </div>
 
-            <div class="psc-right">
-                <div class="psc-title">${song.title}</div>
-                <div class="psc-artist">${song.artist}</div>
-            </div>
+            <button class="category-modal-play-btn">
+                <i class="fas fa-play"></i>
+            </button>
         `;
-
         li.addEventListener("click", () => {
             playSong(song);
         });
+
+        li.querySelector(".category-modal-play-btn")
+        .addEventListener("click", (e) => {
+            e.stopPropagation();
+            playSong(song);
+        });
+
 
         grid.appendChild(li);
     });
@@ -3237,6 +3265,14 @@ function initApp() {
 
 
 // 🔒 GLOBAL CLICK HANDLER (merged)
+
+if (
+  !document.querySelector('.open') &&
+  document.body.classList.contains("modal-open")
+) {
+  document.body.classList.remove("modal-open");
+}
+
 document.addEventListener('click', (e) => {
 
     if (isDisclaimerOpen()) return;
