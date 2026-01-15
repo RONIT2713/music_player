@@ -4223,8 +4223,7 @@ body.sidebar-open #mobile-menu-toggle::before {
   grid-template-columns:repeat(4,1fr);
   gap:10px;
   margin-top:10px;
-  max-height:110px; /* limit visible avatars */
-  overflow:hidden;
+
 }
 
 .pe-actions{
@@ -5201,6 +5200,161 @@ body.sidebar-open #mobile-menu-toggle::before {
 /* Banner spacing */
 .pe-banner{
   margin-bottom: 14px;
+}
+
+}
+/* ===============================
+   STEP 4 – MOBILE EDITOR TABS
+   =============================== */
+
+@media (max-width:768px){
+
+/* Hide old headers + view all */
+.pe-avatar-header,
+.pe-banner-header{
+  display:none;
+}
+
+/* Mobile tabs container */
+.pe-mobile-tabs{
+  display:flex;
+  gap:10px;
+  margin:16px 0;
+}
+
+/* Tab buttons */
+.pe-m-tab{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #2a2a2a;
+  background:#111;
+  color:#aaa;
+  font-size:14px;
+}
+
+/* Active */
+.pe-m-tab.active{
+  background:#2563eb;
+  color:#fff;
+  border-color:#2563eb;
+}
+
+/* Default show avatars */
+.pe-banner-grid{
+  display:none;
+}
+
+/* When banner active */
+.pe-show-banner .pe-avatar-grid{
+  display:none;
+}
+
+.pe-show-banner .pe-banner-grid{
+  display:grid;
+}
+
+}
+
+@media (max-width:768px){
+
+/* Make scroll area a flex column */
+.pe-scroll-area{
+  display: flex;
+  flex-direction: column;
+}
+
+/* Push buttons to bottom ALWAYS */
+.pe-actions{
+  margin-top: auto;
+}
+
+/* Delete below actions */
+#pe-delete-btn{
+  margin-top: 12px;
+}
+
+}
+
+/* ===============================
+   MOBILE – AVATAR GRID FIX
+   =============================== */
+@media (max-width:768px){
+
+.pe-avatar-grid{
+  display:grid;
+  grid-template-columns: repeat(3,1fr); /* better spacing */
+  gap:12px;
+
+  max-height: none !important;  /* allow full height */
+  overflow: visible !important; /* no clipping */
+}
+
+/* Avatar item fix */
+.pe-avatar-item{
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+/* Image fix */
+.pe-avatar-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+}
+@media (max-width:768px){
+
+/* Modal layout */
+.playlist-editor-box{
+  display:flex;
+  flex-direction:column;
+  height:90vh;
+}
+
+/* Scroll area */
+.pe-scroll-area{
+  flex:1;
+  overflow-y:auto;
+  padding-bottom:160px; /* space for fixed buttons */
+}
+
+/* ACTIONS FIXED TO SCREEN BOTTOM */
+.pe-actions{
+  position:fixed;
+  left:50%;
+  bottom:70px; /* above browser bar */
+  transform:translateX(-50%);
+  width:92%;
+  display:flex;
+  gap:12px;
+  z-index:999;
+}
+
+/* Cancel + Save */
+.pe-actions button{
+  flex:1;
+  padding:14px;
+  border-radius:12px;
+  font-size:15px;
+}
+
+/* DELETE FIXED UNDER THEM */
+#pe-delete-btn{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  width:92%;
+  padding:14px;
+  border-radius:12px;
+  background:#ff3b3b;
+  color:#fff;
+  border:none;
+  z-index:999;
 }
 
 }

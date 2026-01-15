@@ -3811,6 +3811,10 @@ function openPlaylistEditorCreate(){
     document.getElementById("pe-name-input").focus();
     },100);
 
+    // MOBILE DEFAULT TAB
+    document
+    .getElementById("pe-mobile-avatar-tab")
+    ?.click();
 
 }
 function openPlaylistEditorEdit(id){
@@ -3873,6 +3877,10 @@ function openPlaylistEditorEdit(id){
     document.getElementById("pe-name-input").focus();
     },100);
 
+    // MOBILE DEFAULT TAB
+    document
+    .getElementById("pe-mobile-avatar-tab")
+    ?.click();
 
 }
 
@@ -3910,7 +3918,6 @@ if(viewAllAvatarBtn){
   viewAllAvatarBtn.addEventListener("click", openAvatarViewAll);
 }
 
-
 function renderEditorAvatars() {
 
   const grid = document.querySelector(".pe-avatar-grid");
@@ -3918,8 +3925,11 @@ function renderEditorAvatars() {
 
   grid.innerHTML = "";
 
-  // show only first 4 avatars
-  const avatars = INITIAL_AVATAR_DATA.slice(0,4);
+  // MOBILE = ALL | DESKTOP = 4
+  const avatars =
+    window.innerWidth <= 768
+      ? INITIAL_AVATAR_DATA
+      : INITIAL_AVATAR_DATA.slice(0,4);
 
   avatars.forEach(avatar => {
 
@@ -3927,9 +3937,8 @@ function renderEditorAvatars() {
     div.className = "pe-avatar-item";
 
     if(avatar.name === selectedAvatar){
-    div.classList.add("selected-avatar");
+      div.classList.add("selected-avatar");
     }
-
 
     const img = document.createElement("img");
     img.src = AVATAR_BASE_PATH + avatar.file;
@@ -3947,6 +3956,7 @@ function renderEditorAvatars() {
     grid.appendChild(div);
   });
 }
+
 function openAvatarViewAll(){
 
   const modal = document.getElementById("avatar-viewall-modal");
@@ -4003,26 +4013,27 @@ function renderViewAllAvatars(){
   });
 }
 
-
 function renderEditorBanners() {
 
   const grid = document.querySelector(".pe-banner-grid");
-  if(!grid) return;
+  if (!grid) return;
 
   grid.innerHTML = "";
 
-  // show only first 4 banners
-  const banners = INITIAL_BANNER_DATA.slice(0,4);
+  /* MOBILE = show all | DESKTOP = show 4 */
+  const banners =
+    window.innerWidth <= 768
+      ? INITIAL_BANNER_DATA
+      : INITIAL_BANNER_DATA.slice(0, 4);
 
   banners.forEach(banner => {
 
     const div = document.createElement("div");
     div.className = "pe-banner-item";
 
-   if(banner.name === selectedBanner){
-    div.classList.add("selected-banner");
+    if (banner.name === selectedBanner) {
+      div.classList.add("selected-banner");
     }
-
 
     const img = document.createElement("img");
     img.src = BANNER_BASE_PATH + banner.file;
@@ -4034,7 +4045,7 @@ function renderEditorBanners() {
       selectedBanner = banner.name;
 
       const bannerDiv = document.querySelector(".pe-banner");
-      if(bannerDiv){
+      if (bannerDiv) {
         bannerDiv.style.backgroundImage =
           `url(${BANNER_BASE_PATH}${banner.file})`;
       }
@@ -4044,13 +4055,33 @@ function renderEditorBanners() {
 
     grid.appendChild(div);
   });
+
+  /* ===============================
+     RESTORE VIEW ALL (DESKTOP ONLY)
+     =============================== */
+
+  const viewAllBannerBtn =
+    document.getElementById("pe-banner-view-all-btn");
+
+  if (viewAllBannerBtn) {
+
+    /* prevent multiple bindings */
+    if (!viewAllBannerBtn.dataset.bound) {
+
+      viewAllBannerBtn.addEventListener("click", () => {
+
+        /* DESKTOP ONLY */
+        if (window.innerWidth > 768) {
+          openBannerViewAll();
+        }
+
+      });
+
+      viewAllBannerBtn.dataset.bound = "true";
+    }
+  }
 }
 
-const viewAllBannerBtn = document.getElementById("pe-banner-view-all-btn");
-
-if(viewAllBannerBtn){
-  viewAllBannerBtn.addEventListener("click", openBannerViewAll);
-}
 function openBannerViewAll(){
 
   const modal = document.getElementById("avatar-viewall-modal");
@@ -4158,3 +4189,27 @@ bannerTab.addEventListener("click", () => {
 
   showBannerGrid(); // your existing function
 });
+
+
+/* MOBILE EDITOR TABS */
+
+const avatarTabBtn = document.getElementById("pe-mobile-avatar-tab");
+const bannerTabBtn = document.getElementById("pe-mobile-banner-tab");
+const editorBox = document.querySelector(".playlist-editor-box");
+
+if(avatarTabBtn && bannerTabBtn){
+
+  avatarTabBtn.onclick = ()=>{
+    avatarTabBtn.classList.add("active");
+    bannerTabBtn.classList.remove("active");
+
+    editorBox.classList.remove("pe-show-banner");
+  };
+
+  bannerTabBtn.onclick = ()=>{
+    bannerTabBtn.classList.add("active");
+    avatarTabBtn.classList.remove("active");
+
+    editorBox.classList.add("pe-show-banner");
+  };
+}
