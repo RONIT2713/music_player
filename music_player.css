@@ -5080,45 +5080,16 @@ body.sidebar-open #mobile-menu-toggle::before {
 #playlist-delete-btn:active {
   transform: scale(0.96);
 }
-/* =====================================
-   MOBILE – PLAYLIST GRID
-   ===================================== */
+/*EDIT ICON IN PLAYLIST */
+@media (max-width: 768px) {
 
-@media (max-width: 768px){
-
-  .playlist-modal-box{
-    width: 94vw;
-    max-height: 90vh;
-    padding: 14px;
-  }
-
-  /* KEEP HEADER CLEAN */
-  .playlist-title{
-    position: static; /* no sticky */
-    background: transparent !important;
-    padding: 6px 0;
-  }
-
-  /* GRID */
-  .playlist-grid{
-    grid-template-columns: repeat(2,1fr);
-    gap: 14px;
-  }
-
-  .playlist-card{
-    width: 100%;
-  }
-
-  .playlist-avatar{
-    width: 86px;
-    height: 86px;
-  }
-
-  .playlist-name{
-    font-size: 13px;
+  /* Always show edit icon on mobile */
+  .playlist-edit {
+    opacity: 1 !important;
   }
 
 }
+
 /* =====================================
    MOBILE – PLAYLIST SONG LIST
    ===================================== */
