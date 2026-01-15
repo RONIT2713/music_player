@@ -2163,6 +2163,9 @@ let selectedSongForPlaylist = null;
 let playlistMode = "view"; // "add" | "view"
 let playlistModalView = "grid"; // "grid" | "songs"
 let activePlaylistId = null;
+// Netflix style playlist edit mode
+let playlistEditMode = false;
+let selectedPlaylistSongs = [];
 
 
 function openPlaylistModalForSong(songId) {
@@ -2249,7 +2252,22 @@ function closePlaylistModal() {
 const playlistModalClose = document.getElementById("playlist-modal-close");
 
 if (playlistModalClose) {
-  playlistModalClose.addEventListener("click", closePlaylistModal);
+  playlistModalClose.addEventListener("click", () => {
+
+    // 🔥 If inside song list → go back to grid
+    if (playlistModalView === "songs") {
+
+        playlistEditMode = false;
+        selectedPlaylistSongs = [];
+
+        playlistModalView = "grid";
+        renderPlaylistModal();
+        return;
+    }
+
+    // Otherwise → close modal
+    closePlaylistModal();
+  });
 }
 
 
@@ -2273,6 +2291,10 @@ function renderPlaylistModal() {
         // 🔥 remove old song list when going back
         const oldList = body.querySelector(".playlist-song-list");
         if (oldList) oldList.remove();
+
+        // 🔥 remove old delete bar (IMPORTANT)
+        const oldBar = body.querySelector("#playlist-delete-bar");
+        if (oldBar) oldBar.remove();
 
 
         title.textContent = "My Playlists";
@@ -2382,12 +2404,34 @@ function renderPlaylistModal() {
     `;
 
 
-    document
-      .getElementById("playlist-back-btn")
-      .addEventListener("click", () => {
-          playlistModalView = "grid";
-          renderPlaylistModal();
-      });
+        document
+        .getElementById("playlist-back-btn")
+        .addEventListener("click", () => {
+
+            // 🔥 RESET EDIT MODE
+            playlistEditMode = false;
+            selectedPlaylistSongs = [];
+
+            playlistModalView = "grid";
+            renderPlaylistModal();
+        });
+
+      // --- NETFLIX STYLE EDIT TOGGLE ---
+        let editBtn = document.getElementById("playlist-edit-top");
+
+        if (editBtn) {
+        editBtn.textContent = playlistEditMode ? "Done" : "Edit";
+
+        editBtn.onclick = () => {
+            playlistEditMode = !playlistEditMode;
+            selectedPlaylistSongs = [];
+            renderPlaylistModal();
+        };
+        }
+// 🔥 CLEAN OLD SONG LIST (IMPORTANT)
+const oldList = body.querySelector(".playlist-song-list");
+if (oldList) oldList.remove();
+
 grid.style.display = "none";
 
 const ul = document.createElement("ul");
@@ -2401,31 +2445,126 @@ pl.songs.forEach(songId => {
     const li = document.createElement("li");
     li.className = "playlist-song-item";
 
-    li.innerHTML = `
-        <div class="playlist-song-main">
-            <div class="playlist-song-title">${song.title}</div>
-            <div class="playlist-song-artist">${song.artist}</div>
-        </div>
+li.innerHTML = `
+    <div class="playlist-song-main">
+        <div class="playlist-song-title">${song.title}</div>
+        <div class="playlist-song-artist">${song.artist}</div>
+    </div>
 
-        <button class="playlist-song-play">
-            <i class="fas fa-play"></i>
-        </button>
-    `;
+    ${
+      playlistEditMode
+        ? `<div class="playlist-song-checkbox"></div>`
+        : `<button class="playlist-song-play">
+              <i class="fas fa-play"></i>
+           </button>`
+    }
+`;
 
+    if (playlistEditMode && selectedPlaylistSongs.includes(song.id)) {
+    li.classList.add("selected");
+    }
     li.addEventListener("click", () => {
-        playSong(song);
+
+
+    // EDIT MODE → SELECT
+    if (playlistEditMode) {
+
+        const id = song.id;
+
+        if (selectedPlaylistSongs.includes(id)) {
+        selectedPlaylistSongs =
+            selectedPlaylistSongs.filter(s => s !== id);
+        li.classList.remove("selected");
+        } else {
+        selectedPlaylistSongs.push(id);
+        li.classList.add("selected");
+        }
+        // 🔥 update delete count live
+        const delBtn = document.getElementById("playlist-delete-btn");
+        if (delBtn) {
+            delBtn.textContent =
+                `Delete (${selectedPlaylistSongs.length})`;
+        }
+
+        return;
+    }
+
+    // NORMAL MODE → PLAY
+    playSong(song);
     });
 
-    li.querySelector(".playlist-song-play")
-      .addEventListener("click", (e) => {
-        e.stopPropagation();
-        playSong(song);
-      });
+const playBtn = li.querySelector(".playlist-song-play");
+
+if (playBtn) {
+  playBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (playlistEditMode) return;
+
+    playSong(song);
+  });
+}
+
 
     ul.appendChild(li);
 });
 
 body.appendChild(ul);
+/* ===== NETFLIX DELETE BAR ===== */
+
+let oldBar = document.getElementById("playlist-delete-bar");
+if (oldBar) oldBar.remove();
+
+if (playlistEditMode) {
+
+  const bar = document.createElement("div");
+  bar.id = "playlist-delete-bar";
+  bar.className = "playlist-delete-bar";
+
+  bar.innerHTML = `
+    <button id="playlist-delete-btn">
+      Delete (${selectedPlaylistSongs.length})
+    </button>
+  `;
+
+  const deleteBtn = bar.querySelector("#playlist-delete-btn");
+
+  deleteBtn.onclick = () => {
+
+    if (selectedPlaylistSongs.length === 0) {
+      alert("Select songs first");
+      return;
+    }
+
+    openConfirmModal({
+      title: "Remove songs?",
+      message: `Remove ${selectedPlaylistSongs.length} song(s) from this playlist?`,
+      confirmLabel: "Delete",
+      confirmIconClass: "fa-trash",
+      onConfirm: () => {
+
+        const playlists = getPlaylists();
+        const p = playlists.find(pl => pl.id === activePlaylistId);
+        if (!p) return;
+
+        p.songs = p.songs.filter(
+          id => !selectedPlaylistSongs.includes(id)
+        );
+
+        savePlaylists(playlists);
+
+        selectedPlaylistSongs = [];
+        playlistEditMode = false;
+
+        renderPlaylistModal();
+      }
+    });
+
+  };
+
+  body.appendChild(bar);
+}
+
 
 
 }

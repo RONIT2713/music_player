@@ -5008,3 +5008,75 @@ body.sidebar-open #mobile-menu-toggle::before {
   color:#94a3b8;
   margin-top:2px;
 }
+/* Fake checkbox (Netflix style) */
+.playlist-song-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Selected state */
+.playlist-song-item.selected .playlist-song-checkbox {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+.playlist-song-item.selected .playlist-song-checkbox::after {
+  content: "✓";
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+}
+.playlist-song-checkbox{
+  transition:.2s;
+}
+
+.playlist-song-item:hover .playlist-song-checkbox{
+  border-color:#22c55e;
+  transform:scale(1.05);
+}
+.playlist-song-item.selected .playlist-song-checkbox::after{
+  animation: tickPop .2s ease;
+}
+
+@keyframes tickPop{
+  0%{transform:scale(0)}
+  100%{transform:scale(1)}
+}
+.playlist-song-item.edit-mode:hover{
+  transform:none;
+  box-shadow:none;
+}
+.playlist-song-item{
+  min-height:48px; /* better mobile tap */
+}
+.playlist-delete-bar {
+  position: sticky;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  background: transparent;
+}
+
+#playlist-delete-btn {
+  background: linear-gradient(135deg, #ff3b3b, #ff0000);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(255,0,0,0.35);
+  transition: 0.2s ease;
+}
+
+#playlist-delete-btn:active {
+  transform: scale(0.96);
+}
