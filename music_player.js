@@ -2147,7 +2147,6 @@ function setupCategoryModalEvents() {
             }
         });
     }
-    categoryModal.style.pointerEvents = "auto";
 
     if (categoryModal) {
         categoryModal.addEventListener('click', (e) => {
