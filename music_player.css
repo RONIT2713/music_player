@@ -5081,6 +5081,45 @@ body.sidebar-open #mobile-menu-toggle::before {
   transform: scale(0.96);
 }
 /* =====================================
+   MOBILE – PLAYLIST GRID
+   ===================================== */
+
+@media (max-width: 768px){
+
+  .playlist-modal-box{
+    width: 94vw;
+    max-height: 90vh;
+    padding: 14px;
+  }
+
+  /* KEEP HEADER CLEAN */
+  .playlist-title{
+    position: static; /* no sticky */
+    background: transparent !important;
+    padding: 6px 0;
+  }
+
+  /* GRID */
+  .playlist-grid{
+    grid-template-columns: repeat(2,1fr);
+    gap: 14px;
+  }
+
+  .playlist-card{
+    width: 100%;
+  }
+
+  .playlist-avatar{
+    width: 86px;
+    height: 86px;
+  }
+
+  .playlist-name{
+    font-size: 13px;
+  }
+
+}
+/* =====================================
    MOBILE – PLAYLIST SONG LIST
    ===================================== */
 
@@ -5130,80 +5169,67 @@ body.sidebar-open #mobile-menu-toggle::before {
   }
 
 }
-/* =====================================
-   MOBILE – PLAYLIST EDITOR MODAL
-   ===================================== */
+/* ===============================
+   STEP 3 – PLAYLIST EDITOR MOBILE FIX (FINAL)
+   =============================== */
 
-@media (max-width: 768px){
+@media (max-width:768px){
 
-  .playlist-editor-box{
-    width: 94vw;
-    max-height: 92vh;
-    padding: 14px;
-  }
+/* Modal center fix */
+.playlist-editor-modal{
+  align-items: center;
+  justify-content: center;
+}
 
-  /* Scroll area */
-  .pe-scroll-area{
-    max-height: 60vh;
-    overflow-y: auto;
-    padding-bottom: 120px;
-  }
+.playlist-editor-box{
+  width: 92%;
+  max-height: 90vh;
+  margin: auto;
+  border-radius: 18px;
+  overflow: hidden;
+  transform: none !important;
+  left: auto !important;
+}
 
-  /* Banner */
-  .pe-banner{
-    height: 120px;
-    border-radius: 14px;
-  }
+/* Scroll area */
+.pe-scroll-area{
+  max-height: calc(100vh - 240px);
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
 
-  /* Avatar */
-  .pe-avatar{
-    width: 86px;
-    height: 86px;
-    margin-top: -42px;
-  }
+/* ACTION BUTTONS */
+.pe-actions{
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
 
-  /* Name input */
-  #pe-name-input{
-    font-size: 15px;
-    padding: 12px;
-  }
+/* Cancel + Save */
+.pe-actions button{
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 15px;
+}
 
-  /* Section headers */
-  .pe-avatar-header,
-  .pe-banner-header{
-    margin-top: 18px;
-  }
+/* DELETE BUTTON (INSIDE MODAL) */
+#pe-delete-btn{
+  position: relative;
+  margin-top: 12px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  background: #ff3b3b;
+  color: #fff;
+  border: none;
+}
 
-  /* Grid spacing */
-  .pe-avatar-grid,
-  .pe-banner-grid{
-    gap: 10px;
-  }
-
-  /* Action buttons */
-  .pe-actions{
-    position: fixed;
-    bottom: 90px;
-    left: 0;
-    width: 100%;
-    padding: 10px 16px;
-    background: transparent;
-  }
-
-  .pe-actions button{
-    flex: 1;
-    padding: 14px;
-    font-size: 15px;
-    border-radius: 14px;
-  }
-
-  /* Delete playlist button */
-  #pe-delete-btn{
-    margin-top: 12px;
-    width: 100%;
-    padding: 14px;
-    border-radius: 14px;
-    font-size: 15px;
-  }
+/* Banner spacing */
+.pe-banner{
+  margin-bottom: 14px;
+}
 
 }
