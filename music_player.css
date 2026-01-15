@@ -5131,3 +5131,65 @@ body.sidebar-open #mobile-menu-toggle::before {
   }
 
 }
+/* =====================================================
+   MOBILE PATCH – PLAYLIST SONG LIST (STEP 2)
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+  /* SONG LIST HEADER */
+  .playlist-title{
+    position: sticky;
+    top: 0;
+    background: #020617f5;
+    z-index: 10;
+    padding: 10px 0;
+  }
+
+  /* SONG LIST SCROLL AREA */
+  #playlist-song-list{
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-bottom: 80px; /* space for delete bar */
+  }
+
+  /* SONG ROW TOUCH SIZE */
+  .playlist-song-item{
+    min-height: 56px;
+    padding: 10px 12px;
+  }
+
+  /* TEXT SCALE */
+  .playlist-song-title{
+    font-size: 14px;
+  }
+
+  .playlist-song-artist{
+    font-size: 12px;
+  }
+
+  /* DELETE BAR */
+  .playlist-delete-bar{
+    position: fixed;
+    bottom: 90px; /* above player */
+    left: 0;
+    width: 100%;
+    padding: 10px 16px;
+    background: linear-gradient(
+      to top,
+      rgba(2,6,23,0.95),
+      rgba(2,6,23,0.6),
+      transparent
+    );
+    backdrop-filter: blur(6px);
+    z-index: 50;
+  }
+
+  #playlist-delete-btn{
+    width: 100%;
+    border-radius: 16px;
+    font-size: 15px;
+    padding: 14px;
+  }
+
+}
