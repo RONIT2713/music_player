@@ -5193,3 +5193,17 @@ body.sidebar-open #mobile-menu-toggle::before {
   }
 
 }
+/* REMOVE BLACK BG FROM GRID HEADER */
+@media (max-width: 768px){
+
+  /* grid view header */
+  #playlist-modal-body .playlist-title{
+    background: transparent !important;
+  }
+
+  /* song view header (keep dark) */
+  .playlist-song-list ~ .playlist-title{
+    background: #020617f5 !important;
+  }
+
+}
