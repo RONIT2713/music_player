@@ -5080,3 +5080,54 @@ body.sidebar-open #mobile-menu-toggle::before {
 #playlist-delete-btn:active {
   transform: scale(0.96);
 }
+/* =====================================================
+   MOBILE PATCH – PLAYLIST MODALS (STEP 1)
+   SAFE OVERRIDES ONLY
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+  /* MAIN PLAYLIST MODAL */
+  .playlist-modal-box{
+    width: 94vw !important;
+    max-height: 90vh !important;
+    padding: 14px !important;
+  }
+
+  /* HEADER STICKY */
+  .playlist-title{
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #020617f5;
+    padding-bottom: 8px;
+  }
+
+  /* BODY SCROLL */
+  #playlist-modal-body{
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+  }
+
+  /* GRID */
+  .playlist-grid{
+    grid-template-columns: repeat(2,1fr) !important;
+    gap: 14px !important;
+  }
+
+  /* CARD SIZE */
+  .playlist-card{
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .playlist-avatar{
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .playlist-name{
+    font-size: 13px !important;
+  }
+
+}
