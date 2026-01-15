@@ -2271,6 +2271,11 @@ function renderPlaylistModal() {
 /* ================= GRID VIEW ================= */
     if (playlistModalView === "grid") {
 
+        // 🔥 remove old song list when going back
+        const oldList = body.querySelector(".playlist-song-list");
+        if (oldList) oldList.remove();
+
+
         title.textContent = "My Playlists";
 
         // hide empty placeholder text (we now use card instead)
