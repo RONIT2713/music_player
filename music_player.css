@@ -5169,3 +5169,80 @@ body.sidebar-open #mobile-menu-toggle::before {
   }
 
 }
+/* =====================================
+   MOBILE – PLAYLIST EDITOR MODAL
+   ===================================== */
+
+@media (max-width: 768px){
+
+  .playlist-editor-box{
+    width: 94vw;
+    max-height: 92vh;
+    padding: 14px;
+  }
+
+  /* Scroll area */
+  .pe-scroll-area{
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-bottom: 120px;
+  }
+
+  /* Banner */
+  .pe-banner{
+    height: 120px;
+    border-radius: 14px;
+  }
+
+  /* Avatar */
+  .pe-avatar{
+    width: 86px;
+    height: 86px;
+    margin-top: -42px;
+  }
+
+  /* Name input */
+  #pe-name-input{
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* Section headers */
+  .pe-avatar-header,
+  .pe-banner-header{
+    margin-top: 18px;
+  }
+
+  /* Grid spacing */
+  .pe-avatar-grid,
+  .pe-banner-grid{
+    gap: 10px;
+  }
+
+  /* Action buttons */
+  .pe-actions{
+    position: fixed;
+    bottom: 90px;
+    left: 0;
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+  }
+
+  .pe-actions button{
+    flex: 1;
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 14px;
+  }
+
+  /* Delete playlist button */
+  #pe-delete-btn{
+    margin-top: 12px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    font-size: 15px;
+  }
+
+}
