@@ -5080,86 +5080,68 @@ body.sidebar-open #mobile-menu-toggle::before {
 #playlist-delete-btn:active {
   transform: scale(0.96);
 }
-/* =====================================================
-   MOBILE PATCH – PLAYLIST MODALS (STEP 1)
-   SAFE OVERRIDES ONLY
-   ===================================================== */
+/* =====================================
+   MOBILE – PLAYLIST GRID
+   ===================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 768px){
 
-  /* MAIN PLAYLIST MODAL */
   .playlist-modal-box{
-    width: 94vw !important;
-    max-height: 90vh !important;
-    padding: 14px !important;
+    width: 94vw;
+    max-height: 90vh;
+    padding: 14px;
   }
 
-  /* HEADER STICKY */
+  /* KEEP HEADER CLEAN */
   .playlist-title{
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    background: #020617f5;
-    padding-bottom: 8px;
-  }
-
-  /* BODY SCROLL */
-  #playlist-modal-body{
-    max-height: 70vh !important;
-    overflow-y: auto !important;
+    position: static; /* no sticky */
+    background: transparent !important;
+    padding: 6px 0;
   }
 
   /* GRID */
   .playlist-grid{
-    grid-template-columns: repeat(2,1fr) !important;
-    gap: 14px !important;
+    grid-template-columns: repeat(2,1fr);
+    gap: 14px;
   }
 
-  /* CARD SIZE */
   .playlist-card{
-    width: 100% !important;
-    height: auto !important;
+    width: 100%;
   }
 
   .playlist-avatar{
-    width: 90px !important;
-    height: 90px !important;
+    width: 86px;
+    height: 86px;
   }
 
   .playlist-name{
-    font-size: 13px !important;
+    font-size: 13px;
   }
 
 }
-/* =====================================================
-   MOBILE PATCH – PLAYLIST SONG LIST (STEP 2)
-   ===================================================== */
+/* =====================================
+   MOBILE – PLAYLIST SONG LIST
+   ===================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 768px){
 
-  /* SONG LIST HEADER */
+  /* KEEP HEADER CLEAN */
   .playlist-title{
-    position: sticky;
-    top: 0;
-    background: #020617f5;
-    z-index: 10;
-    padding: 10px 0;
+    background: transparent !important;
   }
 
-  /* SONG LIST SCROLL AREA */
-  #playlist-song-list{
-    max-height: 65vh;
+  /* SONG LIST */
+  .playlist-song-list{
+    max-height: 68vh;
     overflow-y: auto;
-    padding-bottom: 80px; /* space for delete bar */
+    padding-bottom: 90px;
   }
 
-  /* SONG ROW TOUCH SIZE */
   .playlist-song-item{
     min-height: 56px;
     padding: 10px 12px;
   }
 
-  /* TEXT SCALE */
   .playlist-song-title{
     font-size: 14px;
   }
@@ -5171,39 +5153,19 @@ body.sidebar-open #mobile-menu-toggle::before {
   /* DELETE BAR */
   .playlist-delete-bar{
     position: fixed;
-    bottom: 90px; /* above player */
+    bottom: 90px;
     left: 0;
     width: 100%;
     padding: 10px 16px;
-    background: linear-gradient(
-      to top,
-      rgba(2,6,23,0.95),
-      rgba(2,6,23,0.6),
-      transparent
-    );
-    backdrop-filter: blur(6px);
+    background: transparent; /* 🔥 NO BLACK */
     z-index: 50;
   }
 
   #playlist-delete-btn{
     width: 100%;
     border-radius: 16px;
-    font-size: 15px;
     padding: 14px;
-  }
-
-}
-/* REMOVE BLACK BG FROM GRID HEADER */
-@media (max-width: 768px){
-
-  /* grid view header */
-  #playlist-modal-body .playlist-title{
-    background: transparent !important;
-  }
-
-  /* song view header (keep dark) */
-  .playlist-song-list ~ .playlist-title{
-    background: #020617f5 !important;
+    font-size: 15px;
   }
 
 }
