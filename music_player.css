@@ -5356,5 +5356,41 @@ body.sidebar-open #mobile-menu-toggle::before {
   border:none;
   z-index:999;
 }
+/* ===============================
+   MOBILE TOUCH BOOST (SAFE)
+   =============================== */
+@media (max-width:768px){
+
+  /* Remove 300ms delay */
+  *{
+    touch-action: manipulation;
+  }
+
+  /* Remove ugly tap highlight */
+  button,
+  a,
+  .playlist-card,
+  .playlist-edit,
+  .pe-avatar-item,
+  .pe-banner-item{
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Faster feedback */
+  button:active,
+  .playlist-card:active,
+  .pe-avatar-item:active,
+  .pe-banner-item:active{
+    transform: scale(0.97);
+  }
+}
+
+}
+/* DESKTOP – hide mobile tabs in editor */
+@media (min-width: 769px) {
+
+  .pe-mobile-tabs{
+    display: none !important;
+  }
 
 }

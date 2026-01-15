@@ -154,7 +154,7 @@ if (playlistEditorClose) {
 
 const peSaveBtn = document.getElementById("pe-save-btn");
 if (peSaveBtn) {
-    peSaveBtn.addEventListener("click", () => {
+    fastTap(peSaveBtn, ()=>{
 
         const nameInput = document.getElementById("pe-name-input");
         const avatarImg = document.getElementById("pe-avatar-img");
@@ -217,6 +217,20 @@ if (peSaveBtn) {
 }
 
 
+function fastTap(el, handler){
+  if(!el) return;
+
+  // Mobile = pointerdown (instant)
+  el.addEventListener("pointerdown", (e)=>{
+    if(e.pointerType === "touch"){
+      e.preventDefault();
+      handler(e);
+    }
+  });
+
+  // Desktop fallback
+  el.addEventListener("click", handler);
+}
 
 
 // --- DOM CACHE (Batch 2 optimization) ---
@@ -2326,7 +2340,8 @@ function renderPlaylistModal() {
             `;
 
             /* OPEN PLAYLIST */
-            card.addEventListener("click", () => {
+            fastTap(card, () => {
+
 
                 if (playlistMode === "add") {
 
@@ -2344,10 +2359,9 @@ function renderPlaylistModal() {
             /* EDIT BUTTON */
             const editBtn = card.querySelector(".playlist-edit");
 
-            editBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                openPlaylistEditorEdit(pl.id);
-
+            fastTap(editBtn, (e)=>{
+            e.stopPropagation();
+            openPlaylistEditorEdit(pl.id);
             });
 
             grid.appendChild(card);
@@ -2367,7 +2381,7 @@ function renderPlaylistModal() {
 
 
 
-            createCard.addEventListener("click", () => {
+            fastTap(createCard, () => {
                 openPlaylistEditorCreate();
 
             });
@@ -2463,7 +2477,8 @@ li.innerHTML = `
     if (playlistEditMode && selectedPlaylistSongs.includes(song.id)) {
     li.classList.add("selected");
     }
-    li.addEventListener("click", () => {
+    fastTap(li, ()=>{
+
 
 
     // EDIT MODE → SELECT
@@ -2529,7 +2544,7 @@ if (playlistEditMode) {
 
   const deleteBtn = bar.querySelector("#playlist-delete-btn");
 
-  deleteBtn.onclick = () => {
+  fastTap(deleteBtn, ()=>{
 
     if (selectedPlaylistSongs.length === 0) {
       alert("Select songs first");
@@ -2560,7 +2575,7 @@ if (playlistEditMode) {
       }
     });
 
-  };
+  });
 
   body.appendChild(bar);
 }
@@ -3907,7 +3922,7 @@ function closePlaylistEditor(){
 const peCancelBtn = document.getElementById("pe-cancel-btn");
 
 if (peCancelBtn) {
-    peCancelBtn.addEventListener("click", closePlaylistEditor);
+    fastTap(peCancelBtn, closePlaylistEditor);
 }
 
 /* ===== STEP E: VIEW ALL BUTTON ===== */
@@ -3915,7 +3930,7 @@ if (peCancelBtn) {
 const viewAllAvatarBtn = document.getElementById("pe-view-all-btn");
 
 if(viewAllAvatarBtn){
-  viewAllAvatarBtn.addEventListener("click", openAvatarViewAll);
+  fastTap(viewAllAvatarBtn, openAvatarViewAll);
 }
 
 function renderEditorAvatars() {
@@ -3945,13 +3960,14 @@ function renderEditorAvatars() {
 
     div.appendChild(img);
 
-    div.onclick = () => {
+    fastTap(div, ()=>{
+
       selectedAvatar = avatar.name;
       document.getElementById("pe-avatar-img").src =
         AVATAR_BASE_PATH + avatar.file;
 
       renderEditorAvatars();
-    };
+    });
 
     grid.appendChild(div);
   });
@@ -4040,7 +4056,8 @@ function renderEditorBanners() {
 
     div.appendChild(img);
 
-    div.onclick = () => {
+   fastTap(div, ()=>{
+
 
       selectedBanner = banner.name;
 
@@ -4051,7 +4068,7 @@ function renderEditorBanners() {
       }
 
       renderEditorBanners();
-    };
+    });
 
     grid.appendChild(div);
   });
@@ -4068,7 +4085,8 @@ function renderEditorBanners() {
     /* prevent multiple bindings */
     if (!viewAllBannerBtn.dataset.bound) {
 
-      viewAllBannerBtn.addEventListener("click", () => {
+      fastTap(viewAllBannerBtn, ()=>{
+
 
         /* DESKTOP ONLY */
         if (window.innerWidth > 768) {
