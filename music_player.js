@@ -3069,6 +3069,9 @@ function openConfirmModal({
     if (!confirmModal) return;
 
     mountToPortal(confirmModal);
+
+    confirmModal.style.display = "flex";
+
    // FORCE TOP LAYER
     confirmModal.style.zIndex = "10000";
 
