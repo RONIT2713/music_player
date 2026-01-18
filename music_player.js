@@ -97,7 +97,8 @@ const categoryModalClose = document.getElementById('category-modal-close');
 const categoryModalTitle = document.getElementById('category-modal-title');
 const viewAllCategoriesBtn = document.getElementById('view-all-categories-btn');
 
-// Confirmation modal (for clear favorites + downloads)
+// Confirmation modal (for clear favorites)
+
 const confirmModal = document.getElementById('confirm-modal');
 const confirmModalTitle = document.getElementById('confirm-modal-title');
 const confirmModalMessage = document.getElementById('confirm-modal-message');
@@ -1063,18 +1064,6 @@ function filterCurrentView() {
 
     }
     
-        else if (
-        currentFilter.type === 'view' &&
-        currentFilter.value === 'downloads'
-    ) {
-
-        if (viewTitleElement)
-            viewTitleElement.textContent = "My Downloads";
-
-        filteredList = currentSongs.filter(song =>
-            isSongDownloaded(song.id)
-        );
-    }
 
     else if (currentFilter.type === 'category') {
         if (viewTitleElement) viewTitleElement.textContent = `${currentFilter.value} Songs`;
@@ -1166,11 +1155,6 @@ function renderSongList(songsToDisplay) {
 
         listItem.innerHTML = `
             <div class="album-card-inner">
-
-
-                ${isSongDownloaded(song.id) ? 
-                `<span class="downloaded-badge">Downloaded</span>` 
-                : ''}
 
                 <button class="options-btn" title="More options" aria-label="More options">
                     <i class="fas fa-ellipsis-h"></i>
@@ -2170,6 +2154,236 @@ function setupCategoryModalEvents() {
         });
     }
 }
+/* ================= DOWNLOADS MODAL ================= */
+
+let downloadsEditMode = false;
+let selectedDownloadSongs = [];
+
+function renderDownloadsModal() {
+
+    const modal = document.getElementById("downloads-modal");
+    const body = document.getElementById("downloads-modal-body");
+    const countEl = document.getElementById("downloads-count");
+    const editBtn = document.getElementById("downloads-edit-top");
+    const backBtn = document.getElementById("downloads-back-btn");
+
+    if (!modal || !body) return;
+
+    const downloadedIds = getDownloadedSongs();
+    const songs = downloadedIds
+        .map(id => currentSongs.find(s => s.id === id))
+        .filter(Boolean);
+
+    /* COUNT */
+    if (countEl) {
+        countEl.textContent =
+            `${songs.length} song${songs.length === 1 ? '' : 's'}`;
+    }
+
+    /* EDIT BUTTON */
+    if (editBtn) {
+        editBtn.textContent = downloadsEditMode ? "Done" : "Edit";
+
+        editBtn.onclick = () => {
+            downloadsEditMode = !downloadsEditMode;
+            selectedDownloadSongs = [];
+            renderDownloadsModal();
+        };
+    }
+
+    body.innerHTML = '';
+
+    /* EMPTY STATE */
+    if (songs.length === 0) {
+
+        body.innerHTML = `
+            <div class="playlist-empty">
+                <div class="create-text">No downloads yet</div>
+            </div>
+        `;
+        return;
+    }
+
+    const ul = document.createElement("ul");
+    ul.className = "playlist-song-list";
+
+    songs.forEach(song => {
+
+        const li = document.createElement("li");
+        li.className = "playlist-song-item";
+
+        li.innerHTML = `
+            <div class="playlist-song-main">
+                <div class="playlist-song-title">${song.title}</div>
+                <div class="playlist-song-artist">${song.artist}</div>
+            </div>
+
+            ${
+                downloadsEditMode
+                ? `<div class="playlist-song-checkbox"></div>`
+                : `<button class="playlist-song-play">
+                        <i class="fas fa-play"></i>
+                   </button>`
+            }
+        `;
+
+        /* SELECT */
+        if (
+            downloadsEditMode &&
+            selectedDownloadSongs.includes(song.id)
+        ) {
+            li.classList.add("selected");
+        }
+
+        fastTap(li, () => {
+
+            /* EDIT MODE */
+            if (downloadsEditMode) {
+
+                const id = song.id;
+
+                if (selectedDownloadSongs.includes(id)) {
+                    selectedDownloadSongs =
+                        selectedDownloadSongs.filter(s => s !== id);
+                    li.classList.remove("selected");
+                } else {
+                    selectedDownloadSongs.push(id);
+                    li.classList.add("selected");
+                }
+
+                updateDownloadsDeleteCount();
+                return;
+            }
+
+            /* PLAY */
+            playSong(song);
+        });
+
+        const playBtn = li.querySelector(".playlist-song-play");
+
+        if (playBtn) {
+            playBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (!downloadsEditMode) {
+                    playSong(song);
+                }
+            });
+        }
+
+        ul.appendChild(li);
+    });
+
+    body.appendChild(ul);
+
+    renderDownloadsDeleteBar();
+}
+
+const downloadsModalClose =
+document.getElementById("downloads-close-btn");
+
+if(downloadsModalClose){
+  downloadsModalClose.addEventListener("click", closeDownloadsModal);
+}
+
+
+
+/* DELETE BAR */
+
+function renderDownloadsDeleteBar() {
+
+    const body = document.getElementById("downloads-modal-body");
+
+    let old = document.getElementById("downloads-delete-bar");
+    if (old) old.remove();
+
+    if (!downloadsEditMode) return;
+
+    const bar = document.createElement("div");
+    bar.id = "downloads-delete-bar";
+    bar.className = "playlist-delete-bar";
+
+    bar.innerHTML = `
+        <button id="downloads-delete-btn">
+            Delete (${selectedDownloadSongs.length})
+        </button>
+    `;
+
+        const btn = bar.querySelector("#downloads-delete-btn");
+
+       btn.onclick = () => {
+
+
+
+
+
+        if (selectedDownloadSongs.length === 0) {
+            alert("Select songs first");
+            return;
+        }
+
+        openConfirmModal({
+            title: "Remove downloads?",
+            message:
+                `Remove ${selectedDownloadSongs.length} song(s) from downloads?`,
+            confirmLabel: "Delete",
+            confirmIconClass: "fa-trash",
+            onConfirm: () => {
+
+                let list = getDownloadedSongs();
+
+                list = list.filter(
+                    id => !selectedDownloadSongs.includes(id)
+                );
+
+                saveDownloadedSongs(list);
+
+                selectedDownloadSongs = [];
+                downloadsEditMode = false;
+
+                renderDownloadsModal();
+            }
+        });
+    };
+
+    body.appendChild(bar);
+}
+
+
+function updateDownloadsDeleteCount() {
+
+    const btn =
+        document.getElementById("downloads-delete-btn");
+
+    if (btn) {
+        btn.textContent =
+            `Delete (${selectedDownloadSongs.length})`;
+    }
+}
+
+
+/* CLOSE */
+
+function closeDownloadsModal() {
+
+    const modal = document.getElementById("downloads-modal");
+    if (!modal) return;
+
+    modal.classList.remove("open");
+    document.body.classList.remove("modal-open");
+
+    setTimeout(() => {
+        modal.style.display = "none";
+        unmountFromPortal(modal);
+    }, 250);
+
+    downloadsEditMode = false;
+    selectedDownloadSongs = [];
+
+    // restore disc icon
+    if (openPlayerIcon) {
+        openPlayerIcon.style.display = "flex";
+    }
+}
 
 // --- PLAYLIST MODAL LOGIC ---
 
@@ -2904,8 +3118,6 @@ function closeConfirmModal() {
     document.body.classList.remove('modal-open');
     pendingConfirmAction = null;
 
-    // restore focus
-    lastFocusedElement?.focus();
 }
 
 
@@ -3026,30 +3238,6 @@ function initApp() {
 
     // Main nav filters (Playlist / Favorites)
     const mainNav = document.getElementById('main-nav');
-
-    const downloadsBtn = document.getElementById('my-downloads-btn');
-
-    if (downloadsBtn) {
-        downloadsBtn.addEventListener('click', () => {
-
-            closeSidebarIfMobile();
-
-            if (searchBar) searchBar.value = '';
-
-            currentFilter = {
-                type: 'view',
-                value: 'downloads'
-            };
-
-            currentMainView = 'songs';
-
-            pushViewStateIfNeeded('downloads');
-
-            setActiveMainViewButton();
-            renderCurrentView();
-            setActiveFilterClass();
-        });
-    }
 
     if (mainNav) {
         mainNav.addEventListener('click', (event) => {
@@ -3345,13 +3533,16 @@ function initApp() {
     }
 
     if (confirmModalOk) {
-        confirmModalOk.addEventListener('click', () => {
-            if (pendingConfirmAction) {
+        confirmModalOk.onclick = () => {
+
+            if (typeof pendingConfirmAction === "function") {
                 pendingConfirmAction();
             }
+
             closeConfirmModal();
-        });
+        };
     }
+
 
     // Click on dim background closes confirm modal
     if (confirmModal) {
@@ -3427,6 +3618,48 @@ function initApp() {
                 openPlaylistModalNormal();
             });
         }
+
+        /* ================= DOWNLOADS BUTTON ================= */
+
+        const myDownloadsBtn = document.getElementById("my-downloads-btn");
+
+        /* DOWNLOADS BACK BUTTON */
+
+        const downloadsBackBtn =
+        document.getElementById("downloads-back-btn");
+
+        if(downloadsBackBtn){
+            downloadsBackBtn.addEventListener("click", closeDownloadsModal);
+        }
+
+
+        if (myDownloadsBtn) {
+            myDownloadsBtn.addEventListener("click", () => {
+
+                closeSidebarIfMobile();
+
+                const modal = document.getElementById("downloads-modal");
+                if (!modal) return;
+
+                mountToPortal(modal);
+                modal.style.display = "flex";
+
+                if (!history.state || history.state.type !== 'downloadsModal') {
+                    history.pushState({ type: 'downloadsModal' }, '');
+                }
+
+                document.body.classList.add("modal-open");
+                modal.classList.add("open");
+
+                // hide floating disc
+                if (openPlayerIcon) {
+                    openPlayerIcon.style.display = "none";
+                }
+
+                renderDownloadsModal(); // we will create this next
+            });
+        }
+
 
 
 }
@@ -3730,6 +3963,15 @@ window.addEventListener('popstate', () => {
         return;
     }
 
+    // DOWNLOADS MODAL
+    const downloadsModal =
+    document.getElementById("downloads-modal");
+
+    if (downloadsModal?.classList.contains("open")) {
+        closeDownloadsModal();
+        return;
+    }
+
     // 2️⃣ Full player
     if (document.body.classList.contains('full-player-open')) {
         closeAnimatedPlayer();
@@ -3753,9 +3995,11 @@ window.addEventListener('popstate', () => {
         setActiveMainViewButton();
         return;
     }
-
     // 5️⃣ Filters → Home
-    if (currentFilter.type !== 'view' || currentFilter.value !== 'playlist') {
+    if (
+    currentFilter.type !== 'view' ||
+    !['playlist','favorites'].includes(currentFilter.value)
+    ) {
         currentFilter = { type:'view', value:'playlist' };
         currentMainView = 'songs';
         renderCurrentView();

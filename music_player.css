@@ -2140,7 +2140,7 @@ body[data-theme="light"] .category-modal-btn {
     border-color: rgba(209, 213, 219, 1);
 }
 
-/* --- CONFIRMATION MODAL (Clear Favorites / Downloads) --- */
+/* --- CONFIRMATION MODAL (Clear Favorites)--- */
 #confirm-modal {
     position: fixed;
     inset: 0;
@@ -3556,18 +3556,6 @@ body.modal-open #open-player-icon {
     padding: 10px 4px;
 }
 
-
-.downloaded-badge{
-    position:absolute;
-    top:8px;
-    left:8px;
-    background:#22c55e;
-    color:#020617;
-    font-size:11px;
-    padding:3px 7px;
-    border-radius:6px;
-    font-weight:600;
-}
 
 /* ================================
    PLAYLIST MODAL (PHASE 5)
@@ -5393,4 +5381,32 @@ body.sidebar-open #mobile-menu-toggle::before {
     display: none !important;
   }
 
+}
+
+/* ================= DOWNLOADS MODAL FIX ================= */
+
+#downloads-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#downloads-modal.open {
+    display: flex;
+}
+
+/* modal box */
+#downloads-modal .playlist-modal-box {
+    width: 92%;
+    max-width: 520px;
+    height: 85%;
+    background: #0f172a;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }

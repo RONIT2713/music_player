@@ -48,7 +48,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   <i class="fas fa-folder"></i> My Playlists
 </button>
 
-<button data-view="downloads" id="my-downloads-btn" class="sidebar-section-btn">
+<button data-action="downloads" id="my-downloads-btn" class="sidebar-section-btn">
   <i class="fas fa-download"></i> My Downloads
 </button>
 
@@ -381,6 +381,57 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
+
+<!-- DOWNLOADS MODAL -->
+<div id="downloads-modal" class="playlist-modal">
+
+  <div class="playlist-modal-box">
+
+    <!-- HEADER -->
+    <div class="playlist-modal-header">
+
+      <div class="playlist-header-left">
+        <button id="downloads-back-btn">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <div class="playlist-header-text">
+          <div class="playlist-header-name">My Downloads</div>
+          <div class="playlist-header-count" id="downloads-count">
+            0 songs
+          </div>
+        </div>
+      </div>
+
+      <button id="downloads-close-btn" class="modal-close-btn">
+        <i class="fas fa-times"></i>
+      </button>
+
+
+      <!-- EDIT TOGGLE -->
+      <button
+        class="playlist-header-edit"
+        id="downloads-edit-top">
+        Edit
+      </button>
+
+    </div>
+
+    <!-- BODY -->
+    <div
+      class="playlist-modal-body"
+      id="downloads-modal-body">
+
+      <!-- SONG LIST WILL RENDER HERE -->
+      <!-- SAME CLASS AS PLAYLIST -->
+      <!-- JS will inject <ul class="playlist-song-list"> -->
+
+    </div>
+
+  </div>
+
+</div>
+
 <!-- VIEW ALL AVATAR MODAL -->
 <div id="avatar-viewall-modal" class="avatar-viewall-modal">
 
@@ -634,9 +685,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-   navigator.serviceWorker.register('/app/service-worker.js')
-   .then(() => console.log("✅ SW registered"))
-   .catch(err => console.error("❌ SW error", err));
+   //navigator.serviceWorker.register('/app/service-worker.js')
+   //.then(() => console.log("✅ SW registered"))
+   //.catch(err => console.error("❌ SW error", err));
   });
 }
 </script>
