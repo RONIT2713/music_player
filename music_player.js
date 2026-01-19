@@ -59,7 +59,6 @@ const nowPlayingListElement = document.getElementById('now-playing-list');
 const nowPlayingPanel = document.getElementById('now-playing-panel');
 
 
-const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
 
 // Full-screen animated player elements
 let openPlayerIcon = document.getElementById('open-player-icon');
@@ -124,6 +123,15 @@ const searchToggleBtn = document.getElementById('search-toggle-btn');
 let editorMode = "create"; // create | edit
 let editingPlaylistId = null;
 
+const favoritesModal = document.getElementById("favorites-modal");
+const favoritesModalBody = document.getElementById("favorites-modal-body");
+const favoritesCount = document.getElementById("favorites-count");
+const favoritesEditBtn = document.getElementById("favorites-edit-top");
+const favoritesCloseBtn = document.getElementById("favorites-close-btn");
+const favoritesBackBtn = document.getElementById("favorites-back-btn");
+
+let favoritesEditMode = false;
+let selectedFavoriteSongs = [];
 
 // --- PLAYLIST EDITOR MODAL (NEW) ---
 
@@ -1034,111 +1042,108 @@ function highlightPlayingCard() {
         }
     });
 }
-
 function filterCurrentView() {
+
     let filteredList = currentSongs;
-    const searchTerm = searchBar ? searchBar.value.toLowerCase().trim() : '';
+    const searchTerm = searchBar
+        ? searchBar.value.toLowerCase().trim()
+        : '';
 
-    // Reset special classes
-    if (songListElement) songListElement.classList.remove('favorites-view');
+    /* ---------- VIEW ---------- */
+    if (currentFilter.type === 'view') {
 
-    // By default hide clear favorites button
-    if (clearFavoritesBtn) {
-        clearFavoritesBtn.style.display = 'none';
-    }
+        if (currentFilter.value === 'playlist') {
 
-    // Base filters
-    if (currentFilter.type === 'view' && currentFilter.value === 'favorites') {
-        if (viewTitleElement) viewTitleElement.textContent = "Favorite Songs";
-        filteredList = currentSongs.filter(song => song.isFavorite);
+            if (viewTitleElement)
+                viewTitleElement.textContent = "All Songs";
 
-        // Favorites specific layout
-        if (songListElement) songListElement.classList.add('favorites-view');
-
-        // Show clear button only in Favorites
-        if (clearFavoritesBtn) {
-            clearFavoritesBtn.style.display = 'inline-flex';
+            filteredList = currentSongs;
         }
-
-
-
     }
-    
 
+    /* ---------- CATEGORY ---------- */
     else if (currentFilter.type === 'category') {
-        if (viewTitleElement) viewTitleElement.textContent = `${currentFilter.value} Songs`;
-        filteredList = currentSongs.filter(song => song.category === currentFilter.value);
-    } else if (currentFilter.type === 'artist') {
-        if (viewTitleElement) viewTitleElement.textContent = `${currentFilter.value}'s Songs`;
-        filteredList = currentSongs.filter(song => song.artist === currentFilter.value);
-    } else {
-        if (viewTitleElement) viewTitleElement.textContent = "All Songs";
-        filteredList = currentSongs;
+
+        if (viewTitleElement)
+            viewTitleElement.textContent =
+                `${currentFilter.value} Songs`;
+
+        filteredList = currentSongs.filter(
+            song => song.category === currentFilter.value
+        );
     }
 
-    // Search filter
+    /* ---------- ARTIST ---------- */
+    else if (currentFilter.type === 'artist') {
+
+        if (viewTitleElement)
+            viewTitleElement.textContent =
+                `${currentFilter.value}'s Songs`;
+
+        filteredList = currentSongs.filter(
+            song => song.artist === currentFilter.value
+        );
+    }
+
+    /* ---------- SEARCH ---------- */
     if (searchTerm.length > 0) {
+
         filteredList = filteredList.filter(song => {
-            const titleMatch = song.title.toLowerCase().includes(searchTerm);
-            const artistMatch = song.artist.toLowerCase().includes(searchTerm);
+
+            const titleMatch =
+                song.title.toLowerCase().includes(searchTerm);
+
+            const artistMatch =
+                song.artist.toLowerCase().includes(searchTerm);
+
             return titleMatch || artistMatch;
         });
 
-        if (viewTitleElement) viewTitleElement.textContent = `Search Results for "${searchTerm}"`;
-        if (songListElement) songListElement.classList.add('search-active');
-    } else {
-        if (songListElement) songListElement.classList.remove('search-active');
+        if (viewTitleElement)
+            viewTitleElement.textContent =
+                `Search Results for "${searchTerm}"`;
+
     }
 
     return filteredList;
 }
 
-// SONG CARDS (main 'Songs' view)
 function renderSongList(songsToDisplay) {
+
     if (!songListElement) return;
-    songListElement.innerHTML = '';
 
+    songListElement.innerHTML = "";
+
+    /* EMPTY STATE */
     if (!songsToDisplay || songsToDisplay.length === 0) {
-        const li = document.createElement('li');
-        const term = searchBar ? searchBar.value.trim() : '';
 
-        // Special empty state for Favorites (no search term)
-        if (
-            currentFilter.type === 'view' &&
-            currentFilter.value === 'favorites' &&
-            term === ''
-        ) {
-            li.classList.add('favorites-empty');
-            li.innerHTML = `
-                <div class="favorites-empty-icon">
-                    <i class="fas fa-heart-broken"></i>
-                </div>
-                <div class="favorites-empty-title">No favorites yet</div>
-                <div class="favorites-empty-subtitle">
-                    Tap the <span>heart</span> on any song to add it here.
-                </div>
-            `;
-        } else {
-            // default search/other empty state
-            li.classList.add('search-empty-state');
-            li.innerHTML = `
-                <div class="search-empty-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="search-empty-text">
-                    <div class="search-empty-title">No results found</div>
-                    <div class="search-empty-subtitle">
-                        ${
-                            term
-                                ? `We couldn't find anything matching <span>${term}</span>.`
-                                : `Try changing your filters or adding more songs.`
-                        }
-                    </div>
-                </div>
-            `;
-        }
+        const emptyLi = document.createElement("li");
 
-        songListElement.appendChild(li);
+        const term = searchBar
+            ? searchBar.value.trim()
+            : "";
+
+        emptyLi.className = "search-empty-state";
+
+        emptyLi.innerHTML = `
+            <div class="search-empty-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="search-empty-text">
+                <div class="search-empty-title">
+                    No results found
+                </div>
+                <div class="search-empty-subtitle">
+                    ${
+                        term
+                          ? `We couldn't find "${term}"`
+                          : `Try changing filters`
+                    }
+                </div>
+            </div>
+        `;
+
+        songListElement.appendChild(emptyLi);
         return;
     }
 
@@ -1227,7 +1232,6 @@ function renderSongList(songsToDisplay) {
         songListElement.appendChild(listItem);
     });
 }
-
 
 // 🔁 SONG CARD EVENT DELEGATION (Batch 4)
 songListElement.addEventListener('click', async (e) => {
@@ -3238,30 +3242,44 @@ function initApp() {
 
 
 
+// Main nav filters (Playlist / Favorites)
+const mainNav = document.getElementById('main-nav');
 
-    // Main nav filters (Playlist / Favorites)
-    const mainNav = document.getElementById('main-nav');
+if (mainNav) {
+    mainNav.addEventListener('click', (event) => {
 
-    if (mainNav) {
-        mainNav.addEventListener('click', (event) => {
-            const btn = event.target.closest('button');
-            if (!btn) return;
-            closeSidebarIfMobile();
+        const btn = event.target.closest('button');
+        if (!btn) return;
 
-            if (searchBar) searchBar.value = '';
-            currentFilter = { type: 'view', value: btn.dataset.view };
-                currentMainView = 'songs';
+        closeSidebarIfMobile();
 
-                if (btn.dataset.view !== 'playlist') {
-                    pushViewStateIfNeeded('view');
-                }
+        const view = btn.dataset.view;
 
-            setActiveMainViewButton();
-            renderCurrentView();
-            setActiveFilterClass();
-        });
-    }
+        // 🔴 FAVORITES → OPEN MODAL
+        if (view === "favorites") {
+            openFavoritesModal();
+            return;
+        }
 
+        // 🟢 NORMAL PLAYLIST VIEW
+        if (searchBar) searchBar.value = '';
+
+        currentFilter = {
+            type: 'view',
+            value: view
+        };
+
+        currentMainView = 'songs';
+
+        if (view !== 'playlist') {
+            pushViewStateIfNeeded('view');
+        }
+
+        setActiveMainViewButton();
+        renderCurrentView();
+        setActiveFilterClass();
+    });
+}
     // Category filters in sidebar
     const categoriesList = document.getElementById('categories-list');
     if (categoriesList) {
@@ -3486,47 +3504,6 @@ function initApp() {
     if (openPlayerIcon) openPlayerIcon.addEventListener('click', openAnimatedPlayer);
     if (closePlayerBtn) closePlayerBtn.addEventListener('click', closeAnimatedPlayer);
 
-    // Clear all favorites button with confirmation
-    if (clearFavoritesBtn) {
-        clearFavoritesBtn.addEventListener('click', () => {
-            const favCount = currentSongs.filter(song => song.isFavorite).length;
-            if (favCount === 0) return;
-
-            const title =
-                favCount === 1
-                    ? 'Remove favorite song?'
-                    : `Clear all ${favCount} favorite songs?`;
-
-            const message =
-                favCount === 1
-                    ? 'This will remove this song from your favorites list. You can favorite it again later.'
-                    : 'This will remove all songs from your favorites list. You can favorite them again later.';
-
-            openConfirmModal({
-                title,
-                message,
-                onConfirm: () => {
-                    let changed = false;
-                    currentSongs.forEach(song => {
-                        if (song.isFavorite) {
-                            song.isFavorite = false;
-                            changed = true;
-                        }
-                    });
-
-                    if (changed) {
-                        saveSongsToStorage();
-                    }
-
-                    if (currentFilter.type === 'view' && currentFilter.value === 'favorites') {
-                        renderCurrentView();
-                    }
-                   
-                    highlightFullPlaylistPlaying();
-                }
-            });
-        });
-    }
 
     // Confirm modal buttons
     if (confirmModalCancel) {
@@ -3972,6 +3949,13 @@ window.addEventListener('popstate', () => {
 
     if (downloadsModal?.classList.contains("open")) {
         closeDownloadsModal();
+        return;
+    }
+
+
+    // FAVORITES MODAL
+    if (favoritesModal?.classList.contains("open")) {
+        closeFavoritesModal();
         return;
     }
 
@@ -4478,3 +4462,238 @@ if(avatarTabBtn && bannerTabBtn){
     editorBox.classList.add("pe-show-banner");
   };
 }
+function renderFavoritesModal() {
+
+    const favSongs = currentSongs.filter(s => s.isFavorite);
+
+    favoritesCount.textContent = `${favSongs.length} songs`;
+    favoritesModalBody.innerHTML = "";
+
+    if (favSongs.length === 0) {
+        favoritesModalBody.innerHTML = `
+            <div class="playlist-empty">
+                <span>No favorites yet</span>
+            </div>
+        `;
+        return;
+    }
+
+    const ul = document.createElement("ul");
+    ul.className = "playlist-song-list";
+
+    favSongs.forEach(song => {
+
+        const li = document.createElement("li");
+        li.className = "playlist-song-item";
+
+        li.innerHTML = `
+        <div class="playlist-song-main">
+            <div class="playlist-song-title">${song.title}</div>
+            <div class="playlist-song-artist">${song.artist}</div>
+        </div>
+
+        ${
+          favoritesEditMode
+          ? `<div class="playlist-song-checkbox"></div>`
+          : `<button class="playlist-song-play">
+                <i class="fas fa-play"></i>
+             </button>`
+        }
+        `;
+
+        /* SELECT */
+        if (
+            favoritesEditMode &&
+            selectedFavoriteSongs.includes(song.id)
+        ) {
+            li.classList.add("selected");
+        }
+
+        fastTap(li, () => {
+
+            // EDIT MODE
+            if (favoritesEditMode) {
+
+                const id = song.id;
+
+                if (selectedFavoriteSongs.includes(id)) {
+                    selectedFavoriteSongs =
+                        selectedFavoriteSongs.filter(s => s !== id);
+                    li.classList.remove("selected");
+                } else {
+                    selectedFavoriteSongs.push(id);
+                    li.classList.add("selected");
+                }
+
+                updateFavoritesDeleteBtn();
+                return;
+            }
+
+            // PLAY
+            playSong(song);
+        });
+
+        const playBtn = li.querySelector(".playlist-song-play");
+
+        if (playBtn) {
+            playBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (!favoritesEditMode) {
+                    playSong(song);
+                }
+            });
+        }
+
+        ul.appendChild(li);
+    });
+
+    favoritesModalBody.appendChild(ul);
+
+    renderFavoritesDeleteBar();
+}
+
+/* ================= FAVORITES MODAL ================= */
+
+function openFavoritesModal() {
+
+    if (!favoritesModal) return;
+
+    mountToPortal(favoritesModal);
+
+    favoritesModal.style.display = "flex";
+
+    if (!history.state || history.state.type !== 'favoritesModal') {
+        history.pushState({ type: 'favoritesModal' }, '');
+    }
+
+    document.body.classList.add("modal-open");
+    favoritesModal.classList.add("open");
+
+    // hide floating disc
+    if (openPlayerIcon) {
+        openPlayerIcon.style.display = "none";
+    }
+
+    renderFavoritesModal();
+}
+
+if (favoritesCloseBtn) {
+    favoritesCloseBtn.addEventListener("click", closeFavoritesModal);
+}
+
+if (favoritesBackBtn) {
+    favoritesBackBtn.addEventListener("click", closeFavoritesModal);
+}
+
+favoritesEditBtn.addEventListener("click", () => {
+
+  favoritesEditMode = !favoritesEditMode;
+
+  favoritesModal.classList.toggle(
+    "edit-mode",
+    favoritesEditMode
+  );
+
+  favoritesEditBtn.textContent =
+    favoritesEditMode ? "Done" : "Edit";
+
+  renderFavoritesModal();
+  renderFavoritesDeleteBar();
+
+});
+
+function updateFavoritesDeleteBtn(){
+  const btn =
+    document.getElementById("favorites-delete-btn");
+
+  if(!btn) return;
+
+  btn.textContent =
+   `Remove (${selectedFavoriteSongs.length})`;
+
+  btn.disabled =
+   selectedFavoriteSongs.length === 0;
+}
+function renderFavoritesDeleteBar(){
+
+  let bar = document.getElementById("favorites-delete-bar");
+  if(bar) bar.remove();
+
+  if(!favoritesEditMode) return;
+
+  bar = document.createElement("div");
+  bar.id="favorites-delete-bar";
+  bar.className="playlist-delete-bar";
+
+  bar.innerHTML = `
+    <button id="favorites-delete-btn">
+      Remove (${selectedFavoriteSongs.length})
+    </button>
+  `;
+
+  const btn = bar.querySelector("#favorites-delete-btn");
+
+  btn.onclick = () => {
+
+    if(selectedFavoriteSongs.length===0){
+      alert("Select songs first");
+      return;
+    }
+
+    openConfirmModal({
+      title:"Remove favorites?",
+      message:`Remove ${selectedFavoriteSongs.length} song(s)?`,
+      confirmLabel:"Delete",
+      confirmIconClass:"fa-trash",
+        onConfirm:()=>{
+
+        selectedFavoriteSongs.forEach(id=>{
+            const s=currentSongs.find(x=>x.id===id);
+            if(s) s.isFavorite=false;
+        });
+
+        saveSongsToStorage();
+
+        // RESET STATE
+        selectedFavoriteSongs=[];
+        favoritesEditMode=false;
+
+        // RESET UI
+        favoritesEditBtn.textContent = "Edit";
+
+        renderFavoritesModal();
+        }
+
+    });
+  };
+
+  favoritesModalBody.appendChild(bar);
+}
+function closeFavoritesModal(){
+
+  // 1️⃣ CLOSE FIRST (NO UI CHANGE)
+  favoritesModal.classList.remove("open");
+  document.body.classList.remove("modal-open");
+
+  setTimeout(()=>{
+
+    favoritesModal.style.display = "none";
+    unmountFromPortal(favoritesModal);
+
+    // 2️⃣ RESET STATE AFTER HIDE
+    favoritesEditMode = false;
+    selectedFavoriteSongs = [];
+
+    favoritesModal.classList.remove("edit-mode");
+    favoritesEditBtn.textContent = "Edit";
+
+  },250);
+
+  // restore disc
+  if (openPlayerIcon) {
+      openPlayerIcon.style.display = "flex";
+  }
+}
+
+
+

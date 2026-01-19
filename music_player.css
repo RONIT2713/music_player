@@ -405,71 +405,6 @@ body {
 }
 
 
-/* Clear favorites button */
-#clear-favorites-btn {
-    display: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-
-    background: radial-gradient(circle at 30% 0%, #fecaca, #ef4444);
-    border: 1px solid rgba(248, 113, 113, 0.95);
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    box-shadow:
-        0 0 0 2px rgba(15, 23, 42, 1),
-        0 10px 22px rgba(248, 113, 113, 0.7);
-    transition:
-        transform 0.12s ease,
-        box-shadow 0.18s ease,
-        filter 0.18s ease,
-        background 0.18s ease;
-}
-
-#clear-favorites-btn i {
-    pointer-events: none;
-    color: #020617;
-    font-size: 0.9rem;
-    
-}
-
-/* Hover: lift + stronger glow */
-#clear-favorites-btn:hover {
-    transform: translateY(-1px) scale(1.05);
-    box-shadow:
-        0 0 0 2px rgba(15, 23, 42, 1),
-        0 16px 32px rgba(248, 113, 113, 0.9);
-    filter: brightness(1.05);
-}
-
-/* Small shake on click */
-@keyframes trashShake {
-    0%   { transform: translateY(0) translateX(0); }
-    25%  { transform: translateY(-1px) translateX(-1px) rotate(-4deg); }
-    50%  { transform: translateY(0) translateX(1px) rotate(4deg); }
-    75%  { transform: translateY(-1px) translateX(-1px) rotate(-3deg); }
-    100% { transform: translateY(0) translateX(0); }
-}
-
-#clear-favorites-btn:active {
-    animation: trashShake 0.22s ease-out;
-}
-
-/* Light theme tweak */
-body[data-theme="light"] #clear-favorites-btn {
-    background: radial-gradient(circle at 30% 0%, #fee2e2, #f97373);
-    box-shadow:
-        0 0 0 2px rgba(243, 244, 246, 1),
-        0 10px 22px rgba(248, 113, 113, 0.8);
-}
-
 #current-view-title {
     margin: 0 0 8px;
     font-size: 1.6rem;
@@ -647,13 +582,6 @@ body[data-theme="light"] #clear-favorites-btn {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     gap: 18px;
-}
-
-/* Special layout ONLY when Favorites view is active */
-/* FIX: Favorites grid always full width */
-#song-list.favorites-view {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    justify-content: stretch;
 }
 
 
@@ -990,57 +918,7 @@ body[data-theme="light"] #clear-favorites-btn {
     text-align: center;
 }
 
-/* Favorites empty state – centered in the grid */
-#song-list.favorites-view {
-    min-height: 200px;
-    align-content: center;
-}
 
-/* Card for "No favorites yet" */
-.favorites-empty {
-    grid-column: 1 / -1;
-    max-width: 260px;
-    justify-self: center;
-    text-align: center;
-    padding: 18px 14px;
-    border-radius: 18px;
-    background: rgba(15, 23, 42, 0.96);
-    border: 1px dashed rgba(75, 85, 99, 0.9);
-    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
-}
-
-.favorites-empty-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-    border: 1px solid rgba(248, 113, 113, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(circle at 30% 0%, #1f2937, #020617);
-    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
-}
-
-.favorites-empty-icon i {
-    color: #fca5a5;
-    font-size: 1rem;
-}
-
-.favorites-empty-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #f9fafb;
-}
-
-.favorites-empty-subtitle {
-    font-size: 0.8rem;
-    color: #9ca3af;
-}
 
 .favorites-empty-subtitle span {
     color: #f97316;
@@ -5716,6 +5594,310 @@ body.sidebar-open #mobile-menu-toggle::before {
 
 /* DISABLED */
 #downloads-delete-btn:disabled{
+  opacity:.4;
+  pointer-events:none;
+}
+/* ===============================
+   FAVORITES MODAL (FINAL)
+   CLONE OF DOWNLOADS
+================================ */
+
+/* OVERLAY */
+#favorites-modal{
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(15,23,42,.92), rgba(15,23,42,.98));
+  backdrop-filter: blur(14px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 980;
+}
+
+#favorites-modal.open{
+  display: flex;
+}
+
+/* MAIN BOX */
+#favorites-modal .playlist-modal-box{
+  width: min(420px, 92%);
+  max-height: 85vh;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top left, rgba(34,197,94,.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(56,189,248,.18), transparent 55%),
+    #020617f3;
+  border: 1px solid rgba(148,163,184,.8);
+  box-shadow:
+    0 26px 60px rgba(0,0,0,.9),
+    0 0 0 1px rgba(15,23,42,1);
+  padding: 18px 20px 16px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ================================ */
+/* HEADER */
+/* ================================ */
+
+#favorites-modal .playlist-modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+/* LEFT */
+#favorites-modal .playlist-header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+#favorites-back-btn{
+  background:none;
+  border:none;
+  color:#9ca3af;
+  font-size:13px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  transition:.2s;
+}
+
+#favorites-back-btn i{
+  font-size:14px;
+}
+
+#favorites-back-btn:hover{
+  color:#f8fafc;
+  transform:translateX(-2px);
+}
+
+#favorites-modal .playlist-header-text{
+  display:flex;
+  flex-direction:column;
+}
+
+#favorites-modal .playlist-header-name{
+  font-size:16px;
+  font-weight:600;
+}
+
+#favorites-modal .playlist-header-count{
+  font-size:12px;
+  opacity:.7;
+}
+
+/* EDIT */
+#favorites-edit-top{
+  background:none;
+  border:none;
+  color:#9ca3af;
+  font-size:13px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+#favorites-edit-top:hover{
+  color:#38bdf8;
+}
+
+/* CLOSE */
+#favorites-close-btn{
+  font-size:18px;
+}
+
+/* ================================ */
+/* BODY */
+/* ================================ */
+
+#favorites-modal .playlist-modal-body{
+  flex:1;
+  overflow-y:auto;
+  padding:12px;
+}
+
+/* ================================ */
+/* SONG LIST */
+/* ================================ */
+
+#favorites-modal .playlist-song-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:0;
+  margin:0;
+}
+
+/* ITEM */
+#favorites-modal .playlist-song-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 12px;
+  border-radius:12px;
+  background:rgba(15,23,42,.97);
+  transition:.2s;
+  position:relative;
+}
+
+/* HOVER */
+#favorites-modal .playlist-song-item:hover{
+  background:rgba(255,255,255,.06);
+}
+
+/* ACTIVE */
+#favorites-modal .playlist-song-item.active{
+  background:rgba(56,189,248,.15);
+}
+
+/* LEFT */
+#favorites-modal .playlist-song-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex:1;
+}
+
+/* COVER */
+#favorites-modal .playlist-song-cover{
+  width:46px;
+  height:46px;
+  border-radius:8px;
+  object-fit:cover;
+}
+
+/* TEXT */
+#favorites-modal .playlist-song-text{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+#favorites-modal .playlist-song-title{
+  font-size:14px;
+  font-weight:500;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+#favorites-modal .playlist-song-artist{
+  font-size:12px;
+  opacity:.7;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* RIGHT ACTIONS */
+#favorites-modal .playlist-song-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* PLAY BTN */
+#favorites-modal .playlist-play-btn{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#22c55e;
+  color:#020617;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ================================ */
+/* EDIT MODE */
+/* ================================ */
+
+#favorites-modal.edit-mode .playlist-song-item{
+  padding-left:42px;
+}
+
+/* CHECKBOX */
+#favorites-modal .playlist-edit-checkbox{
+  position:absolute;
+  left:12px;
+  width:18px;
+  height:18px;
+  accent-color:#22c55e;
+  display:none;
+}
+
+#favorites-modal.edit-mode .playlist-edit-checkbox{
+  display:block;
+}
+
+/* HIDE PLAY BTN */
+#favorites-modal.edit-mode .playlist-play-btn{
+  display:none;
+}
+
+/* ================================ */
+/* SCROLL */
+/* ================================ */
+
+#favorites-modal .playlist-modal-body::-webkit-scrollbar{
+  width:6px;
+}
+#favorites-modal .playlist-modal-body::-webkit-scrollbar-thumb{
+  background:rgba(148,163,184,.6);
+  border-radius:10px;
+}
+
+/* ================================ */
+/* MOBILE */
+/* ================================ */
+
+@media(max-width:600px){
+  #favorites-modal .playlist-modal-box{
+    width:100%;
+    height:100%;
+    border-radius:0;
+  }
+  #favorites-modal .playlist-song-cover{
+    width:42px;
+    height:42px;
+  }
+}
+
+/* ================================ */
+/* FAVORITES DELETE BUTTON */
+/* ================================ */
+
+#favorites-delete-btn{
+  width:50%;
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  background:#ff3b3b;
+  color:#fff;
+  font-size:14px;
+  font-weight:600;
+  border:none;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+#favorites-delete-btn:hover{
+  background:#e63232;
+}
+
+#favorites-delete-btn:active{
+  transform:scale(.97);
+}
+
+#favorites-delete-btn:disabled{
   opacity:.4;
   pointer-events:none;
 }
