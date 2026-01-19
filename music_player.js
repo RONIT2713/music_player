@@ -2240,14 +2240,13 @@ function renderDownloadsModal() {
         }
 
 li.style.touchAction = "manipulation"; // 🔥 add this line
-
-li.addEventListener("pointerup", (e) => {
+li.addEventListener("click", (e) => {
 
     e.preventDefault();
     e.stopPropagation();
 
-    // EDIT MODE
-    if (downloadsEditMode) {   // 🔥 FIXED
+    // EDIT MODE → ONLY SELECT (NO PLAY)
+    if (downloadsEditMode) {
 
         const id = song.id;
 
@@ -2260,11 +2259,11 @@ li.addEventListener("pointerup", (e) => {
             li.classList.add("selected");
         }
 
-        updateDownloadsDeleteCount(); // 🔥 correct counter
-        return;
+        updateDownloadsDeleteCount();
+        return; // 🔥 STOP HERE (NO PLAY)
     }
 
-    // NORMAL MODE
+    // NORMAL MODE → PLAY
     playSong(song);
 });
 
@@ -2565,7 +2564,8 @@ function renderPlaylistModal() {
             `;
 
             /* OPEN PLAYLIST */
-            card.addEventListener("pointerup", (e) => {
+            card.addEventListener("click", (e) => {
+
 
                 e.preventDefault();
                 e.stopPropagation();   // 🔥 BLOCK bubbling COMPLETELY
