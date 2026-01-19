@@ -2239,37 +2239,35 @@ function renderDownloadsModal() {
             li.classList.add("selected");
         }
 
-        li.addEventListener("pointerup", (e) => {
+li.style.touchAction = "manipulation"; // 🔥 add this line
 
-            if(e.pointerType === "touch"){
-                e.preventDefault();
-                }
+li.addEventListener("pointerup", (e) => {
 
+    e.preventDefault();
+    e.stopPropagation();
 
-            // prevent double triggers
-            e.stopPropagation();
+    // EDIT MODE
+    if (downloadsEditMode) {   // 🔥 FIXED
 
-            // EDIT MODE
-            if (favoritesEditMode) {
+        const id = song.id;
 
-                const id = song.id;
+        if (selectedDownloadSongs.includes(id)) {
+            selectedDownloadSongs =
+              selectedDownloadSongs.filter(s => s !== id);
+            li.classList.remove("selected");
+        } else {
+            selectedDownloadSongs.push(id);
+            li.classList.add("selected");
+        }
 
-                if (selectedFavoriteSongs.includes(id)) {
-                    selectedFavoriteSongs =
-                    selectedFavoriteSongs.filter(s => s !== id);
-                    li.classList.remove("selected");
-                } else {
-                    selectedFavoriteSongs.push(id);
-                    li.classList.add("selected");
-                }
+        updateDownloadsDeleteCount(); // 🔥 correct counter
+        return;
+    }
 
-                updateFavoritesDeleteBtn();
-                return;
-            }
+    // NORMAL MODE
+    playSong(song);
+});
 
-            // NORMAL MODE → PLAY
-            playSong(song);
-        });
 
 
         const playBtn = li.querySelector(".playlist-song-play");
@@ -2567,11 +2565,10 @@ function renderPlaylistModal() {
             `;
 
             /* OPEN PLAYLIST */
-            fastTap(card, (e) => {
+            card.addEventListener("pointerup", (e) => {
 
-            e.stopPropagation(); // 🔥 THIS LINE FIXES IT
-
-
+                e.preventDefault();
+                e.stopPropagation();   // 🔥 BLOCK bubbling COMPLETELY
 
                 if (playlistMode === "add") {
 
@@ -2585,6 +2582,7 @@ function renderPlaylistModal() {
                     renderPlaylistModal();
                 }
             });
+
 
             /* EDIT BUTTON */
             const editBtn = card.querySelector(".playlist-edit");
