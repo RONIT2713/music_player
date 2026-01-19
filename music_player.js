@@ -2699,7 +2699,8 @@ li.innerHTML = `
     if (playlistEditMode && selectedPlaylistSongs.includes(song.id)) {
     li.classList.add("selected");
     }
-    fastTap(li, ()=>{
+    li.addEventListener("click", ()=>{
+
 
 
 
