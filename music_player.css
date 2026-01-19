@@ -5901,3 +5901,107 @@ body.sidebar-open #mobile-menu-toggle::before {
   opacity:.4;
   pointer-events:none;
 }
+.playlist-song-item{
+  touch-action: manipulation;
+}
+@media (max-width: 600px){
+
+/* ================= DOWNLOADS & FAVORITES ONLY ================= */
+
+/* FULL MODAL */
+#downloads-modal .playlist-modal-box,
+#favorites-modal .playlist-modal-box{
+  width:100%;
+  height:100%;
+  border-radius:0;
+  padding:12px 14px;
+}
+
+/* HEADER */
+#downloads-modal .playlist-modal-header,
+#favorites-modal .playlist-modal-header{
+  padding:12px 10px;
+}
+
+/* TITLE */
+#downloads-modal .playlist-header-name,
+#favorites-modal .playlist-header-name{
+  font-size:15px;
+}
+
+#downloads-modal .playlist-header-count,
+#favorites-modal .playlist-header-count{
+  font-size:11px;
+}
+
+/* EDIT BUTTON */
+#downloads-edit-top,
+#favorites-edit-top{
+  font-size:13px;
+}
+
+/* BODY */
+#downloads-modal .playlist-modal-body,
+#favorites-modal .playlist-modal-body{
+  padding:10px 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* SONG ITEM */
+#downloads-modal .playlist-song-item,
+#favorites-modal .playlist-song-item{
+  padding:10px 12px;
+  border-radius:10px;
+  touch-action: manipulation;
+}
+
+/* TEXT */
+#downloads-modal .playlist-song-title,
+#favorites-modal .playlist-song-title{
+  font-size:13px;
+}
+
+#downloads-modal .playlist-song-artist,
+#favorites-modal .playlist-song-artist{
+  font-size:11px;
+}
+
+/* PLAY BUTTON */
+#downloads-modal .playlist-play-btn,
+#favorites-modal .playlist-play-btn{
+  width:32px;
+  height:32px;
+}
+
+/* CHECKBOX */
+#downloads-modal .playlist-edit-checkbox,
+#favorites-modal .playlist-edit-checkbox{
+  width:16px;
+  height:16px;
+}
+
+/* DELETE BAR */
+#downloads-modal .playlist-delete-bar,
+#favorites-modal .playlist-delete-bar{
+  position:sticky;
+  bottom:0;
+  background:#020617;
+  padding:12px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+/* DELETE BUTTON */
+#downloads-delete-btn,
+#favorites-delete-btn{
+  width:100%;
+  padding:12px;
+  font-size:14px;
+}
+
+/* REMOVE HOVER EFFECT ON MOBILE */
+#downloads-modal .playlist-song-item:hover,
+#favorites-modal .playlist-song-item:hover{
+  background:rgba(255,255,255,.04);
+}
+
+}
