@@ -2567,7 +2567,10 @@ function renderPlaylistModal() {
             `;
 
             /* OPEN PLAYLIST */
-            fastTap(card, () => {
+            fastTap(card, (e) => {
+
+            e.stopPropagation(); // 🔥 THIS LINE FIXES IT
+
 
 
                 if (playlistMode === "add") {
