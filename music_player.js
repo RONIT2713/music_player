@@ -2239,29 +2239,33 @@ function renderDownloadsModal() {
             li.classList.add("selected");
         }
 
-        fastTap(li, () => {
+        li.addEventListener("click", (e) => {
 
-            /* EDIT MODE */
-            if (downloadsEditMode) {
+            // prevent double triggers
+            e.stopPropagation();
+
+            // EDIT MODE
+            if (favoritesEditMode) {
 
                 const id = song.id;
 
-                if (selectedDownloadSongs.includes(id)) {
-                    selectedDownloadSongs =
-                        selectedDownloadSongs.filter(s => s !== id);
+                if (selectedFavoriteSongs.includes(id)) {
+                    selectedFavoriteSongs =
+                    selectedFavoriteSongs.filter(s => s !== id);
                     li.classList.remove("selected");
                 } else {
-                    selectedDownloadSongs.push(id);
+                    selectedFavoriteSongs.push(id);
                     li.classList.add("selected");
                 }
 
-                updateDownloadsDeleteCount();
+                updateFavoritesDeleteBtn();
                 return;
             }
 
-            /* PLAY */
+            // NORMAL MODE → PLAY
             playSong(song);
         });
+
 
         const playBtn = li.querySelector(".playlist-song-play");
 
@@ -4509,7 +4513,10 @@ function renderFavoritesModal() {
             li.classList.add("selected");
         }
 
-        fastTap(li, () => {
+        li.addEventListener("click", (e) => {
+
+            // prevent double triggers
+            e.stopPropagation();
 
             // EDIT MODE
             if (favoritesEditMode) {
@@ -4518,7 +4525,7 @@ function renderFavoritesModal() {
 
                 if (selectedFavoriteSongs.includes(id)) {
                     selectedFavoriteSongs =
-                        selectedFavoriteSongs.filter(s => s !== id);
+                    selectedFavoriteSongs.filter(s => s !== id);
                     li.classList.remove("selected");
                 } else {
                     selectedFavoriteSongs.push(id);
@@ -4529,9 +4536,10 @@ function renderFavoritesModal() {
                 return;
             }
 
-            // PLAY
+            // NORMAL MODE → PLAY
             playSong(song);
         });
+
 
         const playBtn = li.querySelector(".playlist-song-play");
 
