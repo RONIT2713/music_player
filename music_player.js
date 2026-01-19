@@ -2239,7 +2239,12 @@ function renderDownloadsModal() {
             li.classList.add("selected");
         }
 
-        li.addEventListener("click", (e) => {
+        li.addEventListener("pointerup", (e) => {
+
+            if(e.pointerType === "touch"){
+                e.preventDefault();
+                }
+
 
             // prevent double triggers
             e.stopPropagation();
@@ -4514,7 +4519,10 @@ function renderFavoritesModal() {
             li.classList.add("selected");
         }
 
-        li.addEventListener("click", (e) => {
+        li.addEventListener("pointerup", (e) => {
+            if(e.pointerType === "touch"){
+            e.preventDefault();
+            }
 
             // prevent double triggers
             e.stopPropagation();
