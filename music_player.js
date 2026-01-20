@@ -133,6 +133,12 @@ const favoritesBackBtn = document.getElementById("favorites-back-btn");
 let favoritesEditMode = false;
 let selectedFavoriteSongs = [];
 
+
+
+let downloadQueue = [];
+let activeDownload = null;
+let downloadProgress = {};
+
 // --- PLAYLIST EDITOR MODAL (NEW) ---
 
 const playlistEditorModal = document.getElementById("playlist-editor-modal");
@@ -248,11 +254,11 @@ function savePlaylistHandler(){
     closePlaylistEditor();
 }
 
-function showToast(message) {
+function showToast(message){
 
     let toast = document.getElementById("global-toast");
 
-    if (!toast) {
+    if(!toast){
         toast = document.createElement("div");
         toast.id = "global-toast";
         toast.className = "global-toast";
@@ -260,13 +266,34 @@ function showToast(message) {
     }
 
     toast.textContent = message;
+
+    // ===== POSITION LOGIC =====
+    let left = "50%"; // default center
+
+    const main = document.getElementById("main-content");
+
+    const isDesktop = window.innerWidth > 768;
+    const noModal = !document.body.classList.contains("modal-open");
+    const isHome = currentFilter?.type === "view" &&
+                   currentFilter?.value === "playlist";
+
+    if(isDesktop && noModal && isHome && main){
+
+        const rect = main.getBoundingClientRect();
+        left = rect.left + rect.width/2 + "px";
+    }
+
+    toast.style.left = left;
+    toast.style.transform = "translateX(-50%)";
+
+    // SHOW
     toast.classList.add("show");
 
     clearTimeout(toast.hideTimer);
 
-    toast.hideTimer = setTimeout(() => {
+    toast.hideTimer = setTimeout(()=>{
         toast.classList.remove("show");
-    }, 2000);
+    },2000);
 }
 
 
@@ -1324,39 +1351,14 @@ if (e.target.closest('.option-add-playlist')) {
 }
 
 // ⬇ DOWNLOAD
+// ⬇ DOWNLOAD
+// ⬇ DOWNLOAD
 if (e.target.closest('.option-download')) {
 
     e.stopPropagation();
     card.classList.remove('show-options');
 
-    try {
-        const url = resolveAudio(song.filePath);
-        const res = await fetch(url);
-        if (!res.ok) throw new Error();
-
-        const cache = await caches.open("viridxi-media-v2");
-        await cache.put(url, res.clone());
-
-        const blob = await res.blob();
-        const urlObj = URL.createObjectURL(blob);
-
-        const link = document.createElement("a");
-        link.href = urlObj;
-
-        link.download =
-            song.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".mp3";
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(urlObj);
-
-        markSongDownloaded(song.id);
-        renderCurrentView();
-
-    } catch {
-       showToast("Download failed");
-    }
+    addToDownloadQueue(song.id); // 👈 send to queue
     return;
 }
 
@@ -2206,44 +2208,35 @@ function setupCategoryModalEvents() {
 
 let downloadsEditMode = false;
 let selectedDownloadSongs = [];
-
 function renderDownloadsModal() {
 
     const modal = document.getElementById("downloads-modal");
     const body = document.getElementById("downloads-modal-body");
     const countEl = document.getElementById("downloads-count");
-    const editBtn = document.getElementById("downloads-edit-top");
-    const backBtn = document.getElementById("downloads-back-btn");
 
     if (!modal || !body) return;
 
-    const downloadedIds = getDownloadedSongs();
-    const songs = downloadedIds
-        .map(id => currentSongs.find(s => s.id === id))
-        .filter(Boolean);
+    body.innerHTML = "";
+
+    const downloaded = getDownloadedSongs();
+    const queue = [...downloadQueue];
+    const active = activeDownload ? [activeDownload] : [];
+
+    // MERGE (active + queue + downloaded)
+    const allIds = [...new Set([
+        ...active,
+        ...queue,
+        ...downloaded
+    ])];
 
     /* COUNT */
     if (countEl) {
         countEl.textContent =
-            `${songs.length} song${songs.length === 1 ? '' : 's'}`;
+            `${allIds.length} song${allIds.length === 1 ? '' : 's'}`;
     }
 
-    /* EDIT BUTTON */
-    if (editBtn) {
-        editBtn.textContent = downloadsEditMode ? "Done" : "Edit";
-
-        editBtn.onclick = () => {
-            downloadsEditMode = !downloadsEditMode;
-            selectedDownloadSongs = [];
-            renderDownloadsModal();
-        };
-    }
-
-    body.innerHTML = '';
-
-    /* EMPTY STATE */
-    if (songs.length === 0) {
-
+    /* EMPTY */
+    if (allIds.length === 0) {
         body.innerHTML = `
             <div class="playlist-empty">
                 <div class="create-text">No downloads yet</div>
@@ -2255,7 +2248,16 @@ function renderDownloadsModal() {
     const ul = document.createElement("ul");
     ul.className = "playlist-song-list";
 
-    songs.forEach(song => {
+    allIds.forEach(id => {
+
+        const song = currentSongs.find(s => s.id === id);
+        if (!song) return;
+
+        const isActive = activeDownload === id;
+        const isQueued = downloadQueue.includes(id);
+        const isDone = downloaded.includes(id);
+
+        const progress = downloadProgress[id] || 0;
 
         const li = document.createElement("li");
         li.className = "playlist-song-item";
@@ -2263,80 +2265,60 @@ function renderDownloadsModal() {
         li.innerHTML = `
             <div class="playlist-song-main">
                 <div class="playlist-song-title">${song.title}</div>
-                <div class="playlist-song-artist">${song.artist}</div>
+                <div class="playlist-song-artist">
+                  ${
+                    isActive ? "Downloading..."
+                    : isQueued ? "In queue"
+                    : "Downloaded"
+                  }
+                </div>
             </div>
 
             ${
-                downloadsEditMode
-                ? `<div class="playlist-song-checkbox"></div>`
-                : `<button class="playlist-song-play">
-                        <i class="fas fa-play"></i>
-                   </button>`
+              isActive
+              ? `
+                <div class="circle-wrap">
+                <div class="circle">
+                    <div class="mask full"
+                        style="transform:rotate(${progress * 1.8}deg)">
+                    <div class="fill"></div>
+                    </div>
+
+                    <div class="mask half">
+                    <div class="fill"></div>
+                    </div>
+
+                    <div class="inside-circle">
+                    ${progress}%
+                    </div>
+                </div>
+                </div>
+
+              `
+              : isDone
+              ? `
+                <button class="playlist-song-play">
+                    <i class="fas fa-play"></i>
+                </button>
+              `
+              : `
+                <span class="dl-queue-dot"></span>
+              `
             }
         `;
 
-        /* SELECT */
-        if (
-            downloadsEditMode &&
-            selectedDownloadSongs.includes(song.id)
-        ) {
-            li.classList.add("selected");
-        }
+        /* CLICK */
+        li.addEventListener("click", () => {
 
-li.style.touchAction = "manipulation"; // 🔥 add this line
-li.addEventListener("click", (e) => {
+            if (isActive || isQueued) return;
 
-    e.preventDefault();
-    e.stopPropagation();
-
-    // EDIT MODE → ONLY SELECT (NO PLAY)
-    if (downloadsEditMode) {
-
-        const id = song.id;
-
-        if (selectedDownloadSongs.includes(id)) {
-            selectedDownloadSongs =
-              selectedDownloadSongs.filter(s => s !== id);
-            li.classList.remove("selected");
-        } else {
-            selectedDownloadSongs.push(id);
-            li.classList.add("selected");
-        }
-
-        updateDownloadsDeleteCount();
-        return; // 🔥 STOP HERE (NO PLAY)
-    }
-
-    // NORMAL MODE → PLAY
-    playSong(song);
-});
-
-
-
-        const playBtn = li.querySelector(".playlist-song-play");
-
-        if (playBtn) {
-            playBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                if (!downloadsEditMode) {
-                    playSong(song);
-                }
-            });
-        }
+            playSong(song);
+        });
 
         ul.appendChild(li);
     });
 
     body.appendChild(ul);
-
-    renderDownloadsDeleteBar();
-}
-
-const downloadsModalClose =
-document.getElementById("downloads-close-btn");
-
-if(downloadsModalClose){
-  downloadsModalClose.addEventListener("click", closeDownloadsModal);
 }
 
 
@@ -4794,3 +4776,100 @@ function closeFavoritesModal(){
 
 
 
+function addToDownloadQueue(songId){
+
+    if(downloadQueue.includes(songId)) return;
+    if(activeDownload === songId) return;
+
+    downloadQueue.push(songId);
+
+    showToast("Added to download queue");
+
+    renderDownloadsModal();
+
+    if(!activeDownload){
+        processDownloadQueue();
+    }
+}
+async function processDownloadQueue(){
+    if(downloadQueue.length === 0){
+        activeDownload = null;
+        renderDownloadsModal(); // 👈 FORCE FINAL UI UPDATE
+        return;
+    }
+
+
+    const songId = downloadQueue.shift();
+    activeDownload = songId;
+
+    downloadProgress[songId] = 0;
+
+    renderDownloadsModal();
+
+    const song = currentSongs.find(s => s.id === songId);
+    if(!song) return;
+
+    try{
+
+        const url = resolveAudio(song.filePath);
+
+        const res = await fetch(url);
+
+        if(!res.ok) throw new Error();
+
+        const reader = res.body.getReader();
+        const contentLength = +res.headers.get("Content-Length");
+
+        let received = 0;
+        const chunks = [];
+
+        while(true){
+
+            const {done,value} = await reader.read();
+            if(done) break;
+
+            chunks.push(value);
+            received += value.length;
+
+            downloadProgress[songId] =
+              Math.floor((received / contentLength) * 100);
+
+            renderDownloadsModal();
+        }
+
+        const blob = new Blob(chunks);
+        const urlObj = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = urlObj;
+
+        link.download =
+          song.title.replace(/[^a-z0-9]/gi,"_").toLowerCase()+".mp3";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(urlObj);
+
+        markSongDownloaded(songId);
+
+        delete downloadProgress[songId];
+
+        showToast("Downloaded");
+
+    }catch{
+        showToast("Download failed");
+    }
+
+    activeDownload = null;
+
+    processDownloadQueue();
+}
+document.addEventListener("click", (e) => {
+
+    // DOWNLOADS CLOSE (X)
+    if (e.target.closest("#downloads-close-btn")) {
+        closeDownloadsModal();
+    }
+
+});
