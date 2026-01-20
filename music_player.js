@@ -163,66 +163,110 @@ if (playlistEditorClose) {
 
 const peSaveBtn = document.getElementById("pe-save-btn");
 if (peSaveBtn) {
-    fastTap(peSaveBtn, ()=>{
+    fastTap(peSaveBtn, savePlaylistHandler);
+}
 
-        const nameInput = document.getElementById("pe-name-input");
-        const avatarImg = document.getElementById("pe-avatar-img");
+function savePlaylistHandler(){
 
-        if (!nameInput || !avatarImg) return;
+    const nameInput = document.getElementById("pe-name-input");
+    const avatarImg = document.getElementById("pe-avatar-img");
 
-        const name = nameInput.value.trim();
-        const cover = avatarImg.src;
+    if (!nameInput || !avatarImg) return;
 
-        // banner filename only
-        const banner = selectedBanner;
+    const name = nameInput.value.trim();
+    const cover = avatarImg.src;
+    const banner = selectedBanner;
 
-        if (!name) {
-            alert("Playlist name required");
+    // ERROR BOX
+    let err = document.getElementById("pe-name-error");
+
+    if (!err) {
+        err = document.createElement("div");
+        err.id = "pe-name-error";
+        err.style.color = "var(--danger, #ff4d4d)";
+        err.style.fontSize = "12px";
+        err.style.marginTop = "6px";
+        nameInput.after(err);
+    }
+
+    // EMPTY
+    if (!name) {
+        err.textContent = "Playlist name required";
+        return;
+    }
+
+    let playlists = getPlaylists();
+
+    // DUPLICATE
+    if (editorMode === "create") {
+
+        const exists = playlists.some(
+            p => p.name.toLowerCase() === name.toLowerCase()
+        );
+
+        if (exists) {
+            err.textContent = "Playlist already exists";
             return;
         }
+    }
 
-        let playlists = getPlaylists();
+    err.textContent = ""; // clear
 
-        /* ========== CREATE MODE ========== */
-        if (editorMode === "create") {
+    /* CREATE */
+    if (editorMode === "create") {
 
-            const exists = playlists.some(
-                p => p.name.toLowerCase() === name.toLowerCase()
-            );
+        const newPlaylist = {
+            id: Date.now(),
+            name,
+            cover,
+            banner,
+            songs: []
+        };
 
-            if (exists) {
-                alert("Playlist already exists");
-                return;
-            }
+        playlists.push(newPlaylist);
+        savePlaylists(playlists);
 
-            const newPlaylist = {
-                id: Date.now(),
-                name: name,
-                cover: cover,
-                banner: banner, // 🔥 NEW
-                songs: []
-            };
+        showToast("Playlist created");
+    }
 
-            playlists.push(newPlaylist);
-            savePlaylists(playlists);
-        }
+    /* EDIT */
+    if (editorMode === "edit") {
 
-        /* ========== EDIT MODE ========== */
-        if (editorMode === "edit") {
+        const p = playlists.find(p => p.id === editingPlaylistId);
+        if (!p) return;
 
-            const p = playlists.find(p => p.id === editingPlaylistId);
-            if (!p) return;
+        p.name = name;
+        p.cover = cover;
+        p.banner = banner;
 
-            p.name = name;
-            p.cover = cover;
-            p.banner = banner; // 🔥 NEW
+        savePlaylists(playlists);
 
-            savePlaylists(playlists);
-        }
+        showToast("Playlist updated");
+    }
 
-        renderPlaylistModal();
-        closePlaylistEditor();
-    });
+    renderPlaylistModal();
+    closePlaylistEditor();
+}
+
+function showToast(message) {
+
+    let toast = document.getElementById("global-toast");
+
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "global-toast";
+        toast.className = "global-toast";
+        document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toast.hideTimer);
+
+    toast.hideTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
 }
 
 
@@ -1311,7 +1355,7 @@ if (e.target.closest('.option-download')) {
         renderCurrentView();
 
     } catch {
-        alert("Download failed.");
+       showToast("Download failed");
     }
     return;
 }
@@ -2298,7 +2342,6 @@ if(downloadsModalClose){
 
 
 /* DELETE BAR */
-
 function renderDownloadsDeleteBar() {
 
     const body = document.getElementById("downloads-modal-body");
@@ -2318,16 +2361,12 @@ function renderDownloadsDeleteBar() {
         </button>
     `;
 
-        const btn = bar.querySelector("#downloads-delete-btn");
+    const btn = bar.querySelector("#downloads-delete-btn");
 
-       btn.onclick = () => {
-
-
-
-
+    btn.onclick = () => {
 
         if (selectedDownloadSongs.length === 0) {
-            alert("Select songs first");
+            showToast("Select songs first");
             return;
         }
 
@@ -2574,7 +2613,8 @@ function renderPlaylistModal() {
 
                     addSongToPlaylist(pl.id, selectedSongForPlaylist);
                     closePlaylistModal();
-                    alert("Added to playlist");
+                   showToast("Added to playlist");
+
 
                 } else {
                     activePlaylistId = pl.id;
@@ -2776,8 +2816,8 @@ if (playlistEditMode) {
   fastTap(deleteBtn, ()=>{
 
     if (selectedPlaylistSongs.length === 0) {
-      alert("Select songs first");
-      return;
+    showToast("Select songs first");
+    return;
     }
 
     openConfirmModal({
@@ -3583,7 +3623,7 @@ if (mainNav) {
         installBtn.addEventListener('click', async () => {
 
             if (!deferredInstallPrompt) {
-                alert("App is already installed or not supported.");
+                showToast("Already installed or not supported");
                 return;
             }
 
@@ -4072,6 +4112,48 @@ function openPlaylistEditorCreate(){
     document
     .getElementById("pe-mobile-avatar-tab")
     ?.click();
+     const input = document.getElementById("pe-name-input");
+
+    input.addEventListener("input", ()=>{
+
+        const val = input.value.trim();
+        let err = document.getElementById("pe-name-error");
+
+        if (!err) {
+            err = document.createElement("div");
+            err.id = "pe-name-error";
+            err.style.color = "var(--danger, #ff4d4d)";
+            err.style.fontSize = "12px";
+            err.style.marginTop = "6px";
+            input.after(err);
+        }
+
+        // EMPTY
+        if (!val) {
+            err.textContent = "Playlist name required";
+            return;
+        }
+
+        const playlists = getPlaylists();
+
+        // DUPLICATE (LIVE)
+        if (editorMode === "create") {
+
+            const exists = playlists.some(
+                p => p.name.toLowerCase() === val.toLowerCase()
+            );
+
+            if (exists) {
+                err.textContent = "Playlist already exists";
+                return;
+            }
+        }
+
+        err.textContent = ""; // OK
+    });
+
+
+    
 
 }
 function openPlaylistEditorEdit(id){
@@ -4654,7 +4736,7 @@ function renderFavoritesDeleteBar(){
   btn.onclick = () => {
 
     if(selectedFavoriteSongs.length===0){
-      alert("Select songs first");
+      showToast("Select songs first");
       return;
     }
 
@@ -4663,7 +4745,7 @@ function renderFavoritesDeleteBar(){
       message:`Remove ${selectedFavoriteSongs.length} song(s)?`,
       confirmLabel:"Delete",
       confirmIconClass:"fa-trash",
-        onConfirm:()=>{
+      onConfirm:()=>{
 
         selectedFavoriteSongs.forEach(id=>{
             const s=currentSongs.find(x=>x.id===id);
@@ -4672,16 +4754,13 @@ function renderFavoritesDeleteBar(){
 
         saveSongsToStorage();
 
-        // RESET STATE
         selectedFavoriteSongs=[];
         favoritesEditMode=false;
 
-        // RESET UI
         favoritesEditBtn.textContent = "Edit";
 
         renderFavoritesModal();
-        }
-
+      }
     });
   };
 
