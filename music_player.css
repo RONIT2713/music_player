@@ -6119,3 +6119,73 @@ body.sidebar-open #mobile-menu-toggle::before {
   70%{opacity:0; transform:scale(1.25);}
   100%{opacity:0;}
 }
+/* ============================
+   OPTIONS MENU (3 DOT MENU)
+   ============================ */
+
+/* Parent card must allow overflow */
+.song-card,
+.song-item,
+.song-row,
+#song-list li{
+  position:relative;
+  overflow:visible !important;
+}
+
+/* MAIN OPTIONS MENU */
+.options-menu{
+  position:absolute;
+  right:0;
+  margin-bottom:30px;
+
+  display:flex !important;
+  flex-direction:column !important; /* VERTICAL */
+  gap:2px;
+
+ 
+  min-width:42px;
+
+  background:rgba(15,23,42,0.95);
+  border-radius:12px;
+  backdrop-filter:blur(12px);
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  z-index:9999;
+
+  animation:menuPop .18s ease-out;
+}
+
+/* ICON BUTTONS */
+.options-menu .option-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:36px;
+  height:36px;
+
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+
+  transition:all .2s ease;
+}
+
+/* HOVER EFFECT */
+.options-menu .option-btn:hover{
+  background:var(--accent,#4ade80);
+  color:#000;
+  transform:scale(1.1);
+}
+
+/* POP ANIMATION */
+@keyframes menuPop{
+  from{
+    transform:translateY(8px) scale(.95);
+    opacity:0;
+  }
+  to{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+}

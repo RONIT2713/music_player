@@ -1966,6 +1966,37 @@ audioPlayer.addEventListener('timeupdate', () => {
         progressBar && (progressBar.value = progress);
         fullProgressBar && (fullProgressBar.value = progress);
     }
+    /* 🔥 FORCE ICON REFRESH ON PLAY / PAUSE */
+
+    audioPlayer.addEventListener("play", () => {
+        renderDownloadsModal();
+        renderFavoritesModal();
+        renderPlaylistModal();
+
+        if(categoryModal?.classList.contains("open")){
+            if(categoryModalView === "songs"){
+                renderCategorySongsInModal(
+                currentFilter.value,
+                currentFilter.value
+                );
+            }
+        }
+    });
+
+    audioPlayer.addEventListener("pause", () => {
+        renderDownloadsModal();
+        renderFavoritesModal();
+        renderPlaylistModal();
+
+        if(categoryModal?.classList.contains("open")){
+            if(categoryModalView === "songs"){
+                renderCategorySongsInModal(
+                currentFilter.value,
+                currentFilter.value
+                );
+            }
+        }
+    });
 
 });
 
