@@ -17,6 +17,21 @@ function resolveCover(path) {
     return COVER_BASE + path;
 }
 
+
+function getPlayIcon(songId){
+    if(songId === currentSongId){
+        return audioPlayer.paused
+            ? `<i class="fas fa-play"></i>`
+            : `<i class="fas fa-pause"></i>`;
+    }
+    return `<i class="fas fa-play"></i>`;
+}
+
+function isSongActive(songId){
+    return songId === currentSongId;
+}
+
+
 // --- 1. GET HTML ELEMENTS ---
 const songListElement = document.getElementById('song-list');
 const audioPlayer = document.getElementById('audio-element');
@@ -1631,6 +1646,7 @@ function renderFullPlayerPlaylist() {
             </div>
             <button class="category-modal-play-btn fpi-play-btn" aria-label="Play ${song.title}">
                 <i class="fas fa-play"></i>
+
             </button>
         `;
 
@@ -1786,6 +1802,10 @@ function playSong(song) {
     highlightFullPlaylistPlaying();
     preloadNextSong();
     savePlayerState();
+    renderDownloadsModal();
+    renderFavoritesModal();
+    renderPlaylistModal();
+
 }
 
 
@@ -2109,20 +2129,26 @@ function renderCategorySongsInModal(categoryKey, label) {
                 <div class="category-modal-song-title">${song.title}</div>
                 <div class="category-modal-song-artist">${song.artist}</div>
             </div>
-            <button class="category-modal-play-btn" aria-label="Play ${song.title}">
-                <i class="fas fa-play"></i>
-            </button>
+                <button class="category-modal-play-btn" aria-label="Play ${song.title}">
+                    ${getPlayIcon(song.id)}
+                </button>
+
         `;
+
+        if(isSongActive(song.id)){
+            li.classList.add("playing");
+        }
+
 
         li.addEventListener('click', () => {
             playSong(song);
-            closeCategoryModal();
+            
         });
 
         li.querySelector('.category-modal-play-btn')?.addEventListener('click', (e) => {
             e.stopPropagation();
             playSong(song);
-            closeCategoryModal();
+            
         });
 
         list.appendChild(li);
@@ -2275,12 +2301,14 @@ function renderDownloadsModal() {
             </div>
 
             ${
-              isActive
-              ? `
+            downloadsEditMode
+            ? `<div class="playlist-song-checkbox"></div>`
+            : isActive
+            ? `
                 <div class="circle-wrap">
                 <div class="circle">
                     <div class="mask full"
-                        style="transform:rotate(${progress * 1.8}deg)">
+                    style="transform:rotate(${progress * 1.8}deg)">
                     <div class="fill"></div>
                     </div>
 
@@ -2293,32 +2321,64 @@ function renderDownloadsModal() {
                     </div>
                 </div>
                 </div>
-
-              `
-              : isDone
-              ? `
-                <button class="playlist-song-play">
-                    <i class="fas fa-play"></i>
+            `
+            : isDone
+            ? `
+               <button class="playlist-song-play">
+                    ${getPlayIcon(song.id)}
                 </button>
-              `
-              : `
+
+            `
+            : `
                 <span class="dl-queue-dot"></span>
-              `
+            `
             }
+
         `;
+
+        if(isSongActive(song.id)){
+            li.classList.add("playing");
+        }
+
 
         /* CLICK */
         li.addEventListener("click", () => {
 
+            // EDIT MODE
+            if(downloadsEditMode){
+
+                const id = song.id;
+
+                if(selectedDownloadSongs.includes(id)){
+                    selectedDownloadSongs =
+                    selectedDownloadSongs.filter(x=>x!==id);
+                    li.classList.remove("selected");
+                }else{
+                    selectedDownloadSongs.push(id);
+                    li.classList.add("selected");
+                }
+
+                updateDownloadsDeleteCount();
+                return;
+            }
+
+            // NORMAL MODE
             if (isActive || isQueued) return;
 
             playSong(song);
         });
 
+
         ul.appendChild(li);
     });
 
     body.appendChild(ul);
+
+        // 🔥 KEEP DELETE BAR VISIBLE DURING RE-RENDER
+    if(downloadsEditMode){
+        renderDownloadsDeleteBar();
+    }
+
 }
 
 
@@ -2403,18 +2463,26 @@ function closeDownloadsModal() {
     document.body.classList.remove("modal-open");
 
     setTimeout(() => {
+
         modal.style.display = "none";
         unmountFromPortal(modal);
+
+        // RESET AFTER CLOSE (NO FLICKER)
+        downloadsEditMode = false;
+        selectedDownloadSongs = [];
+
+        const btn =
+          document.getElementById("downloads-edit-top");
+        if(btn) btn.textContent = "Edit";
+
     }, 250);
 
-    downloadsEditMode = false;
-    selectedDownloadSongs = [];
-
-    // restore disc icon
     if (openPlayerIcon) {
         openPlayerIcon.style.display = "flex";
     }
 }
+
+
 
 // --- PLAYLIST MODAL LOGIC ---
 
@@ -2719,10 +2787,17 @@ li.innerHTML = `
       playlistEditMode
         ? `<div class="playlist-song-checkbox"></div>`
         : `<button class="playlist-song-play">
-              <i class="fas fa-play"></i>
-           </button>`
+            ${getPlayIcon(song.id)}
+            </button>  `
     }
+
+
 `;
+
+       if(isSongActive(song.id)){
+    li.classList.add("playing");
+    }
+
 
     if (playlistEditMode && selectedPlaylistSongs.includes(song.id)) {
     li.classList.add("selected");
@@ -4571,10 +4646,13 @@ function renderFavoritesModal() {
           favoritesEditMode
           ? `<div class="playlist-song-checkbox"></div>`
           : `<button class="playlist-song-play">
-                <i class="fas fa-play"></i>
+                ${getPlayIcon(song.id)}
              </button>`
         }
         `;
+         if(isSongActive(song.id)){
+            li.classList.add("playing");
+        }
 
         /* SELECT */
         if (
@@ -4806,6 +4884,12 @@ async function processDownloadQueue(){
 
     renderDownloadsModal();
 
+    // KEEP EDIT UI ALIVE
+    if(downloadsEditMode){
+        renderDownloadsDeleteBar();
+    }
+
+
     const song = currentSongs.find(s => s.id === songId);
     if(!song) return;
 
@@ -4833,8 +4917,13 @@ async function processDownloadQueue(){
 
             downloadProgress[songId] =
               Math.floor((received / contentLength) * 100);
+        renderDownloadsModal();
 
-            renderDownloadsModal();
+        // KEEP EDIT UI ALIVE
+        if(downloadsEditMode){
+            renderDownloadsDeleteBar();
+        }
+
         }
 
         const blob = new Blob(chunks);
@@ -4870,6 +4959,23 @@ document.addEventListener("click", (e) => {
     // DOWNLOADS CLOSE (X)
     if (e.target.closest("#downloads-close-btn")) {
         closeDownloadsModal();
+    }
+
+});
+document.addEventListener("click", (e) => {
+
+    // DOWNLOADS EDIT
+    if (e.target.closest("#downloads-edit-top")) {
+
+        downloadsEditMode = !downloadsEditMode;
+
+        const btn = document.getElementById("downloads-edit-top");
+        btn.textContent = downloadsEditMode ? "Done" : "Edit";
+
+        selectedDownloadSongs = [];
+
+        renderDownloadsModal();
+        renderDownloadsDeleteBar(); // 👈 THIS WAS MISSING
     }
 
 });

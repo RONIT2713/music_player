@@ -6088,3 +6088,34 @@ body.sidebar-open #mobile-menu-toggle::before {
     margin-left:6px;
     color:var(--accent);
 }
+/* ACTIVE SONG CARD */
+.playlist-song-item.playing{
+  border:1px solid var(--accent,#4ade80);
+  background:rgba(74,222,128,0.06);
+  box-shadow:0 0 14px rgba(74,222,128,0.45);
+}
+
+/* DO NOT TOUCH YOUR BUTTON STYLE */
+/* Only add outer glow ring */
+.playlist-song-item.playing 
+.playlist-song-play{
+  position:relative;
+}
+
+/* GLOW RING */
+.playlist-song-item.playing 
+.playlist-song-play::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:50%;
+  border:2px solid rgba(74,222,128,.6);
+  animation:pulseRing 1.4s infinite;
+}
+
+/* PULSE ANIMATION */
+@keyframes pulseRing{
+  0%{opacity:.8; transform:scale(.95);}
+  70%{opacity:0; transform:scale(1.25);}
+  100%{opacity:0;}
+}
