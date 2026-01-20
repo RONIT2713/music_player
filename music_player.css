@@ -5904,104 +5904,133 @@ body.sidebar-open #mobile-menu-toggle::before {
 .playlist-song-item{
   touch-action: manipulation;
 }
-@media (max-width: 600px){
+/* =========================================
+   MOBILE – MATCH DOWNLOADS & FAVORITES
+   TO PLAYLIST MODAL
+========================================= */
 
-/* ================= DOWNLOADS & FAVORITES ONLY ================= */
+@media (max-width: 768px){
 
-/* FULL MODAL */
+/* ===== COMMON BASE ===== */
 #downloads-modal .playlist-modal-box,
 #favorites-modal .playlist-modal-box{
-  width:100%;
-  height:100%;
-  border-radius:0;
-  padding:12px 14px;
-}
-
-/* HEADER */
-#downloads-modal .playlist-modal-header,
-#favorites-modal .playlist-modal-header{
-  padding:12px 10px;
-}
-
-/* TITLE */
-#downloads-modal .playlist-header-name,
-#favorites-modal .playlist-header-name{
-  font-size:15px;
-}
-
-#downloads-modal .playlist-header-count,
-#favorites-modal .playlist-header-count{
-  font-size:11px;
-}
-
-/* EDIT BUTTON */
-#downloads-edit-top,
-#favorites-edit-top{
-  font-size:13px;
+  width: 92% !important;
+  height: auto !important;
+  max-height: 85vh;
+  border-radius: 26px !important;
+  padding: 18px 20px 16px !important;
 }
 
 /* BODY */
 #downloads-modal .playlist-modal-body,
 #favorites-modal .playlist-modal-body{
-  padding:10px 6px;
-  -webkit-overflow-scrolling: touch;
+  padding: 6px 4px !important;
 }
 
-/* SONG ITEM */
+/* LIST */
+#downloads-modal .playlist-song-list,
+#favorites-modal .playlist-song-list{
+  gap: 8px !important;
+}
+
+/* ROW */
 #downloads-modal .playlist-song-item,
 #favorites-modal .playlist-song-item{
-  padding:10px 12px;
-  border-radius:10px;
-  touch-action: manipulation;
+  padding: 8px 10px !important;
+  border-radius: 12px !important;
+  background: rgba(15,23,42,.97) !important;
+  border: 1px solid rgba(55,65,81,.95) !important;
 }
 
-/* TEXT */
+/* HOVER */
+#downloads-modal .playlist-song-item:hover,
+#favorites-modal .playlist-song-item:hover{
+  transform: translateY(-1px);
+  border-color: rgba(34,197,94,.9);
+  box-shadow: 0 14px 32px rgba(15,23,42,.95);
+}
+
+/* LEFT TEXT */
 #downloads-modal .playlist-song-title,
 #favorites-modal .playlist-song-title{
-  font-size:13px;
+  font-size: .9rem !important;
+  font-weight: 600;
 }
 
 #downloads-modal .playlist-song-artist,
 #favorites-modal .playlist-song-artist{
-  font-size:11px;
+  font-size: .78rem !important;
+  color: #9ca3af;
 }
 
 /* PLAY BUTTON */
 #downloads-modal .playlist-play-btn,
 #favorites-modal .playlist-play-btn{
-  width:32px;
-  height:32px;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 0%, #bbf7d0, #22c55e) !important;
+
+  box-shadow:
+    0 0 0 2px rgba(15,23,42,1),
+    0 10px 22px rgba(34,197,94,.8);
+}
+
+/* EDIT MODE */
+#downloads-modal.edit-mode .playlist-song-item,
+#favorites-modal.edit-mode .playlist-song-item{
+  padding-left: 42px !important;
 }
 
 /* CHECKBOX */
 #downloads-modal .playlist-edit-checkbox,
 #favorites-modal .playlist-edit-checkbox{
-  width:16px;
-  height:16px;
-}
-
-/* DELETE BAR */
-#downloads-modal .playlist-delete-bar,
-#favorites-modal .playlist-delete-bar{
-  position:sticky;
-  bottom:0;
-  background:#020617;
-  padding:12px;
-  border-top:1px solid rgba(255,255,255,.08);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
 }
 
 /* DELETE BUTTON */
 #downloads-delete-btn,
 #favorites-delete-btn{
-  width:100%;
-  padding:12px;
-  font-size:14px;
+  width: 100% !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  font-size: 15px !important;
 }
 
-/* REMOVE HOVER EFFECT ON MOBILE */
-#downloads-modal .playlist-song-item:hover,
-#favorites-modal .playlist-song-item:hover{
-  background:rgba(255,255,255,.04);
+/* HEADER */
+#downloads-modal .playlist-modal-header,
+#favorites-modal .playlist-modal-header{
+  padding: 14px 16px !important;
+}
+
+/* TITLE */
+#downloads-modal .playlist-header-name,
+#favorites-modal .playlist-header-name{
+  font-size: 15px !important;
+}
+
+/* COUNT */
+#downloads-modal .playlist-header-count,
+#favorites-modal .playlist-header-count{
+  font-size: 11px !important;
+  color:#94a3b8;
 }
 
 }
+/* ===============================
+   DESKTOP SCROLL – DOWNLOADS
+================================ */
+
+
+#downloads-modal .playlist-modal-body::-webkit-scrollbar{
+  width:6px;
+}
+
+#downloads-modal .playlist-modal-body::-webkit-scrollbar-thumb{
+  background:rgba(148,163,184,.5);
+  border-radius:10px;
+}
+
