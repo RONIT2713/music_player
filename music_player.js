@@ -732,10 +732,11 @@ function savePlayerState() {
 
 function loadPlayerState() {
     try {
-        const lastSong = localStorage.getItem('musicPlayer_lastSong_${userId}');
-        const vol = localStorage.getItem('musicPlayer_lastSong_${userId}');
-        const shuf = localStorage.getItem('musicPlayer_shuffle_${userId}');
-        const rep = localStorage.getItem('musicPlayer_repeat_${userId}');
+        const lastSong = localStorage.getItem(`musicPlayer_lastSong_${userId}`);
+        const vol = localStorage.getItem(`musicPlayer_volume_${userId}`);
+        const shuf = localStorage.getItem(`musicPlayer_shuffle_${userId}`);
+        const rep = localStorage.getItem(`musicPlayer_repeat_${userId}`);
+
 
         /* ---------- VOLUME ---------- */
         if (vol !== null) {
@@ -775,10 +776,13 @@ function loadPlayerState() {
 
                 audioPlayer.src = resolveAudio(song.filePath);
                 audioPlayer.load(); // metadata only
+                audioPlayer.src = resolveAudio(song.filePath);
 
                 // RESET UI
                 if (progressBar) progressBar.value = 0;
                 if (fullProgressBar) fullProgressBar.value = 0;
+                audioPlayer.currentTime = 0;
+
 
                 if (currentTimeDisplay)
                     currentTimeDisplay.textContent = "0:00";
@@ -3200,7 +3204,14 @@ function renderAlbumsInModal() {
 
 const openSettingsBtn = document.getElementById("open-settings-btn");
 const settingsModal = document.getElementById("settings-modal");
-const settingsModalClose = document.getElementById("settings-modal-close");
+const settingsModalClose = document.getElementById("settings-close-btn")
+const settingsBackBtn =
+document.getElementById("settings-back-btn");
+
+if(settingsBackBtn){
+    settingsBackBtn.onclick = closeSettingsSection;
+}
+
 
 if (openSettingsBtn && settingsModal) {
 
@@ -3208,7 +3219,12 @@ if (openSettingsBtn && settingsModal) {
 
         closeSidebarIfMobile();
 
+        // 🚫 prevent double open
+        if(settingsModal.classList.contains("open")) return;
+
         mountToPortal(settingsModal);
+
+        settingsModal.style.display = "flex"; // 🔥 force visible
 
         if (!history.state || history.state.type !== 'settingsModal') {
             history.pushState({ type: 'settingsModal' }, '');
@@ -3217,27 +3233,101 @@ if (openSettingsBtn && settingsModal) {
         document.body.classList.add("modal-open");
         settingsModal.classList.add("open");
 
-    });
-}
+        // Bind section buttons
+        settingsModal
+        .querySelectorAll(".settings-row[data-section]")
+        .forEach(btn => {
+            btn.onclick = () => {
+                const section = btn.dataset.section;
+                openSettingsSection(section);
+            };
+        });
 
-if (settingsModalClose && settingsModal) {
 
-    settingsModalClose.addEventListener("click", () => {
-        closeSettingsModal();
-    });
-}
+            });
+        }
+settingsModalClose.addEventListener("click", () => {
+
+    const hadSection = !!currentSettingsSection;
+
+    closeSettingsModal(); // close first (no UI change visible)
+
+    // reset silently AFTER close
+    if(hadSection){
+        setTimeout(() => {
+            closeSettingsSection();
+        }, 300); // match your modal close animation
+    }
+});
+
 
 function closeSettingsModal() {
 
     if (!settingsModal) return;
 
     settingsModal.classList.remove("open");
+    document.body.classList.remove("modal-open");
 
     setTimeout(() => {
+        settingsModal.style.display = "none";   // 🔥 IMPORTANT
         unmountFromPortal(settingsModal);
     }, 250);
+}
 
-    document.body.classList.remove("modal-open");
+// --- SETTINGS SECTION SYSTEM ---
+
+let currentSettingsSection = null;
+
+function openSettingsSection(section){
+
+    if(!settingsModal) return;
+
+    const menu = settingsModal.querySelector(".settings-menu");
+    const headerTitle = settingsModal.querySelector(".settings-header span");
+    const backBtn = document.getElementById("settings-back-btn");
+
+    // Hide menu
+    menu.style.display = "none";
+
+    // Hide all sections first
+    settingsModal.querySelectorAll(".settings-section")
+      .forEach(sec => sec.classList.remove("active"));
+
+    // Show selected section
+    const activeSection = document.getElementById("section-" + section);
+    if(activeSection){
+        activeSection.classList.add("active");
+    }
+
+    // Header
+    headerTitle.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+    backBtn.style.display = "flex";
+}
+
+
+function closeSettingsSection(){
+
+    const menu =
+      settingsModal.querySelector(".settings-menu");
+
+    const container =
+      settingsModal.querySelector(".settings-section");
+
+    const headerTitle =
+      settingsModal.querySelector(".settings-header span");
+
+    const backBtn =
+      document.getElementById("settings-back-btn");
+
+    if(container){
+        container.style.display = "none";
+    }
+
+    menu.style.display = "";
+    headerTitle.textContent = "Settings";
+    backBtn.style.display = "none";
+
+    currentSettingsSection = null;
 }
 
 

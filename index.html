@@ -92,10 +92,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <!-- SYSTEM -->
 
-<button id="about-btn" class="sidebar-section-btn" data-action="about">
-  <i class="fas fa-info-circle"></i>
-  About
-</button>
 
 <button data-action="settings" id="open-settings-btn" class="sidebar-section-btn">
   <i class="fas fa-cog"></i> Settings
@@ -522,32 +518,86 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
 <!-- SETTINGS MODAL -->
-<div id="settings-modal">
+<!-- SETTINGS MODAL -->
+<div id="settings-modal" class="settings-hidden">
 
-  <div class="settings-modal-content">
+  <div class="settings-box">
 
-    <button id="settings-modal-close" class="modal-close-btn">
-      <i class="fas fa-times"></i>
-    </button>
-
-    <h3>Settings</h3>
-
-    <div class="settings-modal-body">
-
-      <button id="theme-toggle-modal" class="settings-item">
-        <i class="fas fa-moon"></i>
-        <span>Toggle Theme</span>
+    <!-- HEADER -->
+    <div class="settings-header">
+      <button id="settings-back-btn">
+        <i class="fas fa-arrow-left"></i>
       </button>
 
-      <button id="install-app-btn-modal" class="settings-item">
-        <i class="fas fa-download"></i>
-        <span>Install App</span>
+      <span>Settings</span>
+
+      <button id="settings-close-btn">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- MENU -->
+    <div class="settings-menu">
+
+      <button class="settings-row" data-section="account">
+        <i class="fas fa-user"></i>
+        <span>Account</span>
+      </button>
+
+      <button class="settings-row" data-section="security">
+        <i class="fas fa-shield-alt"></i>
+        <span>Security</span>
+      </button>
+
+      <button class="settings-row" data-section="app">
+        <i class="fas fa-sliders-h"></i>
+        <span>App</span>
+      </button>
+
+      <!-- APP SECTION CONTENT (HIDDEN INITIALLY) -->
+        <div class="settings-section" id="section-app">
+
+          <button class="settings-row" id="theme-toggle-modal">
+            <i class="fas fa-moon"></i>
+            <span>Theme</span>
+          </button>
+
+          <button class="settings-row" id="install-app-btn-modal">
+            <i class="fas fa-download"></i>
+            <span>Install App</span>
+          </button>
+
+        </div>
+
+
+      <button class="settings-row" data-section="storage">
+        <i class="fas fa-database"></i>
+        <span>Storage</span>
+      </button>
+
+      <button class="settings-row" data-section="about">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </button>
+
+      <!-- ADMIN ONLY -->
+      <button 
+        class="settings-row admin-only" 
+        data-action="admin">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin Panel</span>
+      </button>
+
+      <button 
+        class="settings-row admin-only" 
+        data-action="invite">
+        <i class="fas fa-user-plus"></i>
+        <span>Invite Users</span>
       </button>
 
     </div>
 
   </div>
-
 </div>
 
 <!-- PLAYLIST EDITOR MODAL (NEW) -->
@@ -709,7 +759,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
 <!-- Hidden real buttons (logic only) -->
-<div style="display:none">
+<div>
   <button id="theme-toggle"></button>
   <button id="install-app-btn"></button>
 </div>
