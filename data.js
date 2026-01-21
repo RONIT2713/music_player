@@ -5206,3 +5206,4 @@ const INITIAL_SONG_DATA = [
     "mood": ""
   }
 ];
+window.songs = INITIAL_SONG_DATA;

@@ -1,3 +1,12 @@
+
+
+
+import { getUserId } from "./auth/token.js";
+
+const userId = getUserId();
+
+
+
 const AUDIO_BASE = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/";
 const COVER_BASE = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/";
 const AVATAR_BASE_PATH = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/avatars/";
@@ -471,7 +480,10 @@ function updateThemeToggleIcon() {
 }
 
 function applyStoredTheme() {
-    const stored = localStorage.getItem('musicPlayerTheme');
+    const stored = localStorage.getItem(`musicPlayerTheme_${userId}`);
+
+
+
     if (stored === 'light' || stored === 'dark') {
         document.body.dataset.theme = stored;
     } else {
@@ -510,15 +522,22 @@ function updateVolumeIcon() {
 // === PLAYLIST STORAGE ===
 function getPlaylists() {
     try {
-        return JSON.parse(localStorage.getItem("myPlaylists")) || [];
+        return JSON.parse(
+          localStorage.getItem(`myPlaylists_${userId}`)
+        ) || [];
     } catch {
         return [];
     }
 }
 
+
 function savePlaylists(list) {
-    localStorage.setItem("myPlaylists", JSON.stringify(list));
+    localStorage.setItem(
+      `myPlaylists_${userId}`,
+      JSON.stringify(list)
+    );
 }
+
 
 
 function deletePlaylist(id) {
@@ -543,15 +562,22 @@ function addSongToPlaylist(playlistId, songId) {
 // === DOWNLOAD MANAGER ===
 function getDownloadedSongs() {
     try {
-        return JSON.parse(localStorage.getItem("myDownloads")) || [];
+        return JSON.parse(
+          localStorage.getItem(`myDownloads_${userId}`)
+        ) || [];
     } catch {
         return [];
     }
 }
 
+
 function saveDownloadedSongs(list) {
-    localStorage.setItem("myDownloads", JSON.stringify(list));
+    localStorage.setItem(
+      `myDownloads_${userId}`,
+      JSON.stringify(list)
+    );
 }
+
 
 function markSongDownloaded(songId) {
     const list = getDownloadedSongs();
@@ -567,7 +593,11 @@ function isSongDownloaded(songId) {
 
 function saveSongsToStorage() {
     try {
-        localStorage.setItem('myMusicPlayerSongs', JSON.stringify(currentSongs));
+        localStorage.setItem(
+            `myMusicPlayerSongs_${userId}`,
+            JSON.stringify(currentSongs)
+            );
+
     } catch (e) {
         console.warn('Failed to save songs to storage', e);
     }
@@ -577,7 +607,9 @@ function saveSongsToStorage() {
     loadSongsFromStorage MERGES by id (preserve isFavorite, user fields, keep stored-only songs)
 */
 function loadSongsFromStorage() {
-    const storedDataRaw = localStorage.getItem('myMusicPlayerSongs');
+    const storedDataRaw =
+        localStorage.getItem(`myMusicPlayerSongs_${userId}`);
+
     let storedData = null;
     try {
         storedData = storedDataRaw ? JSON.parse(storedDataRaw) : null;
@@ -638,14 +670,20 @@ function loadSongsFromStorage() {
 // Persist/load userQueue
 function saveQueueToStorage() {
     try {
-        localStorage.setItem('musicPlayerQueue', JSON.stringify(userQueue || []));
+        localStorage.setItem(
+        `musicPlayerQueue_${userId}`,
+        JSON.stringify(userQueue || [])
+        );
+
     } catch (e) {
         console.warn('Failed to save queue to storage', e);
     }
 }
 function loadQueueFromStorage() {
     try {
-        const raw = localStorage.getItem('musicPlayerQueue');
+        const raw =
+            localStorage.getItem(`musicPlayerQueue_${userId}`);
+
         if (!raw) return;
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) userQueue = parsed;
@@ -658,17 +696,31 @@ function loadQueueFromStorage() {
 function savePlayerState() {
     try {
         if (currentSongId) {
-            localStorage.setItem('musicPlayer_lastSong', currentSongId);
+            localStorage.setItem(
+              `musicPlayer_lastSong_${userId}`,
+              currentSongId
+            );
         }
 
-        localStorage.setItem('musicPlayer_volume', audioPlayer.volume);
-        localStorage.setItem('musicPlayer_shuffle', shuffleOn);
+        localStorage.setItem(
+          `musicPlayer_volume_${userId}`,
+          audioPlayer.volume
+        );
 
-        // 🔥 FIXED REPEAT STORAGE
+        localStorage.setItem(
+          `musicPlayer_shuffle_${userId}`,
+          shuffleOn
+        );
+
         if (repeatMode === 'off') {
-            localStorage.removeItem('musicPlayer_repeat');
+            localStorage.removeItem(
+              `musicPlayer_repeat_${userId}`
+            );
         } else {
-            localStorage.setItem('musicPlayer_repeat', repeatMode);
+            localStorage.setItem(
+              `musicPlayer_repeat_${userId}`,
+              repeatMode
+            );
         }
 
     } catch (e) {
@@ -677,12 +729,13 @@ function savePlayerState() {
 }
 
 
+
 function loadPlayerState() {
     try {
-        const lastSong = localStorage.getItem('musicPlayer_lastSong');
-        const vol = localStorage.getItem('musicPlayer_volume');
-        const shuf = localStorage.getItem('musicPlayer_shuffle');
-        const rep = localStorage.getItem('musicPlayer_repeat');
+        const lastSong = localStorage.getItem('musicPlayer_lastSong_${userId}');
+        const vol = localStorage.getItem('musicPlayer_lastSong_${userId}');
+        const shuf = localStorage.getItem('musicPlayer_shuffle_${userId}');
+        const rep = localStorage.getItem('musicPlayer_repeat_${userId}');
 
         /* ---------- VOLUME ---------- */
         if (vol !== null) {
@@ -3331,6 +3384,7 @@ function pushViewStateIfNeeded(stateType) {
 
 // --- 18. INITIALIZATION ---
 function initApp() {
+    console.log("INIT APP RUNNING");
 
     if (!history.state) {
     history.replaceState({ type: 'base' }, '');
@@ -3836,7 +3890,11 @@ document.addEventListener('click', (e) => {
 
 
 // Start everything once DOM is ready
-document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('DOMContentLoaded', () => {
+  initApp();
+});
+
+
 
 
 /* ===============================
