@@ -6,7 +6,7 @@
 
   if (!token) {
     window.location.href =
-      "/app/auth/login.html";
+      "/auth/login.html";
   }
 
 })();
