@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:5000";
+const API_BASE = "https://viridxi-backend-production.up.railway.app";
+
 
 
 async function refreshAccessToken() {
