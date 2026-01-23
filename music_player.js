@@ -3745,7 +3745,7 @@ function validatePasswordsLive() {
       localStorage.removeItem("viridxi_refresh_token");
 
       setTimeout(() => {
-        window.location.href = "/app/auth/login.html";
+        window.location.href = "/auth/login.html";
       }, 1200);
 
    } catch (err) {
@@ -3762,7 +3762,7 @@ function validatePasswordsLive() {
     localStorage.removeItem("viridxi_refresh_token");
 
     setTimeout(() => {
-      window.location.href = "/app/auth/login.html";
+      window.location.href = "/auth/login.html";
     }, 1200);
 
     return;
@@ -3930,7 +3930,7 @@ function initApp() {
 
   if (!token) {
     window.location.href =
-      "/app/auth/login.html";
+      "/auth/login.html";
     return;
   }
 
@@ -5625,7 +5625,7 @@ async function logoutCurrentDevice() {
     localStorage.getItem("viridxi_access_token");
 
   if (!token) {
-    window.location.href = "/app/auth/login.html";
+    window.location.href = "/auth/login.html";
     return;
   }
 
@@ -5646,7 +5646,7 @@ async function logoutCurrentDevice() {
     localStorage.removeItem("viridxi_access_token");
     localStorage.removeItem("viridxi_refresh_token");
 
-    window.location.href = "/app/auth/login.html";
+    window.location.href = "/auth/login.html";
 
   } catch (err) {
 
@@ -5654,7 +5654,7 @@ async function logoutCurrentDevice() {
     localStorage.removeItem("viridxi_access_token");
     localStorage.removeItem("viridxi_refresh_token");
 
-    window.location.href = "/app/auth/login.html";
+    window.location.href = "/auth/login.html";
   }
 }
 
@@ -5680,7 +5680,7 @@ async function logoutAllDevices() {
     localStorage.getItem("viridxi_access_token");
 
   if (!token) {
-    window.location.href = "/app/auth/login.html";
+    window.location.href = "/auth/login.html";
     return;
   }
 
@@ -5705,7 +5705,7 @@ async function logoutAllDevices() {
   localStorage.removeItem("viridxi_access_token");
   localStorage.removeItem("viridxi_refresh_token");
 
-  window.location.href = "/app/auth/login.html";
+  window.location.href = "/auth/login.html";
 }
 const logoutAllBtn =
   document.getElementById("logout-all-btn");
