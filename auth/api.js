@@ -32,7 +32,7 @@ async function refreshAccessToken() {
 async function request(url, method, body) {
   try {
 
-    const res = await fetch(BASE_URL + url, {
+    const res = await fetch(API_BASE + url, {
       method,
       headers: {
         "Content-Type": "application/json",
