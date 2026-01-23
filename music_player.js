@@ -1,4 +1,15 @@
 
+(function authGuard(){
+
+  const token =
+    localStorage.getItem("viridxi_access_token");
+
+  if (!token) {
+    window.location.href =
+      "/app/auth/login.html";
+  }
+
+})();
 
 
 import { getUserId } from "./auth/token.js";
@@ -12,6 +23,39 @@ const COVER_BASE = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/";
 const AVATAR_BASE_PATH = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/avatars/";
 const BANNER_BASE_PATH = "https://pub-c13eefd6fac7430e90731ec00e6f6069.r2.dev/banners/";
 
+/* ===== ADMIN VISIBILITY ===== */
+
+window.isAdminUser = function isAdminUser() {
+
+  const token = localStorage.getItem("viridxi_access_token");
+  if (!token) return false;
+
+  try {
+    const payload = JSON.parse(
+      atob(token.split(".")[1])
+    );
+
+    return payload.role === "ADMIN" || payload.isAdmin === true;
+
+  } catch {
+    return false;
+  }
+};
+
+
+function applyAdminVisibility() {
+
+  const adminBtns =
+    document.querySelectorAll(".admin-only");
+
+  if (!adminBtns.length) return;
+
+  const isAdmin = isAdminUser();
+
+  adminBtns.forEach(btn => {
+    btn.style.display = isAdmin ? "flex" : "none";
+  });
+}
 
 
 function resolveAudio(path) {
@@ -162,6 +206,8 @@ let selectedFavoriteSongs = [];
 let downloadQueue = [];
 let activeDownload = null;
 let downloadProgress = {};
+
+
 
 // --- PLAYLIST EDITOR MODAL (NEW) ---
 
@@ -3218,6 +3264,8 @@ if (openSettingsBtn && settingsModal) {
     openSettingsBtn.addEventListener("click", () => {
 
         closeSidebarIfMobile();
+        applyAdminVisibility();
+
 
         // 🚫 prevent double open
         if(settingsModal.classList.contains("open")) return;
@@ -3245,7 +3293,7 @@ if (openSettingsBtn && settingsModal) {
 
 
             });
-        }
+    }
 settingsModalClose.addEventListener("click", () => {
 
     const hadSection = !!currentSettingsSection;
@@ -3265,14 +3313,23 @@ function closeSettingsModal() {
 
     if (!settingsModal) return;
 
+    // 1️⃣ CLOSE FIRST (VISIBLE)
     settingsModal.classList.remove("open");
     document.body.classList.remove("modal-open");
 
     setTimeout(() => {
-        settingsModal.style.display = "none";   // 🔥 IMPORTANT
+
+        // 2️⃣ RESET (while still mounted)
+        closeSettingsSection();
+
+        // 3️⃣ NOW HIDE & UNMOUNT
+        settingsModal.style.display = "none";
         unmountFromPortal(settingsModal);
+
     }, 250);
 }
+
+
 
 // --- SETTINGS SECTION SYSTEM ---
 
@@ -3282,36 +3339,42 @@ function openSettingsSection(section){
 
     if(!settingsModal) return;
 
+    currentSettingsSection = section; // ✅ IMPORTANT
+
     const menu = settingsModal.querySelector(".settings-menu");
     const headerTitle = settingsModal.querySelector(".settings-header span");
     const backBtn = document.getElementById("settings-back-btn");
 
-    // Hide menu
     menu.style.display = "none";
 
-    // Hide all sections first
     settingsModal.querySelectorAll(".settings-section")
       .forEach(sec => sec.classList.remove("active"));
 
-    // Show selected section
-    const activeSection = document.getElementById("section-" + section);
-    if(activeSection){
+    const activeSection =
+      document.getElementById("section-" + section);
+
+    if (activeSection) {
         activeSection.classList.add("active");
+
+        // ✅ BIND HERE (THIS WAS MISSING)
+        if (section === "security") {
+            bindChangePasswordForm();
+        }
     }
 
-    // Header
-    headerTitle.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+    headerTitle.textContent =
+      section.charAt(0).toUpperCase() + section.slice(1);
+
     backBtn.style.display = "flex";
 }
 
-
-function closeSettingsSection(){
+function resetSettingsView(){
 
     const menu =
       settingsModal.querySelector(".settings-menu");
 
-    const container =
-      settingsModal.querySelector(".settings-section");
+    const sections =
+      settingsModal.querySelectorAll(".settings-section");
 
     const headerTitle =
       settingsModal.querySelector(".settings-header span");
@@ -3319,16 +3382,403 @@ function closeSettingsSection(){
     const backBtn =
       document.getElementById("settings-back-btn");
 
-    if(container){
-        container.style.display = "none";
-    }
-
+    // Show menu
     menu.style.display = "";
+
+    // Hide all sections
+    sections.forEach(sec=>{
+        sec.classList.remove("active");
+        sec.style.display = "";
+    });
+
+    // Reset header
     headerTitle.textContent = "Settings";
     backBtn.style.display = "none";
 
     currentSettingsSection = null;
 }
+
+
+    function closeSettingsSection(){
+
+        const menu =
+        settingsModal.querySelector(".settings-menu");
+
+        const headerTitle =
+        settingsModal.querySelector(".settings-header span");
+
+        const backBtn =
+        document.getElementById("settings-back-btn");
+
+        // 🔥 remove active from all sections
+        settingsModal
+        .querySelectorAll(".settings-section")
+        .forEach(sec => sec.classList.remove("active"));
+
+        menu.style.display = "";
+        headerTitle.textContent = "Settings";
+        backBtn.style.display = "none";
+
+        currentSettingsSection = null;
+    }
+
+/* ===============================
+   INVITE SYSTEM (ISOLATED BLOCK)
+   =============================== */
+
+(() => {
+  // -------------------------------
+  // Local state (isolated)
+  // -------------------------------
+  let activeInvite = null;
+  let countdownInterval = null;
+
+  // -------------------------------
+  // DOM bindings (invite section only)
+  // -------------------------------
+  const codeText = document.getElementById("invite-code-text");
+  const timerEl = document.getElementById("invite-timer");
+  const usesEl = document.getElementById("invite-uses");
+
+  const expirySelect = document.getElementById("invite-expiry");
+  const maxUsesInput = document.getElementById("invite-max-uses");
+
+  const generateBtn = document.getElementById("invite-generate-btn");
+  const shareBox = document.getElementById("invite-share-actions");
+  const copyBtn = document.getElementById("invite-copy-btn");
+  const shareBtn = document.getElementById("invite-share-btn");
+
+  // -------------------------------
+  // Helpers
+  // -------------------------------
+  function getToken() {
+    return localStorage.getItem("viridxi_access_token");
+  }
+
+  function clearTimer() {
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+    }
+  }
+
+  function formatRemaining(ms) {
+    const total = Math.max(0, Math.floor(ms / 1000));
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    return `${h}h ${m}m ${s}s`;
+  }
+
+  // -------------------------------
+  // UI MODES
+  // -------------------------------
+  function renderGenerateMode() {
+    clearTimer();
+    activeInvite = null;
+
+    codeText.textContent = "No active invite";
+    timerEl.style.display = "none";
+    usesEl.textContent = "";
+
+    expirySelect.parentElement.style.display = "";
+    maxUsesInput.parentElement.style.display = "";
+
+    generateBtn.style.display = "block";
+    shareBox.style.display = "none";
+  }
+
+  function renderCodeView(invite) {
+    activeInvite = invite;
+
+    codeText.textContent = invite.code;
+    timerEl.style.display = "block";
+
+    expirySelect.parentElement.style.display = "none";
+    maxUsesInput.parentElement.style.display = "none";
+
+    generateBtn.style.display = "none";
+    shareBox.style.display = "flex";
+
+    updateUses();
+    startCountdown();
+  }
+
+  function updateUses() {
+    if (!activeInvite) return;
+    const left = activeInvite.maxUses - activeInvite.usedCount;
+    usesEl.textContent = `Uses left: ${left}`;
+  }
+
+  // -------------------------------
+  // TIMER
+  // -------------------------------
+  function startCountdown() {
+    clearTimer();
+
+    countdownInterval = setInterval(() => {
+      if (!activeInvite) return;
+
+      const remaining =
+        new Date(activeInvite.expiresAt).getTime() - Date.now();
+
+      if (remaining <= 0) {
+        renderGenerateMode();
+        return;
+      }
+
+      timerEl.textContent = `⏱ ${formatRemaining(remaining)} left`;
+    }, 1000);
+  }
+
+  // -------------------------------
+  // BACKEND CALLS
+  // -------------------------------
+  async function fetchActiveInvite() {
+    try {
+      const res = await fetch(
+        "http://localhost:5000/api/invite/active",
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`
+          }
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.invite) {
+        renderCodeView(data.invite);
+      } else {
+        renderGenerateMode();
+      }
+    } catch {
+      renderGenerateMode();
+    }
+  }
+
+  async function createInvite() {
+    const expiry = Number(expirySelect.value);
+    const maxUses = Number(maxUsesInput.value || 1);
+
+    generateBtn.disabled = true;
+    generateBtn.textContent = "Generating...";
+
+    try {
+      const res = await fetch(
+        "http://localhost:5000/api/invite/create",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            expiryDays: expiry,
+            maxUses
+          })
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Invite failed");
+      }
+
+      renderCodeView(data.invite);
+    } catch (err) {
+      showToast(err.message || "Invite error");
+      renderGenerateMode();
+    } finally {
+      generateBtn.disabled = false;
+      generateBtn.textContent = "Generate Invite Code";
+    }
+  }
+
+  // -------------------------------
+  // ACTIONS
+  // -------------------------------
+  generateBtn?.addEventListener("click", createInvite);
+
+  copyBtn?.addEventListener("click", () => {
+    if (!activeInvite) return;
+    navigator.clipboard.writeText(activeInvite.code);
+    showToast("Invite code copied");
+  });
+
+  shareBtn?.addEventListener("click", async () => {
+    if (!activeInvite) return;
+
+    if (navigator.share) {
+      await navigator.share({
+        title: "Invite Code",
+        text: activeInvite.code
+      });
+    } else {
+      navigator.clipboard.writeText(activeInvite.code);
+      showToast("Invite copied");
+    }
+  });
+
+  // -------------------------------
+  // ENTRY POINT (settings section)
+  // -------------------------------
+  const originalOpenSettingsSection = openSettingsSection;
+
+  window.openSettingsSection = function (section) {
+    originalOpenSettingsSection(section);
+
+    if (section === "invite") {
+      fetchActiveInvite();
+    }
+  };
+
+})();
+
+
+function bindChangePasswordForm() {
+  console.log("Change password form bound");
+
+  const form = document.getElementById("change-password-form");
+  if (!form) return;
+
+  const currentInput = document.getElementById("cp-current");
+  const newInput = document.getElementById("cp-new");
+  const confirmInput = document.getElementById("cp-confirm");
+  const errorBox = document.getElementById("cp-error");
+
+function validatePasswordsLive() {
+
+    const currentPassword = currentInput.value.trim();
+    const newPassword = newInput.value.trim();
+    const confirmPassword = confirmInput.value.trim();
+
+    // Reset state
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+
+    // Only start validating once user types something
+    if (!currentPassword && !newPassword && !confirmPassword) {
+        return;
+    }
+
+    if (!currentPassword) {
+        errorBox.textContent = "Current password is required";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    if (newPassword.length > 0 && newPassword.length < 8) {
+        errorBox.textContent = "New password must be at least 8 characters";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    if (confirmPassword && newPassword !== confirmPassword) {
+        errorBox.textContent = "Passwords do not match";
+        errorBox.style.display = "block";
+        return;
+    }
+    }
+    currentInput.addEventListener("input", validatePasswordsLive);
+    newInput.addEventListener("input", validatePasswordsLive);
+    confirmInput.addEventListener("input", validatePasswordsLive);
+
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+  const submitBtn = document.getElementById("cp-submit-btn");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Updating...";
+
+
+
+    
+
+    // reset error
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+
+    const currentPassword = currentInput.value.trim();
+    const newPassword = newInput.value.trim();
+    const confirmPassword = confirmInput.value.trim();
+
+    // 🔎 INLINE VALIDATION
+    if (!currentPassword || !newPassword || !confirmPassword) {
+    errorBox.textContent = "All fields are required";
+    errorBox.style.display = "block";
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Update Password";
+    return;
+    }
+
+    if (newPassword !== confirmPassword) {
+    errorBox.textContent = "Passwords do not match";
+    errorBox.style.display = "block";
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Update Password";
+    return;
+    }
+
+    if (newPassword.length < 8) {
+    errorBox.textContent = "Password must be at least 8 characters";
+    errorBox.style.display = "block";
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Update Password";
+    return;
+    }
+
+
+    try {
+      // 🔐 BACKEND CALL
+      await changePasswordRequest(currentPassword, newPassword);
+
+      showToast("Password changed. Please login again.");
+      form.reset();
+
+
+      // 🔒 FORCE LOGOUT
+      localStorage.removeItem("viridxi_access_token");
+      localStorage.removeItem("viridxi_refresh_token");
+
+      setTimeout(() => {
+        window.location.href = "/app/auth/login.html";
+      }, 1200);
+
+   } catch (err) {
+
+  // 🔒 TOKEN EXPIRED → FORCE LOGOUT
+  if (
+    err.message &&
+    err.message.toLowerCase().includes("token")
+  ) {
+
+    showToast("Session expired. Please login again.");
+
+    localStorage.removeItem("viridxi_access_token");
+    localStorage.removeItem("viridxi_refresh_token");
+
+    setTimeout(() => {
+      window.location.href = "/app/auth/login.html";
+    }, 1200);
+
+    return;
+  }
+
+  // ❌ NORMAL ERROR (wrong current password, etc.)
+  errorBox.textContent = err.message || "Password change failed";
+  errorBox.style.display = "block";
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Update Password";
+}
+
+  };
+}
+
 
 
 // --- 14. MAIN VIEW BUTTONS ---
@@ -3474,7 +3924,18 @@ function pushViewStateIfNeeded(stateType) {
 
 // --- 18. INITIALIZATION ---
 function initApp() {
-    console.log("INIT APP RUNNING");
+
+  const token =
+    localStorage.getItem("viridxi_access_token");
+
+  if (!token) {
+    window.location.href =
+      "/app/auth/login.html";
+    return;
+  }
+
+  console.log("INIT APP RUNNING");
+
 
     if (!history.state) {
     history.replaceState({ type: 'base' }, '');
@@ -5157,4 +5618,157 @@ document.addEventListener("click", (e) => {
         renderDownloadsDeleteBar(); // 👈 THIS WAS MISSING
     }
 
+});
+async function logoutCurrentDevice() {
+
+  const token =
+    localStorage.getItem("viridxi_access_token");
+
+  if (!token) {
+    window.location.href = "/app/auth/login.html";
+    return;
+  }
+
+  try {
+
+    const res = await fetch(
+      "http://localhost:5000/api/auth/logout",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    // EVEN IF TOKEN EXPIRED → FORCE LOGOUT
+    localStorage.removeItem("viridxi_access_token");
+    localStorage.removeItem("viridxi_refresh_token");
+
+    window.location.href = "/app/auth/login.html";
+
+  } catch (err) {
+
+    // NETWORK ERROR → STILL LOGOUT
+    localStorage.removeItem("viridxi_access_token");
+    localStorage.removeItem("viridxi_refresh_token");
+
+    window.location.href = "/app/auth/login.html";
+  }
+}
+
+const logoutBtn =
+  document.getElementById("logout-current-btn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+
+    openConfirmModal({
+      title: "Logout?",
+      message: "Logout from this device?",
+      confirmLabel: "Logout",
+      confirmIconClass: "fa-sign-out-alt",
+      onConfirm: logoutCurrentDevice
+    });
+
+  });
+}
+async function logoutAllDevices() {
+
+  const token =
+    localStorage.getItem("viridxi_access_token");
+
+  if (!token) {
+    window.location.href = "/app/auth/login.html";
+    return;
+  }
+
+  try {
+
+    await fetch(
+      "http://localhost:5000/api/auth/logout-all",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+  } catch (err) {
+    // ignore network errors
+  }
+
+  // FORCE LOGOUT LOCALLY
+  localStorage.removeItem("viridxi_access_token");
+  localStorage.removeItem("viridxi_refresh_token");
+
+  window.location.href = "/app/auth/login.html";
+}
+const logoutAllBtn =
+  document.getElementById("logout-all-btn");
+
+if (logoutAllBtn) {
+
+  logoutAllBtn.addEventListener("click", () => {
+
+    openConfirmModal({
+      title: "Logout from all devices?",
+      message:
+        "This will logout you from every device.",
+      confirmLabel: "Logout All",
+      confirmIconClass: "fa-sign-out-alt",
+      onConfirm: logoutAllDevices
+    });
+
+  });
+}
+
+async function changePasswordRequest(currentPassword, newPassword) {
+
+  const token =
+    localStorage.getItem("viridxi_access_token");
+
+  if (!token) {
+    throw new Error("Not authenticated");
+  }
+
+  const res = await fetch(
+    "http://localhost:5000/api/auth/change-password",
+    {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        currentPassword,
+        newPassword
+      })
+    }
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Password change failed");
+  }
+
+  return data;
+}
+
+document.querySelectorAll(".toggle-password").forEach(icon => {
+  icon.addEventListener("click", () => {
+    const input = icon.previousElementSibling;
+
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.replace("fa-eye-slash", "fa-eye");
+    }
+  });
 });

@@ -554,21 +554,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         <span>App</span>
       </button>
 
-      <!-- APP SECTION CONTENT (HIDDEN INITIALLY) -->
-        <div class="settings-section" id="section-app">
-
-          <button class="settings-row" id="theme-toggle-modal">
-            <i class="fas fa-moon"></i>
-            <span>Theme</span>
-          </button>
-
-          <button class="settings-row" id="install-app-btn-modal">
-            <i class="fas fa-download"></i>
-            <span>Install App</span>
-          </button>
-
-        </div>
-
 
       <button class="settings-row" data-section="storage">
         <i class="fas fa-database"></i>
@@ -590,12 +575,399 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
       <button 
         class="settings-row admin-only" 
-        data-action="invite">
+        data-section="invite">
         <i class="fas fa-user-plus"></i>
         <span>Invite Users</span>
       </button>
 
     </div>
+
+    <!-- APP SECTION -->
+    <div id="section-app" class="settings-section">
+
+      <button id="theme-toggle-modal" class="settings-row">
+        <i class="fas fa-moon"></i>
+        <span>Toggle Theme</span>
+      </button>
+
+      <button id="install-app-btn-modal" class="settings-row">
+        <i class="fas fa-download"></i>
+        <span>Install App</span>
+      </button>
+
+
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-language"></i>
+        <span>Language</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- PLAYBACK QUALITY (UI ONLY) -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-music"></i>
+        <span>Playback Quality</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+    </div>
+
+
+    <!-- SECURITY SECTION -->
+    <div id="section-security" class="settings-section">
+
+      <!-- 1. CHANGE PASSWORD -->
+      <button class="settings-row" data-section="change-password">
+        <i class="fas fa-key"></i>
+        <span>Change Password</span>
+      </button>
+
+      <!-- 2. EMAIL -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-envelope"></i>
+        <span>Email</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 3. TWO FACTOR AUTH -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-shield-alt"></i>
+        <span>Two-Factor Authentication</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 4. APP LOCK -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-lock"></i>
+        <span>App Lock</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 5. ALL DEVICES -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-laptop"></i>
+        <span>All Devices</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 6. LOGIN ALERTS -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-bell"></i>
+        <span>Login Alerts</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 7. LOGOUT ALL DEVICES -->
+      <button 
+        id="logout-all-btn"
+        class="settings-row danger-setting">
+
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout All Devices</span>
+
+      </button>
+
+
+    </div>
+
+    <!-- CHANGE PASSWORD SECTION -->
+    <div id="section-change-password" class="settings-section">
+
+      <h3 class="settings-section-title">Change Password</h3>
+
+      <form id="change-password-form" class="settings-form">
+
+
+            <div class="password-field">
+              <input
+                type="password"
+                id="cp-current"
+                placeholder="Current password"
+              />
+              <i class="fas fa-eye toggle-password"></i>
+            </div>
+
+
+            <div class="password-field">
+              <input
+                type="password"
+                id="cp-new"
+                placeholder="New password"
+              />
+              <i class="fas fa-eye toggle-password"></i>
+            </div>
+
+
+            <div class="password-field">
+              <input
+                type="password"
+                id="cp-confirm"
+                placeholder="Confirm password"
+              />
+              <i class="fas fa-eye toggle-password"></i>
+            </div>
+
+
+            <p
+              id="cp-error"
+              class="settings-error"
+              style="display:none;"
+            ></p>
+
+            <button
+              id="cp-submit-btn"
+              type="submit"
+              class="settings-row danger-setting"
+            >
+              Update Password
+            </button>
+
+
+      </form>
+
+    </div>
+
+    <!-- INVITE USER SECTION -->
+    <div id="section-invite" class="settings-section invite-section">
+
+      <!-- INVITE CODE CARD -->
+      <div class="invite-card">
+        <div class="invite-label">Invite Code</div>
+
+        <div class="invite-code" id="invite-code-text">
+          No active invite
+        </div>
+
+        <div class="invite-timer" id="invite-timer" style="display:none;">
+          ⏱ 2h 14m left
+        </div>
+
+        <div id="invite-uses" class="invite-uses"></div>
+
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="invite-controls">
+
+        <div class="invite-pill">
+          <span>Expiry</span>
+          <select id="invite-expiry" class="invite-select">
+            <option value="1">1 hour</option>
+            <option value="3">3 hours</option>
+            <option value="7">7 hours</option>
+            <option value="24">24 hours</option>
+          </select>
+        </div>
+
+        <div class="invite-pill">
+          <span>Max Uses</span>
+          <input
+            type="number"
+            id="invite-max-uses"
+            placeholder="∞"
+            min="1"
+          />
+        </div>
+
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="invite-actions">
+
+        <button id="invite-generate-btn" class="invite-primary">
+          Generate Invite Code
+        </button>
+
+        <div id="invite-share-actions" class="invite-secondary" style="display:none;">
+          <button id="invite-copy-btn">
+            <i class="fas fa-copy"></i>
+            Copy
+          </button>
+          <button id="invite-share-btn">
+            <i class="fas fa-share"></i>
+            Share
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+    <!-- ACCOUNT SECTION -->
+    <div id="section-account" class="settings-section">
+
+      <!-- 1. PROFILE INFO -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-user-circle"></i>
+        <span>Profile Info</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 2. EMAIL INFO -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-envelope-open-text"></i>
+        <span>Email Info</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 3. USER ID -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-id-badge"></i>
+        <span>User ID</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 4. ACCOUNT STATUS -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-info-circle"></i>
+        <span>Account Status</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 5. DELETE ACCOUNT -->
+      <button class="settings-row disabled-setting danger-setting">
+        <i class="fas fa-trash-alt"></i>
+        <span>Delete Account</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 6. LOGOUT (THIS DEVICE) -->
+      <button 
+        id="logout-current-btn"
+        class="settings-row danger-setting">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout (This Device)</span>
+      </button>
+
+
+    </div>
+
+
+    <!-- STORAGE SECTION -->
+    <div id="section-storage" class="settings-section">
+
+      <!-- 1. OFFLINE DOWNLOADS -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-download"></i>
+        <span>Offline Downloads</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 2. DOWNLOAD QUALITY -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-music"></i>
+        <span>Download Quality</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 3. AUTO DOWNLOAD ON WIFI -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-wifi"></i>
+        <span>Auto Download on Wi-Fi</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 4. STORAGE USAGE -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-hdd"></i>
+        <span>Storage Usage</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 5. AUTO DELETE OLD FILES -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-trash-restore"></i>
+        <span>Auto Delete Old Files</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 6. CLEAR DOWNLOADS -->
+      <button class="settings-row disabled-setting danger-setting">
+        <i class="fas fa-broom"></i>
+        <span>Clear Downloads</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 7. LOW STORAGE WARNING -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>Low Storage Warning</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+    </div>
+    
+    <!-- ABOUT SECTION -->
+    <div id="section-about" class="settings-section">
+
+      <!-- 1. APP VERSION -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-code-branch"></i>
+        <span>App Version</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 2. CHANGELOG -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-history"></i>
+        <span>Changelog</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 3. DEVELOPER INFO -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-user-tie"></i>
+        <span>Developer Info</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 4. PROJECT INFO -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-project-diagram"></i>
+        <span>Project Info</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 5. PRIVACY POLICY -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-user-shield"></i>
+        <span>Privacy Policy</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 6. TERMS & CONDITIONS -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-file-contract"></i>
+        <span>Terms & Conditions</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 7. CONTACT SUPPORT -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-headset"></i>
+        <span>Contact Support</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+      <!-- 8. REPORT A BUG -->
+      <button class="settings-row disabled-setting">
+        <i class="fas fa-bug"></i>
+        <span>Report a Bug</span>
+        <small class="coming-soon">Coming soon</small>
+      </button>
+
+    </div>
+
+
+
+
+
+
+    
 
   </div>
 </div>
@@ -759,7 +1131,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
 <!-- Hidden real buttons (logic only) -->
-<div>
+<divx style="display: none;">
   <button id="theme-toggle"></button>
   <button id="install-app-btn"></button>
 </div>
@@ -776,9 +1148,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-   navigator.serviceWorker.register('/app/service-worker.js')
-   .then(() => console.log("✅ SW registered"))
-   .catch(err => console.error("❌ SW error", err));
+   //navigator.serviceWorker.register('/app/service-worker.js')
+   //.then(() => console.log("✅ SW registered"))
+   //.catch(err => console.error("❌ SW error", err));
   });
 }
 </script>
