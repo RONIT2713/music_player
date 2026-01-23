@@ -1,7 +1,7 @@
 const token = localStorage.getItem("viridxi_access_token");
 
 if (token) {
-  window.location.href = "/app/index.html";
+  window.location.href = "/index.html";
 }
 
 import { loginAPI, signupAPI } from "./api.js";
