@@ -80,7 +80,7 @@ loginForm.addEventListener("submit", async (e)=>{
     saveTokens(res.accessToken, res.refreshToken);
     
 
-   window.location.href = "/app/index.html";// "Login successful"
+   window.location.href = "/index.html";// "Login successful"
 
 
     }catch(error){
