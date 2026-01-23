@@ -7,7 +7,7 @@ async function refreshAccessToken() {
 
   if (!refresh) return null;
 
-  const res = await fetch(BASE_URL + "/api/auth/refresh", {
+  const res = await fetch(API_BASE + "/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -68,7 +68,7 @@ async function request(url, method, body) {
         if (!newToken) {
           localStorage.removeItem("viridxi_access_token");
           localStorage.removeItem("viridxi_refresh_token");
-          window.location.href = "/app/auth/login.html";
+          window.location.href = "/auth/login.html";
           return;
         }
 
