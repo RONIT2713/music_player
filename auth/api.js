@@ -7,7 +7,8 @@ async function refreshAccessToken() {
 
   if (!refresh) return null;
 
-  const res = await fetch(API_BASE + "/api/auth/login", {
+  const res = await fetch(API_BASE + "/api/auth/refresh", {
+
     method: "POST",
     headers: {
       "Content-Type": "application/json"
