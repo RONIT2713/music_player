@@ -12,14 +12,14 @@ export async function authGuard() {
   try {
 
 const res = await fetch(
-  "https://viridxi-backend-production.up.railway.app/api/auth/activity",
+  "https://viridxi-backend-production.up.railway.app/api/auth/me",
+  {
+    headers: {
+      Authorization: "Bearer " + token
+    }
+  }
+);
 
-      {
-        headers: {
-          Authorization: "Bearer " + token
-        }
-      }
-    );
 
     if (!res.ok) {
       throw new Error("Unauthorized");
