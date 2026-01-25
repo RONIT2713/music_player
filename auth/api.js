@@ -1,4 +1,5 @@
-const API_BASE = "https://viridxi-backend-production.up.railway.app";
+const API_BASE = "https://api.viridximusic.com";
+
 
 
 

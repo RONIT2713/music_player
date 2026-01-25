@@ -12,7 +12,7 @@ export async function authGuard() {
   try {
 
 const res = await fetch(
-  "https://viridxi-backend-production.up.railway.app/api/auth/me",
+  "https://api.viridximusic.com/api/auth/me",
   {
     headers: {
       Authorization: "Bearer " + token

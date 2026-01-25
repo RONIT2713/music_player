@@ -1,6 +1,3 @@
-
-
-
 import { getUserId } from "./auth/token.js";
 
 const userId = getUserId();
@@ -3526,7 +3523,7 @@ function resetSettingsView(){
   async function fetchActiveInvite() {
     try {
       const res = await fetch(
-        "https://viridxi-backend-production.up.railway.app/api/invite/active",
+        "https://api.viridximusic.com/api/invite/active",
         {
           headers: {
             Authorization: `Bearer ${getToken()}`
@@ -3555,7 +3552,7 @@ function resetSettingsView(){
 
     try {
       const res = await fetch(
-        "https://viridxi-backend-production.up.railway.app/api/invite/create",
+        "https://api.viridximusic.com/api/invite/create",
         {
           method: "POST",
           headers: {
@@ -5621,7 +5618,7 @@ async function logoutCurrentDevice() {
   try {
 
     const res = await fetch(
-      "https://viridxi-backend-production.up.railway.app/api/auth/logout",
+      "https://api.viridximusic.com/api/auth/logout",
       {
         method: "POST",
         headers: {
@@ -5676,7 +5673,7 @@ async function logoutAllDevices() {
   try {
 
     await fetch(
-      "https://viridxi-backend-production.up.railway.app/api/auth/logout-all",
+      "https://api.viridximusic.com/api/auth/logout-all",
       {
         method: "POST",
         headers: {
@@ -5725,7 +5722,7 @@ async function changePasswordRequest(currentPassword, newPassword) {
   }
 
   const res = await fetch(
-    "https://viridxi-backend-production.up.railway.app/api/auth/change-password",
+    "https://api.viridximusic.com/api/auth/change-password",
     {
       method: "POST",
       headers: {
