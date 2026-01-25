@@ -5,14 +5,15 @@ export async function authGuard() {
   const token = getAccessToken();
 
   if (!token) {
-    window.location.href = "/app/auth/login.html";
+    window.location.href = "/auth/login.html";
     return false;
   }
 
   try {
 
-    const res = await fetch(
-      "http://localhost:5000/api/auth/activity",
+const res = await fetch(
+  "https://viridxi-backend-production.up.railway.app/api/auth/activity",
+
       {
         headers: {
           Authorization: "Bearer " + token
@@ -29,7 +30,7 @@ export async function authGuard() {
   } catch {
 
     clearTokens();
-    window.location.href = "/app/auth/login.html";
+    window.location.href = "/auth/login.html";
     return false;
   }
 }
