@@ -1,15 +1,4 @@
 
-(function authGuard(){
-
-  const token =
-    localStorage.getItem("viridxi_access_token");
-
-  if (!token) {
-    window.location.href =
-      "/auth/login.html";
-  }
-
-})();
 
 
 import { getUserId } from "./auth/token.js";
@@ -3537,7 +3526,7 @@ function resetSettingsView(){
   async function fetchActiveInvite() {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/invite/active",
+        "https://viridxi-backend-production.up.railway.app/api/invite/active",
         {
           headers: {
             Authorization: `Bearer ${getToken()}`
@@ -3566,7 +3555,7 @@ function resetSettingsView(){
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/invite/create",
+        "https://viridxi-backend-production.up.railway.app/api/invite/create",
         {
           method: "POST",
           headers: {
@@ -5632,7 +5621,7 @@ async function logoutCurrentDevice() {
   try {
 
     const res = await fetch(
-      "http://localhost:5000/api/auth/logout",
+      "https://viridxi-backend-production.up.railway.app/api/auth/logout",
       {
         method: "POST",
         headers: {
@@ -5687,7 +5676,7 @@ async function logoutAllDevices() {
   try {
 
     await fetch(
-      "http://localhost:5000/api/auth/logout-all",
+      "https://viridxi-backend-production.up.railway.app/api/auth/logout-all",
       {
         method: "POST",
         headers: {
@@ -5736,7 +5725,7 @@ async function changePasswordRequest(currentPassword, newPassword) {
   }
 
   const res = await fetch(
-    "http://localhost:5000/api/auth/change-password",
+    "https://viridxi-backend-production.up.railway.app/api/auth/change-password",
     {
       method: "POST",
       headers: {
