@@ -1078,9 +1078,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-   //navigator.serviceWorker.register('/app/service-worker.js')
-   //.then(() => console.log("✅ SW registered"))
-   //.catch(err => console.error("❌ SW error", err));
+   navigator.serviceWorker.register('/app/service-worker.js')
+   .then(() => console.log("✅ SW registered"))
+   .catch(err => console.error("❌ SW error", err));
   });
 }
 </script>

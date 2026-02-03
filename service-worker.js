@@ -1,6 +1,6 @@
-const STATIC_CACHE = "viridxi-static-v6";
+const STATIC_CACHE = "viridxi-static-v7";
 
-const MEDIA_CACHE = "viridxi-media-v6";
+const MEDIA_CACHE = "viridxi-media-v7";
 
 const STATIC_ASSETS = [
   "/app/",
