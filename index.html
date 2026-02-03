@@ -573,13 +573,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         <span>Admin Panel</span>
       </button>
 
-      <button 
-        class="settings-row admin-only" 
-        data-section="invite">
-        <i class="fas fa-user-plus"></i>
-        <span>Invite Users</span>
-      </button>
-
     </div>
 
     <!-- APP SECTION -->
@@ -726,71 +719,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
     </div>
 
-    <!-- INVITE USER SECTION -->
-    <div id="section-invite" class="settings-section invite-section">
-
-      <!-- INVITE CODE CARD -->
-      <div class="invite-card">
-        <div class="invite-label">Invite Code</div>
-
-        <div class="invite-code" id="invite-code-text">
-          No active invite
-        </div>
-
-        <div class="invite-timer" id="invite-timer" style="display:none;">
-          ⏱ 2h 14m left
-        </div>
-
-        <div id="invite-uses" class="invite-uses"></div>
-
-      </div>
-
-      <!-- CONTROLS -->
-      <div class="invite-controls">
-
-        <div class="invite-pill">
-          <span>Expiry</span>
-          <select id="invite-expiry" class="invite-select">
-            <option value="1">1 hour</option>
-            <option value="3">3 hours</option>
-            <option value="7">7 hours</option>
-            <option value="24">24 hours</option>
-          </select>
-        </div>
-
-        <div class="invite-pill">
-          <span>Max Uses</span>
-          <input
-            type="number"
-            id="invite-max-uses"
-            placeholder="∞"
-            min="1"
-          />
-        </div>
-
-      </div>
-
-      <!-- ACTIONS -->
-      <div class="invite-actions">
-
-        <button id="invite-generate-btn" class="invite-primary">
-          Generate Invite Code
-        </button>
-
-        <div id="invite-share-actions" class="invite-secondary" style="display:none;">
-          <button id="invite-copy-btn">
-            <i class="fas fa-copy"></i>
-            Copy
-          </button>
-          <button id="invite-share-btn">
-            <i class="fas fa-share"></i>
-            Share
-          </button>
-        </div>
-
-      </div>
-
-    </div>
 
 
 
@@ -1140,8 +1068,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <script src="data.js"></script>
 <script src="avatar.js"></script>
 <script src="banner.js"></script>
-<script type="module" src="/auth/authGuard.js"></script>
-<script type="module" src="music_player.js"></script>
+<script type="module" src="./auth/authGuard.js"></script>
+<script type="module" src="./music_player.js"></script>
+
 
 
 

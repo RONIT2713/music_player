@@ -100,13 +100,11 @@ export async function loginAPI(email, password) {
 export async function signupAPI(
   name,
   email,
-  inviteCode,
   password
 ) {
   return request("/api/auth/signup", "POST", {
     name,
     email,
-    inviteCode,
     password
   });
 }

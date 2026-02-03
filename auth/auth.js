@@ -103,8 +103,6 @@ signupForm.addEventListener("submit", async (e)=>{
 
   const e1 =
    document.getElementById("signup-email").value.trim();
-  const i =
-   document.getElementById("signup-invite").value.trim();
   const p =
    document.getElementById("signup-password").value.trim();
   const c =
@@ -114,7 +112,8 @@ signupForm.addEventListener("submit", async (e)=>{
    document.getElementById("signup-error");
   err.style.display = "none";
 
-  if(!name||!e1||!i||!p||!c){
+  if(!name||!e1||!p||!c){
+
     err.textContent =
      "All fields are required";
     err.style.display = "block";
@@ -130,7 +129,7 @@ signupForm.addEventListener("submit", async (e)=>{
 
     try{
 
-    await signupAPI(name,e1,i,p);
+    await signupAPI(name,e1,p);
 
 
     // AFTER SUCCESS
