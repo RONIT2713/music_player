@@ -5,6 +5,11 @@ export async function authGuard() {
   const token = getAccessToken();
 
   if (!token) {
+    /* HOSTING */
+    /* FOR RUNNING LOCALLY ==> */
+     /* window.location.href = "/app/auth/login.html"; */
+
+    /* FOR RAILWAY HOSTING */
     window.location.href = "/auth/login.html";
     return false;
   }
@@ -30,6 +35,11 @@ const res = await fetch(
   } catch {
 
     clearTokens();
+    /* HOSTING */
+    /* FOR RUNNING LOCALLY ==> */
+     /* window.location.href = "/app/auth/login.html"; */
+
+    /* FOR RAILWAY HOSTING */
     window.location.href = "/auth/login.html";
     return false;
   }

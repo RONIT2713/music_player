@@ -6423,3 +6423,33 @@ body.sidebar-open #mobile-menu-toggle::before {
 .toggle-password:hover {
   color: #e5e7eb;
 }
+
+.options-menu {
+
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    z-index: 3;
+
+    opacity: 0;
+    transform: scale(0.95);
+
+    visibility: hidden;      /* 🔥 KEY FIX */
+    pointer-events: none;    /* 🔥 Prevent ghost clicks */
+
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease,
+        visibility 0s linear 0.18s; /* 🔥 prevents flicker */
+}
+.song-item.show-options .options-menu {
+    opacity: 1;
+    transform: scale(1);
+
+    visibility: visible;     /* 🔥 Important */
+    pointer-events: auto;
+
+    transition-delay: 0s;
+}

@@ -136,6 +136,8 @@ const fullPlayIcon = document.querySelector('#full-play-pause-btn i');
 const fullVolumeIcon = document.getElementById('full-volume-icon');
 
 
+let playbackContextSongs = null;
+
 // New full-player extras
 let fullPlayerCover = document.getElementById('full-player-cover');
 let fullTabButtons = document.querySelectorAll('.full-tab-btn');
@@ -193,6 +195,25 @@ let downloadQueue = [];
 let activeDownload = null;
 let downloadProgress = {};
 
+
+
+/* ================= PLAYBACK WATCHDOG ================= */
+
+const FAILED_SONG_TIMEOUT = 15000; // 15 seconds
+let playbackWatchdogTimer = null;
+let failedSongsThisSession = new Set();
+
+function clearPlaybackWatchdog() {
+    if (playbackWatchdogTimer) {
+        clearTimeout(playbackWatchdogTimer);
+        playbackWatchdogTimer = null;
+    }
+}
+
+function markSongAsFailed(songId) {
+    failedSongsThisSession.add(songId);
+    console.warn("Skipping failed song:", songId);
+}
 
 
 // --- PLAYLIST EDITOR MODAL (NEW) ---
@@ -435,6 +456,7 @@ let currentSongs = [];
 let currentlyPlayingIndex = -1;
 let currentSongId = null;
 let currentFilter = { type: 'view', value: 'playlist' }; // 'view' | 'category' | 'artist'
+playbackContextSongs = null;
 
 let userQueue = []; // song IDs to play next
 let shuffleOn = false;
@@ -866,6 +888,14 @@ function syncFullPlayerState() {
 
 
 function openAnimatedPlayer() {
+
+    const overlay = document.getElementById("animated-player-overlay");
+        if (!overlay) return;
+
+        // 🔥 HARD RESET (prevents invisible reopen bug)
+        overlay.style.display = "flex";
+        overlay.style.opacity = "1";
+        overlay.style.transform = "none";
     
     mountToPortal(animatedPlayerOverlay);
     if (!history.state || history.state.type !== 'fullPlayer') {
@@ -909,6 +939,10 @@ function closeAnimatedPlayer() {
     if (openPlayerIcon) {
         openPlayerIcon.style.display = 'flex';
     }
+
+    setTimeout(() => {
+    overlay.style.display = "none";   // 🔥 CRITICAL FIX
+    }, 250); // match animation duration
 }
 
 /* ============================================
@@ -1556,6 +1590,7 @@ function renderAlbumList() {
             currentMainView = 'songs';
             setActiveMainViewButton();
             currentFilter = { type: 'artist', value: album.artist };
+            playbackContextSongs = null;
             renderCurrentView();
             setActiveFilterClass();
         });
@@ -1635,6 +1670,7 @@ function renderArtistsView() {
         li.addEventListener('click', () => {
             currentMainView = 'songs';
             currentFilter = { type: 'artist', value: artistObj.artist };
+            playbackContextSongs = null;
 
             pushViewStateIfNeeded('artist');
 
@@ -1650,6 +1686,10 @@ function renderArtistsView() {
 
 // Helper to choose which view to render
 function renderCurrentView() {
+    // 🔥 ALWAYS CLOSE FLOATING SONG MENUS ON VIEW CHANGE
+    document
+    .querySelectorAll('.song-item.show-options')
+    .forEach(el => el.classList.remove('show-options'));
     if (currentMainView === 'songs') {
         const list = filterCurrentView();
         renderSongList(list);
@@ -1680,6 +1720,7 @@ function renderArtistsList() {
 
             if (searchBar) searchBar.value = '';
             currentFilter = { type: 'artist', value: event.target.dataset.artist };
+            playbackContextSongs = null;
             currentMainView = 'songs';
             pushViewStateIfNeeded('artist');
 
@@ -1863,7 +1904,10 @@ function playSong(song) {
     /* ---------- NEW SONG ---------- */
     audioPlayer.pause();
 
+    clearPlaybackWatchdog(); // 🔥 IMPORTANT — reset previous timer
+
     audioPlayer.src = newSrc;
+    playbackContextSongs = [...filterCurrentView()];
 
     // 🔥 reset UI instantly
     if (progressBar) progressBar.value = 0;
@@ -1873,7 +1917,18 @@ function playSong(song) {
 
     audioPlayer.play().catch(()=>{});
 
-    currentSongId = song.id;
+    currentSongId = song.id; // 🔥 MOVE THIS ABOVE TIMER
+
+    / * ---------- WATCHDOG START ---------- */
+
+    playbackWatchdogTimer = setTimeout(() => {
+
+        if (currentSongId !== song.id) return;
+
+        markSongAsFailed(song.id);
+        playNextSong();
+
+    }, FAILED_SONG_TIMEOUT);
 
     playerTitle.textContent = song.title;
     playerArtist.textContent = song.artist;
@@ -1922,19 +1977,30 @@ function preloadNextSong() {
 
 
 function playNextSong() {
-    const viewSongs = filterCurrentView();
+    const viewSongs = playbackContextSongs || filterCurrentView();
     if (viewSongs.length === 0) return;
 
     if (userQueue.length > 0) {
+
         const nextId = userQueue.shift();
+
+        // 🔥 SKIP FAILED SONGS
+        if (failedSongsThisSession.has(nextId)) {
+            playNextSong();
+            return;
+        }
+
         saveQueueToStorage();
         updateNowPlayingQueue();
+
         const nextSong = currentSongs.find(s => s.id === nextId);
+
         if (nextSong) {
             playSong(nextSong);
         } else {
             playNextSong();
         }
+
         return;
     }
 
@@ -1954,10 +2020,17 @@ function playNextSong() {
         if (first) playSong(first);
         return;
     }
-
     if (repeatMode === 'one') {
+
         const repeatSong = viewSongs[currentIndexInView];
-        if (repeatSong) playSong(repeatSong);
+
+        // 🔥 DO NOT REPEAT FAILED SONG
+        if (repeatSong && !failedSongsThisSession.has(repeatSong.id)) {
+            playSong(repeatSong);
+        } else {
+            playNextSong();
+        }
+
         return;
     }
 
@@ -1983,12 +2056,33 @@ function playNextSong() {
         }
     }
 
-    const nextSong = viewSongs[nextIndex];
+    let nextSong = viewSongs[nextIndex];
+
+    // 🔥 SKIP FAILED SONGS
+    while (nextSong && failedSongsThisSession.has(nextSong.id)) {
+
+        console.warn("Ignoring failed song:", nextSong.id);
+
+        nextIndex++;
+
+        if (nextIndex >= viewSongs.length) {
+
+            if (repeatMode === 'all') {
+                nextIndex = 0;
+            } else {
+                stopPlaybackCleanup();
+                return;
+            }
+        }
+
+        nextSong = viewSongs[nextIndex];
+    }
+
     if (nextSong) playSong(nextSong);
 }
 
 function playPrevSong() {
-    const viewSongs = filterCurrentView();
+    const viewSongs = playbackContextSongs || filterCurrentView();
     if (viewSongs.length === 0) return;
 
     if (!currentSongId) {
@@ -2035,10 +2129,8 @@ function playPrevSong() {
 // --- 12. AUDIO EVENT LISTENERS ---
 function setupAudioListeners() {
     if (!audioPlayer) return;
-
 audioPlayer.addEventListener('timeupdate', () => {
 
-    // 🚫 DO NOT TOUCH BAR WHILE PREVIEW SEEKING
     if (isPreviewSeeking) return;
 
     const currentTime = audioPlayer.currentTime || 0;
@@ -2046,47 +2138,45 @@ audioPlayer.addEventListener('timeupdate', () => {
 
     if (currentTimeDisplay)
         currentTimeDisplay.textContent = formatTime(currentTime);
-        document.getElementById('full-current-time').textContent =
-        formatTime(currentTime);
 
+    document.getElementById('full-current-time').textContent =
+        formatTime(currentTime);
 
     if (isFinite(duration) && duration > 0) {
         const progress = (currentTime / duration) * 100;
         progressBar && (progressBar.value = progress);
         fullProgressBar && (fullProgressBar.value = progress);
     }
-    /* 🔥 FORCE ICON REFRESH ON PLAY / PAUSE */
+});
 
-    audioPlayer.addEventListener("play", () => {
-        renderDownloadsModal();
-        renderFavoritesModal();
-        renderPlaylistModal();
+audioPlayer.addEventListener("play", () => {
+    renderDownloadsModal();
+    renderFavoritesModal();
+    renderPlaylistModal();
 
-        if(categoryModal?.classList.contains("open")){
-            if(categoryModalView === "songs"){
-                renderCategorySongsInModal(
+    if (categoryModal?.classList.contains("open")) {
+        if (categoryModalView === "songs") {
+            renderCategorySongsInModal(
                 currentFilter.value,
                 currentFilter.value
-                );
-            }
+            );
         }
-    });
+    }
+});
 
-    audioPlayer.addEventListener("pause", () => {
-        renderDownloadsModal();
-        renderFavoritesModal();
-        renderPlaylistModal();
+audioPlayer.addEventListener("pause", () => {
+    renderDownloadsModal();
+    renderFavoritesModal();
+    renderPlaylistModal();
 
-        if(categoryModal?.classList.contains("open")){
-            if(categoryModalView === "songs"){
-                renderCategorySongsInModal(
+    if (categoryModal?.classList.contains("open")) {
+        if (categoryModalView === "songs") {
+            renderCategorySongsInModal(
                 currentFilter.value,
                 currentFilter.value
-                );
-            }
+            );
         }
-    });
-
+    }
 });
 
 
@@ -2160,6 +2250,21 @@ audioPlayer.addEventListener('loadedmetadata', () => {
 
     if (volumeBar) volumeBar.value = Math.round((audioPlayer.volume || 1) * 100);
     if (fullVolumeBar && (fullVolumeBar.value == null || fullVolumeBar.value === '')) fullVolumeBar.value = volumeBar ? volumeBar.value : 100;
+    audioPlayer.addEventListener("playing", clearPlaybackWatchdog);
+    audioPlayer.addEventListener("timeupdate", clearPlaybackWatchdog);
+    audioPlayer.addEventListener("canplay", clearPlaybackWatchdog);
+
+    audioPlayer.addEventListener("error", () => {
+
+        console.warn("🚨 AUDIO ERROR EVENT:", currentSongId);
+
+        if (!currentSongId) return;   // 🔥 GUARD (very important)
+
+        failedSongsThisSession.add(currentSongId);
+
+        playNextSong();
+    });
+
 }
 
 // --- 13. CATEGORY MODAL LOGIC ---
@@ -3121,6 +3226,7 @@ function renderArtistsInModal() {
                 type: 'artist',
                 value: artistName
             };
+            playbackContextSongs = null;
 
             currentMainView = 'songs';
 
@@ -3218,6 +3324,7 @@ function renderAlbumsInModal() {
         type: 'artist',
         value: artist
       };
+      playbackContextSongs = null;
 
       currentMainView = 'songs';
 
@@ -3516,7 +3623,13 @@ function validatePasswordsLive() {
       localStorage.removeItem("viridxi_refresh_token");
 
       setTimeout(() => {
-        window.location.href = "/auth/login.html";
+        /* HOSTING */
+        /* FOR RUNNING LOCALLY ==> */
+        /*window.location.href = "/app/auth/login.html";*/
+
+        /* FOR RAILWAY HOSTING */
+        window.location.href = "/auth/login.html"
+
       }, 1200);
 
    } catch (err) {
@@ -3533,7 +3646,12 @@ function validatePasswordsLive() {
     localStorage.removeItem("viridxi_refresh_token");
 
     setTimeout(() => {
-      window.location.href = "/auth/login.html";
+        /* HOSTING */
+        /* FOR RUNNING LOCALLY ==> */
+        /*window.location.href = "/app/auth/login.html";*/
+
+        /* FOR RAILWAY HOSTING */
+        window.location.href = "/auth/login.html"
     }, 1200);
 
     return;
@@ -3700,8 +3818,12 @@ function initApp() {
     localStorage.getItem("viridxi_access_token");
 
   if (!token) {
-    window.location.href =
-      "/auth/login.html";
+        /* HOSTING */
+        /* FOR RUNNING LOCALLY ==> */
+        /*window.location.href = "/app/auth/login.html";*/
+
+        /* FOR RAILWAY HOSTING */
+        window.location.href = "/auth/login.html"
     return;
   }
 
@@ -3783,6 +3905,7 @@ if (mainNav) {
             type: 'view',
             value: view
         };
+        playbackContextSongs = null;
 
         currentMainView = 'songs';
 
@@ -3805,6 +3928,7 @@ if (mainNav) {
 
             if (searchBar) searchBar.value = '';
             currentFilter = { type: 'category', value: btn.dataset.category };
+            playbackContextSongs = null;
             currentMainView = 'songs';
             pushViewStateIfNeeded('category');
 
@@ -4507,6 +4631,7 @@ window.addEventListener('popstate', () => {
     !['playlist','favorites'].includes(currentFilter.value)
     ) {
         currentFilter = { type:'view', value:'playlist' };
+        playbackContextSongs = null;
         currentMainView = 'songs';
         renderCurrentView();
         setActiveFilterClass();
@@ -5396,7 +5521,12 @@ async function logoutCurrentDevice() {
     localStorage.getItem("viridxi_access_token");
 
   if (!token) {
-    window.location.href = "/auth/login.html";
+        /* HOSTING */
+        /* FOR RUNNING LOCALLY ==> */
+        /*window.location.href = "/app/auth/login.html";*/
+
+        /* FOR RAILWAY HOSTING */
+        window.location.href = "/auth/login.html"
     return;
   }
 
@@ -5417,7 +5547,12 @@ async function logoutCurrentDevice() {
     localStorage.removeItem("viridxi_access_token");
     localStorage.removeItem("viridxi_refresh_token");
 
-    window.location.href = "/auth/login.html";
+        /* HOSTING */
+        /* FOR RUNNING LOCALLY ==> */
+        /*window.location.href = "/app/auth/login.html";*/
+
+        /* FOR RAILWAY HOSTING */
+        window.location.href = "/auth/login.html"
 
   } catch (err) {
 
@@ -5425,7 +5560,12 @@ async function logoutCurrentDevice() {
     localStorage.removeItem("viridxi_access_token");
     localStorage.removeItem("viridxi_refresh_token");
 
-    window.location.href = "/auth/login.html";
+        /* HOSTING */
+        /* FOR RUNNING LOCALLY ==> */
+        /*window.location.href = "/app/auth/login.html";*/
+
+        /* FOR RAILWAY HOSTING */
+        window.location.href = "/auth/login.html"
   }
 }
 
@@ -5451,7 +5591,12 @@ async function logoutAllDevices() {
     localStorage.getItem("viridxi_access_token");
 
   if (!token) {
-    window.location.href = "/auth/login.html";
+        /* HOSTING */
+        /* FOR RUNNING LOCALLY ==> */
+        /*window.location.href = "/app/auth/login.html";*/
+
+        /* FOR RAILWAY HOSTING */
+        window.location.href = "/auth/login.html"
     return;
   }
 
@@ -5476,7 +5621,12 @@ async function logoutAllDevices() {
   localStorage.removeItem("viridxi_access_token");
   localStorage.removeItem("viridxi_refresh_token");
 
-  window.location.href = "/auth/login.html";
+        /* HOSTING */
+        /* FOR RUNNING LOCALLY ==> */
+        /*window.location.href = "/app/auth/login.html";*/
+
+        /* FOR RAILWAY HOSTING */
+        window.location.href = "/auth/login.html"
 }
 const logoutAllBtn =
   document.getElementById("logout-all-btn");

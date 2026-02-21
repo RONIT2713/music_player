@@ -1,5 +1,9 @@
-const API_BASE = "https://api.viridximusic.com";
+/* HOSTING */
+/* FOR RUNNING LOCALLY ==> */
+/*const API_BASE = "http://localhost:5000";*/
 
+/* FOR RAILWAY HOSTING ==> */
+const API_BASE = "https://api.viridximusic.com";
 
 
 

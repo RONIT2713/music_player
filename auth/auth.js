@@ -1,6 +1,13 @@
 const token = localStorage.getItem("viridxi_access_token");
 
 if (token) {
+
+  /* HOSTING */
+  /* FOR RUNNING LOCALLY ==> */
+  /*window.location.href = "/app/index.html";*/
+
+
+  /* FOR RAILWAY HOSTING ==> */
   window.location.href = "/index.html";
 }
 
@@ -71,16 +78,32 @@ loginForm.addEventListener("submit", async (e)=>{
 
         try{
 
-    const res = await loginAPI(email,p);
+const btn = loginForm.querySelector("button[type='submit']");
+
+btn.disabled = true;
+btn.textContent = "Logging in...";
+
+try {
+
+  const res = await loginAPI(email, p);
+
+  saveTokens(res.accessToken, res.refreshToken);
+/* HOSTING */
+  /* FOR RUNNING LOCALLY ==> */
+  /*window.location.href = "/app/index.html";*/
 
 
-    // EXPECTED BACKEND RESPONSE:
-    // { accessToken, refreshToken }
+  /* FOR RAILWAY HOSTING ==> */
+  window.location.href = "/index.html";
 
-    saveTokens(res.accessToken, res.refreshToken);
-    
+} catch (error) {
 
-   window.location.href = "/index.html";// "Login successful"
+  btn.disabled = false;
+  btn.textContent = "Login";
+
+  err.textContent = error.message;
+  err.style.display = "block";
+}
 
 
     }catch(error){
@@ -129,15 +152,31 @@ signupForm.addEventListener("submit", async (e)=>{
 
     try{
 
-    await signupAPI(name,e1,p);
+      const btn = signupForm.querySelector("button[type='submit']");
 
+      btn.disabled = true;
+      btn.textContent = "Creating account...";
 
-    // AFTER SUCCESS
-    signupForm.classList.add("hidden");
-    loginForm.classList.remove("hidden");
-    signupForm.reset();
-    subtitle.textContent =
-    "Login to your account";
+      try {
+
+        await signupAPI(name, e1, p);
+
+        btn.disabled = false;
+        btn.textContent = "Create Account";
+
+        signupForm.classList.add("hidden");
+        loginForm.classList.remove("hidden");
+        signupForm.reset();
+        subtitle.textContent = "Login to your account";
+
+      } catch (error) {
+
+        btn.disabled = false;
+        btn.textContent = "Create Account";
+
+        err.textContent = error.message;
+        err.style.display = "block";
+      }
 
     }catch(error){
       err.textContent = error.message;
